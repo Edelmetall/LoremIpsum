@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "datagen-frontend": {
+    "lorem-ipsum-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/datagen-frontend",
+            "outputPath": "dist/lorem-ipsum-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -68,10 +68,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "datagen-frontend:build:production"
+              "browserTarget": "lorem-ipsum-frontend:build:production"
             },
             "development": {
-              "browserTarget": "datagen-frontend:build:development"
+              "browserTarget": "lorem-ipsum-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "datagen-frontend:build"
+            "browserTarget": "lorem-ipsum-frontend:build"
           }
         },
         "test": {
@@ -102,5 +102,5 @@
       }
     }
   },
-  "defaultProject": "datagen-frontend"
+  "defaultProject": "lorem-ipsum-frontend"
 }

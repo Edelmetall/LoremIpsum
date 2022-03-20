@@ -25,7 +25,7 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/datagen-frontend'),
+      dir: require('path').join(__dirname, './coverage/lorem-ipsum-frontend'),
       subdir: '.',
       reporters: [
         { type: 'html' },

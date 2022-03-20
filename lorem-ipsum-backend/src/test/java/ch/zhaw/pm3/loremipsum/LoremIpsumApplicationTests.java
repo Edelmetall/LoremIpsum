@@ -1,11 +1,10 @@
-package ch.zhaw.pm3.datagen;
+package ch.zhaw.pm3.loremipsum;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DatagenApplicationTests {
+class LoremIpsumApplicationTests {
 
     @Test
     void contextLoads() {
