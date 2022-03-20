@@ -1,13 +1,13 @@
-package ch.zhaw.pm3.datagen;
+package ch.zhaw.pm3.loremipsum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DatagenApplication {
+public class LoremIpsumApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DatagenApplication.class, args);
+		SpringApplication.run(LoremIpsumApplication.class, args);
 	}
 
 }

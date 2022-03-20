@@ -11,15 +11,14 @@
     </parent>
 
     <groupId>ch.zhaw.pm3</groupId>
-    <artifactId>datagen</artifactId>
+    <artifactId>lorem-ipsum</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>datagen</name>
     <description>Demo project for Spring Boot</description>
 
     <modules>
-        <module>datagen-backend</module>
-        <module>datagen-frontend</module>
+        <module>lorem-ipsum-backend</module>
+        <module>lorem-ipsum-frontend</module>
     </modules>
 
 
