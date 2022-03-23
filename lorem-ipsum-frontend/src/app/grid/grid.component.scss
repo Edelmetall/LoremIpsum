@@ -1,0 +1,28 @@
+/*.mat-action-button {
+    margin-top: 5px;
+    background-color: black;
+    color: white;
+    float: right;
+}*/
+
+.full-width {
+    width: 100%;
+}
+
+.button-bar {
+    display: flex;
+    margin: 1rem 0;
+}
+
+.suggestions {
+    align-self: center;
+    margin-left: 2rem;
+}
+
+.button-bar button + button {
+    margin-left: .5rem;
+}
+
+.button-bar .spacer {
+    flex: 1;
+}

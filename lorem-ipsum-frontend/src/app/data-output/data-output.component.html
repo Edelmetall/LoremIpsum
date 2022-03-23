@@ -1,0 +1,31 @@
+<mat-accordion>
+    <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h3>Output</h3>
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="container">
+            <mat-tab-group>
+                <mat-tab *ngFor="let tab of tabs" label="{{tab.label}}">
+                    <mat-icon matTooltip="Download {{tab.label}} file"
+                        style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">file_download
+                    </mat-icon>
+                    <mat-icon (click)="copyData(tab.pipe, tab.builder)" matTooltip="Copy {{tab.label}} data"
+                        style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">content_copy
+                    </mat-icon>
+                    <mat-form-field appearance="fill" *ngIf="tab.delimiterOptions">
+                        <mat-label>Delimiter</mat-label>
+                        <mat-select [(value)]="tab.delimiter">
+                            <mat-option *ngFor="let delimiter of tab.delimiterOptions" [value]="delimiter.value">
+                                {{delimiter.displayValue}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <pre><p style="padding: 15px;">{{getFormattedOutput(tab.pipe, tab.builder)}}</p></pre>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </mat-expansion-panel>
+</mat-accordion>

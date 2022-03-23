@@ -1,0 +1,27 @@
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+ul li {
+    display: flex;
+    line-height: 40px;
+    padding: .5rem;
+}
+
+ul li + li {
+    border-top: 1px solid rgba(0, 0, 0, .12);
+}
+
+.name {
+    color: rgba(0, 0, 0, .87);
+    width: 16rem;
+}
+
+.desc {
+    color: rgba(0, 0, 0, .54);
+    margin-right: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

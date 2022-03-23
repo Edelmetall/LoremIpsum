@@ -1,0 +1,34 @@
+<mat-form-field class="full-width">
+    <mat-label>Template name</mat-label>
+    <input matInput>
+</mat-form-field>
+
+<ag-grid-angular class="ag-theme-material" [rowData]="rowData" [rowSelection]="'multiple'"
+    [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true"
+    [stopEditingWhenCellsLoseFocus]="false" (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'">
+</ag-grid-angular>
+
+<div class="button-bar">
+    <button mat-mini-fab color="primary" (click)="addNewRow()">
+        <mat-icon>add</mat-icon>
+    </button>
+
+    <span class="suggestions">Suggested fields: </span>
+    <button class="mat-button">Address</button>
+    <button class="mat-button">Email address</button>
+
+    <div class="spacer"></div>
+
+    <button mat-raised-button color="primary">Generate</button>
+    <button mat-raised-button color="primary">Save</button>
+</div>
+
+
+<!--<button class="mat-action-button" style="margin-right: 5%;" mat-flat-button>
+        Generate data
+    </button>
+    <button class="mat-action-button" style="margin-left: 5%; margin-right: 5px;" mat-flat-button>
+        Save template
+    </button>-->
+
+<app-data-output></app-data-output>
