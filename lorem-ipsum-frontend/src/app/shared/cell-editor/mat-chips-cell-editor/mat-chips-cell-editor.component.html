@@ -1,0 +1,18 @@
+<div [ngStyle]="{'width.px': width}" style="height: 100%;">
+    <mat-form-field [ngStyle]="{'width.px': chipListWidth, 'padding.px': chipListPadding}">
+        <mat-chip-list #chipList aria-label="Video keywords" multiple [formControl]="formControl">
+            <mat-chip *ngFor="let chip of chips" [selected]="chip.value" [value]="chip.value"
+                (contextmenu)="righClick($event, chip.value+'picker')" [ngStyle]="{'background-color': chip.color}"
+                (removed)="removeChip(chip)">
+                {{chip.value}}
+                <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                </button>
+                <input id="{{chip.value}}picker" [(ngModel)]="chip.color" type="color" style="width: 0; opacity: 0;" />
+            </mat-chip>
+            <input #input [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addChipFromInput($event)"
+                (keydown)="onKeyDown($event)">
+        </mat-chip-list>
+    </mat-form-field>
+</div>
