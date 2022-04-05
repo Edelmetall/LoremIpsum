@@ -9,7 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 
 @SpringBootTest
@@ -40,7 +42,7 @@ class LoremIpsumApplicationTests {
         rowTemplateDto2.setName("LastName");
 
 
-        templateDto.setRowTemplateDtoSet(Set.of(rowTemplateDto1, rowTemplateDto2));
+        templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2));
         genDto.setTemplateDto(templateDto);
         genService.generateStuff(genDto);
     }

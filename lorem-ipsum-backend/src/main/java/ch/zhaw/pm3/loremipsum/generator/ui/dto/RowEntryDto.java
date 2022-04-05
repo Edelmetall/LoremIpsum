@@ -2,11 +2,10 @@ package ch.zhaw.pm3.loremipsum.generator.ui.dto;
 
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.ArrayList;
+import java.util.List;
 @Getter
 public class RowEntryDto {
-    private Set<EntryDto> entryList = new HashSet<>();
+    private List<EntryDto> entryList = new ArrayList<>();
 
 }

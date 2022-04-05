@@ -11,12 +11,11 @@ import org.apache.velocity.app.VelocityEngine;
 import org.springframework.stereotype.Service;
 
 import java.io.StringWriter;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class GenService {
-
 
     public String generateStuff(GenDto genDto) {
         Faker faker = new Faker();
@@ -24,13 +23,13 @@ public class GenService {
         final String resourceFolder = "src/main/resources/";
 
         final Template entityTemplate;
-        VelocityEngine velocityEngine = new VelocityEngine(resourceFolder + "velocity.properties");
+        VelocityEngine velocityEngine = new VelocityEngine(GenService.class.getResource("/velocity.properties").getPath());
         velocityEngine.init();
-        entityTemplate = velocityEngine.getTemplate("template/xmlTemplate.vm");
+        entityTemplate = velocityEngine.getTemplate("/template/xmlTemplate.vm");
         VelocityContext context = new VelocityContext();
 
 
-        Set<RowEntryDto> rowEntryDtos = new HashSet<>();
+        List<RowEntryDto> rowEntryDtos = new ArrayList<>();
 
 
         for (int i = 0; rowEntryDtos.size() < testDataSetSize; i++) {
@@ -50,7 +49,7 @@ public class GenService {
         StringWriter writer = new StringWriter();
         entityTemplate.merge(context, writer);
         System.out.println(writer.toString());
-        return "Hello World" + genDto.getOutput();
+        return writer.toString();
     }
 
 
