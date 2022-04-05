@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -15,7 +14,7 @@ public class TemplateDto implements Serializable {
 
     private Long id;
     private String name;
-    private Set<RowTemplateDto> rowTemplateDtoSet;
+    private List<RowTemplateDto> rowTemplateDtoSet;
 
 
     public TemplateDto mapFrom(TemplateEntity templateEntity) {
@@ -28,9 +27,9 @@ public class TemplateDto implements Serializable {
         return this;
     }
 
-    public Set<RowTemplateDto> getRowTemplateDtoSet() {
+    public List<RowTemplateDto> getRowTemplateDtoSet() {
         if (this.rowTemplateDtoSet == null) {
-            this.rowTemplateDtoSet = new HashSet<>();
+            this.rowTemplateDtoSet = new ArrayList<>();
         }
         return this.rowTemplateDtoSet;
     }

@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +20,7 @@ public class RowTemplateDto implements Serializable {
     private String dataType;
     private String name;
     private String example;
-    private Set<String> option;
+    private List<String> option;
     private String regex;
 
 
