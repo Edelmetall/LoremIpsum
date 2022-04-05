@@ -12,7 +12,7 @@ import { BaseCellEditor } from '../base-cell-editor';
 })
 export class AutocompleteCellEditorComponent extends BaseCellEditor implements ICellEditorAngularComp, AfterViewInit {
   autocomplete = new FormControl();
-  options: string[] = ["Vorname", "Nachname", "IBAN", "Telefon-Nr.", "Email", "Strasse", "PLZ", "Region", "Land", "Liste", "Wort", "Nummer", "Währung", "Alphanumerisch"];
+  options: string[] = ["Vorname", "Nachname"];
   filteredOptions!: Observable<string[]>;
   @ViewChild("input", { read: ViewContainerRef })
   public input!: ViewContainerRef;

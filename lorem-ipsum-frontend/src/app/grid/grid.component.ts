@@ -1,10 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import * as _ from 'lodash';
 import { AutocompleteCellEditorComponent } from '../shared/cell-editor/autocomplete-cell-editor/autocomplete-cell-editor.component';
 import { MatChipsCellEditorComponent } from '../shared/cell-editor/mat-chips-cell-editor/mat-chips-cell-editor.component';
 import { IconCellRendererComponent } from '../shared/cell-renderer/icon-cell-renderer/icon-cell-renderer.component';
 import { MatChipsCellRendererComponent } from '../shared/cell-renderer/mat-chips-cell-renderer/mat-chips-cell-renderer.component';
-import { RowModel } from './model';
+import { GenDto } from '../shared/models/genDto.model';
+import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
+import { GenerateService } from '../shared/services/generate.service';
 
 @Component({
   selector: 'app-grid',
@@ -12,9 +15,11 @@ import { RowModel } from './model';
   styleUrls: ['./grid.component.scss']
 })
 export class GridComponent implements OnInit {
-  private gridApi!: GridApi;
+  gridApi!: GridApi;
 
-  constructor() { }
+  generatedData: string = "";
+
+  constructor(private generateService: GenerateService) { }
 
   ngOnInit(): void {
   }
@@ -40,9 +45,8 @@ export class GridComponent implements OnInit {
   ];
 
   rowData = [
-    new RowModel('Vorname', 'name', 'John', 'Reports;Documents;', 'www.deinname.ch/name', ''),
-    new RowModel('Nachname', 'nachname', 'Smith', 'International;', '-', ''),
-    new RowModel('IBAN', 'iban', 'DE07 1234 1234 1234 1234 12', 'Germany;', '-', '')
+    new RowTemplateDto('Vorname', 'name', 'John', [], 'www.deinname.ch/name', ''),
+    new RowTemplateDto('Nachname', 'nachname', 'Smith', [], '-', '')
   ];
 
   onGridReady(params: GridReadyEvent) {
@@ -51,11 +55,39 @@ export class GridComponent implements OnInit {
   }
 
   addNewRow() {
-    this.gridApi.applyTransaction({ add: [RowModel.createEmptyRow()] });
+    this.gridApi.applyTransaction({ add: [RowTemplateDto.createEmptyRowTemplateDto()] });
+  }
+
+  generate() {
+    let genDto = this.createGenDto();
+    this.generateService.generateTemplate(genDto).subscribe(res => {
+      this.generatedData = res
+    });
+  }
+
+  private createGenDto(): GenDto {
+    let genDto = new GenDto();
+    genDto.output = 'xml';
+    this.gridApi.forEachNode(node => {
+      genDto.templateDto.rowTemplateDtoSet.push(node.data as RowTemplateDto);
+    });
+    return genDto;
   }
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
     this.gridApi.sizeColumnsToFit();
+  }
+
+  get invalidRows() {
+    let invalid = false;
+    this.gridApi.forEachNode((node) => {
+      let rowTemplateDto = node.data as RowTemplateDto;
+      if (_.isEmpty(rowTemplateDto.name) || _.isEmpty(rowTemplateDto.dataType)) {
+        invalid = true;
+        return;
+      }
+    });
+    return invalid;
   }
 }

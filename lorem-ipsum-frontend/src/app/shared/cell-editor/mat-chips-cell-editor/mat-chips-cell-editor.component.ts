@@ -24,13 +24,13 @@ export class MatChipsCellEditorComponent implements ICellEditorAngularComp, Afte
   readonly separatorKeysCodes = [COMMA, SEMICOLON, TAB] as const;
 
   getValue() {
-    let value = "";
-    this.chips.forEach(chip => value += `${chip.value};`)
+    let value = new Array<string>();
+    this.chips.forEach(chip => value.push(`${chip.value}`))
     return value;
   }
   agInit(params: ICellEditorParams): void {
     this.params = params;
-    const values = params.value.split(';') as string[];
+    const values = params.value as string[];
     this.chips = new Set(values.filter(v => !_.isEmpty(v)).map(v => new Chip(v)));
     this.params.api.sizeColumnsToFit();
   }
