@@ -72,7 +72,8 @@
               "browserTarget": "lorem-ipsum-frontend:build:production"
             },
             "development": {
-              "browserTarget": "lorem-ipsum-frontend:build:development"
+              "browserTarget": "lorem-ipsum-frontend:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
