@@ -1,32 +1,13 @@
 ## @formatter:off
 <?xml version="1.0" encoding="UTF-8"?>
-#foreach( $import in $importList )
-import ${import};
-#end
-
-
 <data>
-    <entry>
-        <vorname>
-            John
-        </vorname>
-        <nachname>
-            Smith
-        </nachname>
-        <iban>
-            DE33 5013 0600 0123 4567 89
-        </iban>
-    </entry>
-    <entry>
-        <vorname>
-            Nils
-        </vorname>
-        <nachname>
-            Muster
-        </nachname>
-        <iban>
-            DE98 5012 0500 0123 4567 89
-        </iban>
-    </entry>
+#foreach( $row in $rowList )
+    #foreach( $entry in $row.getEntryList() )
+    <${entry.getName()}>
+        ${entry.getData()}
+    </${entry.getName()}>
+    #end
+</entry>
+#end
 </data>
 ## @formatter:on
