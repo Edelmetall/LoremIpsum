@@ -40,7 +40,7 @@ export class MatChipsCellRendererComponent implements ICellRendererAngularComp {
   }
 
   private setValues(params: ICellRendererParams) {
-    const values = params.value.split(';') as string[];
+    const values = params.value as string[];
     this.chips = new Set(values.filter(v => !_.isEmpty(v)).map(v => new Chip(v)));
   }
 

@@ -35,6 +35,7 @@ import { PrettyXmlPipe } from './shared/pipes/pretty-xml.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
+import { GenerateService } from './shared/services/generate.service';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import { LoginComponent } from './login/login.component';
     MatSelectModule,
     MatListModule
   ],
-  providers: [],
+  providers: [GenerateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

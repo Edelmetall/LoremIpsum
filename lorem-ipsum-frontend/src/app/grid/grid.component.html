@@ -8,7 +8,7 @@
     [stopEditingWhenCellsLoseFocus]="false" (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'">
 </ag-grid-angular>
 
-<div class="button-bar">
+<div class="button-bar" *ngIf="gridApi">
     <button mat-mini-fab color="primary" (click)="addNewRow()">
         <mat-icon>add</mat-icon>
     </button>
@@ -19,7 +19,7 @@
 
     <div class="spacer"></div>
 
-    <button mat-raised-button color="primary">Generate</button>
+    <button (click)="generate()" [disabled]="invalidRows" mat-raised-button color="primary">Generate</button>
     <button mat-raised-button color="primary">Save</button>
 </div>
 
@@ -31,4 +31,4 @@
         Save template
     </button>-->
 
-<app-data-output></app-data-output>
+<app-data-output [generatedData]="generatedData"></app-data-output>

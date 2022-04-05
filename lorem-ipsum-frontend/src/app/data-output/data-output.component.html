@@ -12,7 +12,7 @@
                     <mat-icon matTooltip="Download {{tab.label}} file"
                         style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">file_download
                     </mat-icon>
-                    <mat-icon (click)="copyData(tab.pipe, tab.builder)" matTooltip="Copy {{tab.label}} data"
+                    <mat-icon (click)="copyData()" matTooltip="Copy {{tab.label}} data"
                         style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">content_copy
                     </mat-icon>
                     <mat-form-field appearance="fill" *ngIf="tab.delimiterOptions">
@@ -23,7 +23,7 @@
                             </mat-option>
                         </mat-select>
                     </mat-form-field>
-                    <pre><p style="padding: 15px;">{{getFormattedOutput(tab.pipe, tab.builder)}}</p></pre>
+                    <pre><p style="padding: 15px;">{{generatedData}}</p></pre>
                 </mat-tab>
             </mat-tab-group>
         </div>
