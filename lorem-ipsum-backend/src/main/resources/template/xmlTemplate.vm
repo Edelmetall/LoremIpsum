@@ -1,13 +1,14 @@
 ## @formatter:off
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
+    <entry>
 #foreach( $row in $rowList )
-    #foreach( $entry in $row.getEntryList() )
+    #foreach( $entry in $row.getEntryList())
     <${entry.getName()}>
-        ${entry.getData()}
-    </${entry.getName()}>
+            ${entry.getData()}
+        </${entry.getName()}>
     #end
-</entry>
+    </entry>
 #end
 </data>
 ## @formatter:on
