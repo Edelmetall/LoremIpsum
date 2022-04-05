@@ -13,6 +13,6 @@ public class DataFormatEntity {
 
     private String name;
 
-    private ActiveEnum activeState;
+    private boolean active;
 
 }
