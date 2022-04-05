@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.loremipsum;
 
+import ch.zhaw.pm3.loremipsum.generator.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.generator.GenService;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.GenDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
@@ -36,14 +37,20 @@ class LoremIpsumApplicationTests {
         templateDto.setId(1L);
 
         RowTemplateDto rowTemplateDto1 = new RowTemplateDto();
+        rowTemplateDto1.setDataType(EntryTypeEnum.FIRST_NAME.name());
         rowTemplateDto1.setName("FirstName");
 
         RowTemplateDto rowTemplateDto2 = new RowTemplateDto();
+        rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.name());
         rowTemplateDto2.setName("LastName");
 
+        RowTemplateDto rowTemplateDto3 = new RowTemplateDto();
+        rowTemplateDto3.setDataType(EntryTypeEnum.TELE_NR.name());
+        rowTemplateDto3.setName("MeineTelefonNr");
 
-        templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2));
+
+        templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2, rowTemplateDto3));
         genDto.setTemplateDto(templateDto);
-        genService.generateStuff(genDto);
+        System.out.println(genService.generateStuff(genDto));
     }
 }

@@ -7,7 +7,7 @@ import javax.persistence.OneToOne;
 import java.util.Set;
 
 @Entity(name = "OwnStructure")
-public class InternStructureEntity extends DataFormatEntity {
+public class StructuredEntity extends DataFormatEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     private DataFormatEntity dataFormatEntity;

@@ -40,7 +40,7 @@ public class CustomerController {
 
     @PutMapping("/api/customer/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerEntity updateBook(
+    public CustomerEntity updateCustomer(
             @PathVariable("id") final String id, @RequestBody final CustomerEntity customer) {
         return repository.save(customer);
     }
@@ -48,7 +48,7 @@ public class CustomerController {
     @Transactional
     @ResponseStatus(HttpStatus.OK)
     @PutMapping("/api/customer/new/{name}/{templateId}")
-    public CustomerEntity updateBook(
+    public CustomerEntity updateCustomer(
             @PathVariable("name") final String name, final Long templateId) {
         TemplateEntity templateEntity = templateRepository.findById(templateId).get();
 
