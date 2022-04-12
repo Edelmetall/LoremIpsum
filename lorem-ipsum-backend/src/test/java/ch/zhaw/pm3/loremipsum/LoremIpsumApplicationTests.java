@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum;
 
-import ch.zhaw.pm3.loremipsum.generator.EntryTypeEnum;
+import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.generator.GenService;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.GenDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
@@ -12,8 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 
-@SpringBootTest
-class LoremIpsumApplicationTests {
+class LoremIpsumApplicationTests extends AbstractSpringBootTest{
 
     @Test
     void contextLoads() {
@@ -41,12 +40,9 @@ class LoremIpsumApplicationTests {
         rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.getDisplayName());
         rowTemplateDto2.setName("LastName");
 
-        RowTemplateDto rowTemplateDto3 = new RowTemplateDto();
-        rowTemplateDto3.setDataType(EntryTypeEnum.TELE_NR.getDisplayName());
-        rowTemplateDto3.setName("MeineTelefonNr");
 
 
-        templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2, rowTemplateDto3));
+        templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2));
         genDto.setTemplateDto(templateDto);
         System.out.println(genService.generateStuff(genDto));
     }

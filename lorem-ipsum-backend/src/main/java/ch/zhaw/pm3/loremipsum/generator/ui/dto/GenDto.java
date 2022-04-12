@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.loremipsum.generator.ui.dto;
 
-import ch.zhaw.pm3.loremipsum.generator.EntryTypeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
