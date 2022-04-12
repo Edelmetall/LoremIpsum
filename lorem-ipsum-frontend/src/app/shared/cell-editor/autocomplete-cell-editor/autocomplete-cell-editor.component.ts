@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ICellEditorAngularComp } from 'ag-grid-angular';
-import { ICellEditorParams } from 'ag-grid-community';
-import { map, Observable, startWith } from 'rxjs';
-import { BaseCellEditor } from '../base-cell-editor';
+import {AfterViewInit, Component, ViewChild, ViewContainerRef} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {ICellEditorAngularComp} from 'ag-grid-angular';
+import {ICellEditorParams} from 'ag-grid-community';
+import {map, Observable, startWith} from 'rxjs';
+import {BaseCellEditor} from '../base-cell-editor';
 
 @Component({
   selector: 'app-autocomplete-cell-editor',
@@ -12,7 +12,7 @@ import { BaseCellEditor } from '../base-cell-editor';
 })
 export class AutocompleteCellEditorComponent extends BaseCellEditor implements ICellEditorAngularComp, AfterViewInit {
   autocomplete = new FormControl();
-  options: string[] = ["Vorname", "Nachname"];
+  options: string[] = ["First name", "Last name"];
   filteredOptions!: Observable<string[]>;
   @ViewChild("input", { read: ViewContainerRef })
   public input!: ViewContainerRef;

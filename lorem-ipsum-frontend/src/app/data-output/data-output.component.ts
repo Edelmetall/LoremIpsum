@@ -1,10 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { PrettyXmlPipe } from '../shared/pipes/pretty-xml.pipe';
-import { JsonPipe } from '@angular/common';
-import { Response, TabLabels } from './model';
-import * as _ from 'lodash';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Clipboard} from '@angular/cdk/clipboard';
+import {PrettyXmlPipe} from '../shared/pipes/pretty-xml.pipe';
+import {JsonPipe} from '@angular/common';
+import {TabLabels} from './model';
+import {MatTabChangeEvent} from "@angular/material/tabs";
 
 @Component({
   selector: 'app-data-output',
@@ -17,17 +17,21 @@ export class DataOutputComponent implements OnInit {
   @Input()
   generatedData!: string;
 
-  constructor(private _snackBar: MatSnackBar, private clipboard: Clipboard, private xmlPipe: PrettyXmlPipe, private jsonPipe: JsonPipe) {
+  output = TabLabels.XML;
+  tabs = [
+    {
+      label: TabLabels.XML, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      label: TabLabels.JSON, delimiter: undefined, delimiterOptions: undefined
+    }
+  ];
+
+  constructor(private _snackBar: MatSnackBar, private clipboard: Clipboard) {
   }
 
   ngOnInit(): void {
   }
-
-  tabs = [
-    {
-      label: TabLabels.XML, delimiter: undefined, delimiterOptions: undefined
-    }
-  ];
 
   copyData() {
     this.clipboard.copy(this.generatedData);
@@ -48,4 +52,7 @@ export class DataOutputComponent implements OnInit {
     return this.tabs.find(tab => tab.label === label);
   }
 
+  public tabChanged(tabChangeEvent: MatTabChangeEvent) {
+    this.output = this.tabs[tabChangeEvent.index].label;
+  }
 }
