@@ -34,15 +34,15 @@ class LoremIpsumApplicationTests {
         templateDto.setId(1L);
 
         RowTemplateDto rowTemplateDto1 = new RowTemplateDto();
-        rowTemplateDto1.setDataType(EntryTypeEnum.FIRST_NAME.name());
+        rowTemplateDto1.setDataType(EntryTypeEnum.FIRST_NAME.getDisplayName());
         rowTemplateDto1.setName("FirstName");
 
         RowTemplateDto rowTemplateDto2 = new RowTemplateDto();
-        rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.name());
+        rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.getDisplayName());
         rowTemplateDto2.setName("LastName");
 
         RowTemplateDto rowTemplateDto3 = new RowTemplateDto();
-        rowTemplateDto3.setDataType(EntryTypeEnum.TELE_NR.name());
+        rowTemplateDto3.setDataType(EntryTypeEnum.TELE_NR.getDisplayName());
         rowTemplateDto3.setName("MeineTelefonNr");
 
 
