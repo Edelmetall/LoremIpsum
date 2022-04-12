@@ -9,7 +9,6 @@ import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
 import ch.zhaw.pm3.loremipsum.output.OutputEnum;
 import ch.zhaw.pm3.loremipsum.output.OutputService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,12 +40,12 @@ public class GenService {
             }
             rowEntryDtos.add(rowEntryDto);
         }
-        return outputService.generateModel(OutputEnum.XML, rowEntryDtos);
+        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutput()), rowEntryDtos);
     }
 
 
     private EntryDto getEntryType(RowTemplateDto rowTemplateDto) {
-        return switch (EntryTypeEnum.valueOf(rowTemplateDto.getDataType())) {
+        return switch (EntryTypeEnum.getEnumFromDisplayName(rowTemplateDto.getDataType())) {
             case FIRST_NAME -> firstNameService.genEntry(rowTemplateDto, null);
             case LAST_NAME -> lastNameService.genEntry(rowTemplateDto, null);
             case TELE_NR -> teleNrService.genEntry(rowTemplateDto, null);

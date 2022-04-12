@@ -1,24 +1,24 @@
 export class RowTemplateDto {
-    // Technisch
-    id!: bigint;
+  // Technisch
+  id!: bigint;
 
-    // Fachliche
-    index!: number;
-    dataType!: string;
-    name!: string;
-    example!: string;
-    option: string[] = new Array();
-    input!: string;
-    regex!: string;
+  // Fachliche
+  index!: number;
+  dataType!: string;
+  name!: string;
+  example!: string;
+  option: string[] = [];
+  input!: string;
+  regex!: string;
 
-    constructor(dataType: string,
-        name: string,
-        example: string,
-        option: string[],
-        input: string,
-        regex: string) {
-        this.dataType = dataType;
-        this.name = name;
+  constructor(dataType: string,
+              name: string,
+              example: string,
+              option: string[],
+              input: string,
+              regex: string) {
+    this.dataType = dataType;
+    this.name = name;
         this.example = example;
         this.option = option;
         this.input = input;
@@ -26,6 +26,6 @@ export class RowTemplateDto {
     }
 
     public static createEmptyRowTemplateDto(): RowTemplateDto {
-        return new RowTemplateDto('', '', '', new Array(), '', '');
+      return new RowTemplateDto('', '', '', [], '', '');
     }
 }

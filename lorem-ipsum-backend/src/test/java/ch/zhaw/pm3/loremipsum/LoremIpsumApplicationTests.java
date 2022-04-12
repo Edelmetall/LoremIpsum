@@ -5,15 +5,12 @@ import ch.zhaw.pm3.loremipsum.generator.GenService;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.GenDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
-import com.github.javafaker.HarryPotter;
+import ch.zhaw.pm3.loremipsum.output.OutputEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootTest
 class LoremIpsumApplicationTests {
@@ -30,7 +27,7 @@ class LoremIpsumApplicationTests {
     void setGenService() {
         GenDto genDto = new GenDto();
 
-        genDto.setOutput("XML");
+        genDto.setOutput(OutputEnum.XML.name());
         TemplateDto templateDto = new TemplateDto();
 
         templateDto.setName("MyName");
