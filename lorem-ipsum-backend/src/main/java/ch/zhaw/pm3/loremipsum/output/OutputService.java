@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.output;
 
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.json.JsonOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.php.PhpOutputService;
@@ -22,7 +22,7 @@ public class OutputService {
     private final SqlOutputService sqlOutputService;
     private final PhpOutputService phpOutputService;
 
-    public String generateModel(OutputEnum outputEnum, List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtos) {
+    public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos) {
         return switch (outputEnum) {
             case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case JAVA -> javaOutputService.generateOutputFile(headerInformation, rowEntryDtos);

@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output.template.java;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.AbstractOutputService;
 import org.apache.velocity.Template;
@@ -23,7 +23,7 @@ public class JavaOutputService extends AbstractOutputService {
 
 
     @Override
-    protected String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
         VelocityContext context = new VelocityContext();
         List<JavaAttribute> javaAttributeList = new ArrayList<>();
         List<String> constructorInputList = new ArrayList<>();
@@ -65,7 +65,7 @@ public class JavaOutputService extends AbstractOutputService {
     }
 
 
-    private Set<String> getNeededImportSet(List<HeaderInfomation> headerInformation) {
+    private Set<String> getNeededImportSet(List<HeaderInformation> headerInformation) {
         Set<String> neededImportSet = new HashSet<>();
         neededImportSet.add("java.util.List");
         neededImportSet.add("java.util.Arrays");
