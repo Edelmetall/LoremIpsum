@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class HeaderInfomation {
+public class HeaderInformation {
 
     private String name;
     private EntryTypeEnum entryTypeEnum;

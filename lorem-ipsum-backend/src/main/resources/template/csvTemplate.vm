@@ -1,0 +1,10 @@
+## @formatter:off
+#foreach( $row in $rowList )
+    ##${entry.getName()} fuer header dann?
+#foreach( $entry in $row.getEntryList())
+        ##${entry.getData().replace('"', '""')},
+        <${entry.getName()}>;
+#end
+    $newline
+#end
+## @formatter:on

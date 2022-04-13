@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.output.template;
 
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import org.apache.velocity.app.VelocityEngine;
 
@@ -20,9 +20,9 @@ public abstract class AbstractOutputService {
         velocityEngine.init();
     }
 
-    protected abstract String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet);
+    protected abstract String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet);
 
-    public String generateOutputFile(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    public String generateOutputFile(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
         List<RowEntryDto> rowEntryDtoList = new ArrayList<>(rowEntryDtoSet);
         for (int i = 0; i < rowEntryDtoSet.size(); i++) {
             if (headerInformation.size() != rowEntryDtoList.get(i).getEntryList().size()) {
@@ -41,7 +41,7 @@ public abstract class AbstractOutputService {
      * @param rowEntryDtoSet    contains the data
      * @return list where each entry is represented as a Map
      */
-    protected List<Map<String, String>> convertToSingleList(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    protected List<Map<String, String>> convertToSingleList(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
         List<Map<String, String>> data = new ArrayList<>();
         for (RowEntryDto rowEntryDto : rowEntryDtoSet) {
             Map<String, String> values = new HashMap<>();

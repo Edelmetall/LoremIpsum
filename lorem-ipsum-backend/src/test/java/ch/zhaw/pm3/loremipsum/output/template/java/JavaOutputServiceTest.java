@@ -2,7 +2,7 @@ package ch.zhaw.pm3.loremipsum.output.template.java;
 
 import ch.zhaw.pm3.loremipsum.AbstractSpringBootTest;
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -100,11 +100,11 @@ public class JavaOutputServiceTest extends AbstractSpringBootTest {
         dto.getEntryList().add("myName2");
         dto.getEntryList().add("2016-08-16");
         dto.getEntryList().add("2007-12-03T10:15:30");
-        List<HeaderInfomation> header = new ArrayList<>();
-        header.add(new HeaderInfomation("name", EntryTypeEnum.FIRST_NAME));
-        header.add(new HeaderInfomation("name2", EntryTypeEnum.LAST_NAME));
-        header.add(new HeaderInfomation("date1", EntryTypeEnum.DATE));
-        header.add(new HeaderInfomation("dateTime1", EntryTypeEnum.DATE_TIME));
+        List<HeaderInformation> header = new ArrayList<>();
+        header.add(new HeaderInformation("name", EntryTypeEnum.FIRST_NAME));
+        header.add(new HeaderInformation("name2", EntryTypeEnum.LAST_NAME));
+        header.add(new HeaderInformation("date1", EntryTypeEnum.DATE));
+        header.add(new HeaderInformation("dateTime1", EntryTypeEnum.DATE_TIME));
 
         // act
         String output = javaOutputService.generateOutputFile(header, List.of(dto));

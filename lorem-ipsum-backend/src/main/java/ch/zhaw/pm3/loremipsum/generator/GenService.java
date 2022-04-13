@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.generator;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.service.FirstNameService;
 import ch.zhaw.pm3.loremipsum.generator.service.LastNameService;
 import ch.zhaw.pm3.loremipsum.generator.service.TeleNrService;
@@ -34,11 +34,11 @@ public class GenService {
 
     public String generateStuff(GenDto genDto) {
         int testDataSetSize = 10;
-        List<HeaderInfomation> headerInfomationList = new ArrayList<>();
+        List<HeaderInformation> headerInformationList = new ArrayList<>();
         List<RowEntryDto> rowEntryDtos = new ArrayList<>();
 
         genDto.getTemplateDto().getRowTemplateDtoSet().forEach(rowTemplateDto ->
-                headerInfomationList.add(new HeaderInfomation(rowTemplateDto.getName(),
+                headerInformationList.add(new HeaderInformation(rowTemplateDto.getName(),
                         EntryTypeEnum.getEnumFromDisplayName(rowTemplateDto.getDataType())))
         );
 
@@ -50,7 +50,7 @@ public class GenService {
             }
             rowEntryDtos.add(rowEntryDto);
         }
-        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInfomationList, rowEntryDtos);
+        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInformationList, rowEntryDtos);
     }
 
 

@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output.template.sql;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -38,9 +38,9 @@ public class SqlOutputServiceTest {
     @Test
     public void testSqlOutputService() {
         // setup
-        List<HeaderInfomation> headerInformationList = new ArrayList<>();
-        headerInformationList.add(new HeaderInfomation("firstName", EntryTypeEnum.FIRST_NAME));
-        headerInformationList.add(new HeaderInfomation("lastName", EntryTypeEnum.LAST_NAME));
+        List<HeaderInformation> headerInformationList = new ArrayList<>();
+        headerInformationList.add(new HeaderInformation("firstName", EntryTypeEnum.FIRST_NAME));
+        headerInformationList.add(new HeaderInformation("lastName", EntryTypeEnum.LAST_NAME));
 
         List<RowEntryDto> rowEntries = new ArrayList<>();
         RowEntryDto rowEntryDto;
