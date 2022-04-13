@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output.template.json;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,14 +36,14 @@ public class JsonOutputServiceTest {
 
     @Test
     public void testJsonOutputService() {
-        List<HeaderInfomation> headerInfomations = new ArrayList<>();
-        HeaderInfomation headerInfomation;
+        List<HeaderInformation> headerInformations = new ArrayList<>();
+        HeaderInformation headerInformation;
 
-        headerInfomation = new HeaderInfomation("firstName", EntryTypeEnum.FIRST_NAME);
-        headerInfomations.add(headerInfomation);
+        headerInformation = new HeaderInformation("firstName", EntryTypeEnum.FIRST_NAME);
+        headerInformations.add(headerInformation);
 
-        headerInfomation = new HeaderInfomation("lastName", EntryTypeEnum.LAST_NAME);
-        headerInfomations.add(headerInfomation);
+        headerInformation = new HeaderInformation("lastName", EntryTypeEnum.LAST_NAME);
+        headerInformations.add(headerInformation);
 
         List<RowEntryDto> rowEntryDtos = new ArrayList<>();
         RowEntryDto rowEntryDto;
@@ -59,6 +59,6 @@ public class JsonOutputServiceTest {
         rowEntryDtos.add(rowEntryDto);
 
         Assertions.assertEquals(EXPECTED_OUTPUT,
-                jsonOutputService.generateOutputFile(headerInfomations, rowEntryDtos));
+                jsonOutputService.generateOutputFile(headerInformations, rowEntryDtos));
     }
 }

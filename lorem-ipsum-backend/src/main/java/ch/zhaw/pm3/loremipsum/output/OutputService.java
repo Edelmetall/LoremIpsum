@@ -1,7 +1,8 @@
 package ch.zhaw.pm3.loremipsum.output;
 
-import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
+import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.output.template.CsvOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.json.JsonOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.php.PhpOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.sql.SqlOutputService;
@@ -21,14 +22,17 @@ public class OutputService {
     private final JavaOutputService javaOutputService;
     private final SqlOutputService sqlOutputService;
     private final PhpOutputService phpOutputService;
+    private final CsvOutputService csvOutputService;
 
-    public String generateModel(OutputEnum outputEnum, List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtos) {
+
+    public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos) {
         return switch (outputEnum) {
             case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case JAVA -> javaOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case JSON -> jsonOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case SQL -> sqlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case PHP -> phpOutputService.generateOutputFile(headerInformation, rowEntryDtos);
+            case CSV -> csvOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             default -> throw new IllegalStateException("Not yet implemented: " + outputEnum);
         };
     }
