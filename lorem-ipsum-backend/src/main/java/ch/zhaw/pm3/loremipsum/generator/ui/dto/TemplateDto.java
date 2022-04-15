@@ -16,17 +16,6 @@ public class TemplateDto implements Serializable {
     private String name;
     private List<RowTemplateDto> rowTemplateDtoSet;
 
-
-    public TemplateDto mapFrom(TemplateEntity templateEntity) {
-        this.setId(templateEntity.getId());
-        this.setName(templateEntity.getName());
-
-        templateEntity.getRowTemplateEntities().forEach(rowTemplateEntity ->
-                this.getRowTemplateDtoSet().add(new RowTemplateDto().mapFrom(rowTemplateEntity)));
-
-        return this;
-    }
-
     public List<RowTemplateDto> getRowTemplateDtoSet() {
         if (this.rowTemplateDtoSet == null) {
             this.rowTemplateDtoSet = new ArrayList<>();

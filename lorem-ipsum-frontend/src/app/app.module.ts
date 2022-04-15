@@ -36,6 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
 import { GenerateService } from './shared/services/generate.service';
+import { SnackBarService } from './shared/services/snackBar.service';
 
 
 @NgModule({
@@ -81,7 +82,7 @@ import { GenerateService } from './shared/services/generate.service';
     MatSelectModule,
     MatListModule
   ],
-  providers: [GenerateService],
+  providers: [GenerateService, SnackBarService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,6 +7,7 @@ ul li {
     display: flex;
     line-height: 40px;
     padding: .5rem;
+    cursor: pointer;
 }
 
 ul li + li {
@@ -24,4 +25,8 @@ ul li + li {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+mat-form-field {
+    width: 100%;
 }

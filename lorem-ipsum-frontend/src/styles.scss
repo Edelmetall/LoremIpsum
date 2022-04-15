@@ -9,3 +9,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin: 2rem auto;
     width: 80%;
 }
+
+.snackbar-error{
+    background-color: red;
+    color: white;
+}
+
+.snackbar-warning{
+    background-color: orange;
+    color: white;
+}

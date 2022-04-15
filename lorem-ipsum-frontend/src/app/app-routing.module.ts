@@ -7,6 +7,7 @@ import { TemplateListComponent } from './template-list/template-list.component';
 
 const routes: Routes = [
   { path: '', component: GridComponent },
+  { path: 'template/:templateId', component: GridComponent },
   { path: 'output', component: DataOutputComponent },
   { path: 'templates', component: TemplateListComponent },
   { path: 'login', component: LoginComponent }

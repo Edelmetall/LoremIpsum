@@ -1,28 +1,14 @@
 <div>
     <mat-form-field class="full-width">
         <mat-label>Search for template</mat-label>
-        <input matInput>
+        <input matInput [formControl]="templateFilter">
     </mat-form-field>
 </div>
 
 <h2>Your templates</h2>
 <ul>
-    <li *ngFor="let template of templates">
+    <li *ngFor="let template of filteredTemplates | async" (click)="editTemplate(template.id)">
         <span class="name">{{template.name}}</span>
         <span class="desc">{{template.desc}}</span>
-        <button mat-icon-button>
-            <mat-icon>{{template.favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
-        </button>
-    </li>
-</ul>
-
-<h2>Shared templates</h2>
-<ul>
-    <li *ngFor="let template of sharedTemplates">
-        <span class="name">{{template.name}}</span>
-        <span class="desc">{{template.desc}}</span>
-        <button mat-icon-button>
-            <mat-icon>{{template.favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
-        </button>
     </li>
 </ul>
