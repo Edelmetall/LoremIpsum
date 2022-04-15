@@ -42,3 +42,14 @@ body {
 .button-bar button + button {
   margin-left: .5rem;
 }
+
+
+.snackbar-error{
+    background-color: red;
+    color: white;
+}
+
+.snackbar-warning{
+    background-color: orange;
+    color: white;
+}

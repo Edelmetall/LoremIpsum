@@ -5,6 +5,7 @@ import {PrettyXmlPipe} from '../shared/pipes/pretty-xml.pipe';
 import {JsonPipe} from '@angular/common';
 import {TabLabels} from './model';
 import {MatTabChangeEvent} from "@angular/material/tabs";
+import { SnackBarService } from '../shared/services/snackBar.service';
 
 @Component({
   selector: 'app-data-output',
@@ -27,7 +28,7 @@ export class DataOutputComponent implements OnInit {
     }
   ];
 
-  constructor(private _snackBar: MatSnackBar, private clipboard: Clipboard) {
+  constructor(private snackBarService: SnackBarService, private clipboard: Clipboard) {
   }
 
   ngOnInit(): void {
@@ -35,13 +36,7 @@ export class DataOutputComponent implements OnInit {
 
   copyData() {
     this.clipboard.copy(this.generatedData);
-    this.showSnackBar();
-  }
-
-  showSnackBar() {
-    this._snackBar.open('Data copied', '', {
-      duration: 3000
-    })
+    this.snackBarService.info('Data copied');
   }
 
   get xmlTab(): any {

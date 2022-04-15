@@ -1,18 +1,14 @@
-import {Component, HostListener, OnInit, ViewChild} from '@angular/core';
-import {ColDef, GridApi, GridReadyEvent} from 'ag-grid-community';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { GridApi, GridReadyEvent } from 'ag-grid-community';
 import * as _ from 'lodash';
-import {
-  AutocompleteCellEditorComponent
-} from '../shared/cell-editor/autocomplete-cell-editor/autocomplete-cell-editor.component';
-import {MatChipsCellEditorComponent} from '../shared/cell-editor/mat-chips-cell-editor/mat-chips-cell-editor.component';
-import {IconCellRendererComponent} from '../shared/cell-renderer/icon-cell-renderer/icon-cell-renderer.component';
-import {
-  MatChipsCellRendererComponent
-} from '../shared/cell-renderer/mat-chips-cell-renderer/mat-chips-cell-renderer.component';
-import {GenDto} from '../shared/models/genDto.model';
-import {RowTemplateDto} from '../shared/models/rowTemplateDto.model';
-import {GenerateService} from '../shared/services/generate.service';
-import {DataOutputComponent} from "../data-output/data-output.component";
+import { GenDto } from '../shared/models/genDto.model';
+import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
+import { GenerateService } from '../shared/services/generate.service';
+import { DataOutputComponent } from "../data-output/data-output.component";
+import { TemplateDto } from '../shared/models/templateDto.model';
+import { ActivatedRoute } from '@angular/router';
+import { GridConfig } from './model';
+import { SnackBarService } from '../shared/services/snackBar.service';
 
 @Component({
   selector: 'app-grid',
@@ -23,82 +19,70 @@ export class GridComponent implements OnInit {
   @ViewChild(DataOutputComponent) dataOutput!: DataOutputComponent;
 
   gridApi!: GridApi;
-
+  templateDto: TemplateDto = new TemplateDto();
   generatedData: string = "";
-  columnDefs: ColDef[] = [
-    {field: '', sortable: false, rowDrag: true, editable: false, cellStyle: {'padding': '1rem 0 0 0'}, maxWidth: 42},
-    {
-      field: '',
-      checkboxSelection: true,
-      sortable: false,
-      editable: false,
-      cellStyle: {'padding': '1rem 0 0 0'},
-      maxWidth: 20
-    },
-    {field: 'dataType', headerName: 'Datatype', cellEditor: AutocompleteCellEditorComponent},
-    {field: 'name', headerName: 'Name'},
-    {field: 'example', headerName: 'Example'},
-    {
-      field: 'option',
-      headerName: 'Option',
-      cellRenderer: MatChipsCellRendererComponent,
-      cellEditor: MatChipsCellEditorComponent
-    },
-    {field: 'input', headerName: 'Input'},
-    {field: 'regex', headerName: 'Regex'},
-    {
-      field: '',
-      headerName: '',
-      cellRenderer: IconCellRendererComponent,
-      editable: false,
-      cellStyle: {'padding': '0'},
-      sortable: false,
-      maxWidth: 42,
-      cellRendererParams: {iconName: 'delete'}
-    },
-  ];
-  defaultColDef: ColDef = {
-    lockPosition: true,
-    editable: true,
-    resizable: true,
-    sortable: true,
-    autoHeight: true
-  }
-  rowData = [
-    new RowTemplateDto('First name', 'name', 'John', [], 'www.deinname.ch/name', ''),
-    new RowTemplateDto('Last name', 'nachname', 'Smith', [], '-', '')
-  ];
+  columnDefs = GridConfig.columnDefs;
+  defaultColDef = GridConfig.defaultColDef;
+  dataLoaded = false;
 
-  constructor(private generateService: GenerateService) {
+  rowData: RowTemplateDto[] = [];
+
+  constructor(private route: ActivatedRoute, private generateService: GenerateService, private snackBarService: SnackBarService) {
   }
 
   ngOnInit(): void {
+    this.generateService.getAvailableDataFormats().subscribe((dataFormats: any) => {
+      GridConfig.dataTypeColDef.cellEditorParams.options = _.map(dataFormats, d => d.name);
+      console.log(GridConfig.dataTypeColDef.cellEditorParams);
+      this.dataLoaded = true;
+    });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridApi.sizeColumnsToFit();
+
+    const templateId = this.route.snapshot.paramMap.get('templateId');
+    if (!_.isNil(templateId)) {
+      this.generateService.getTemplateById(Number(templateId)).subscribe((templateDto: TemplateDto) => {
+        this.templateDto = templateDto;
+        this.addRows(templateDto.rowTemplateDtoSet as RowTemplateDto[]);
+      });
+    } else {
+      this.addRows();
+    }
   }
 
-  addNewRow() {
-    this.gridApi.applyTransaction({add: [RowTemplateDto.createEmptyRowTemplateDto()]});
+  addRows(rows: RowTemplateDto[] = [RowTemplateDto.createEmptyRowTemplateDto()]) {
+    this.gridApi.applyTransaction({ add: rows });
   }
 
   generate() {
-    let genDto = this.createGenDto();
+    let genDto = new GenDto(this.dataOutput.output, this.createRowTemplateDtoSet());
     this.generateService.generateTemplate(genDto).subscribe(res => {
       this.generatedData = res
     });
   }
 
-  private createGenDto(): GenDto {
-    let genDto = new GenDto();
-    genDto.output = this.dataOutput.output;
-    this.gridApi.forEachNode(node => {
-      genDto.templateDto.rowTemplateDtoSet.push(node.data as RowTemplateDto);
+  saveTemplate() {
+    this.templateDto.rowTemplateDtoSet = this.createRowTemplateDtoSet();
+    this.generateService.saveTemplate(this.templateDto).subscribe(res => {
+      this.templateDto = res;
+      this.snackBarService.info(`Template '${this.templateDto.name}' saved`);
     });
-    return genDto;
   }
+
+  private createRowTemplateDtoSet() {
+    const rowTemplateDtoSet = new Array<RowTemplateDto>();
+    let index = 0;
+    this.gridApi.forEachNode(node => {
+      const rowTemplateDto = node.data as RowTemplateDto;
+      rowTemplateDto.index = index++;
+      rowTemplateDtoSet.push(rowTemplateDto);
+    });
+    return rowTemplateDtoSet;
+  }
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -106,7 +90,7 @@ export class GridComponent implements OnInit {
   }
 
   get invalidRows() {
-    let invalid = false;
+    let invalid = this.gridApi.getDisplayedRowCount() <= 0;
     this.gridApi.forEachNode((node) => {
       let rowTemplateDto = node.data as RowTemplateDto;
       if (_.isEmpty(rowTemplateDto.name) || _.isEmpty(rowTemplateDto.dataType)) {

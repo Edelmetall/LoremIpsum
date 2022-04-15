@@ -1,8 +1,12 @@
 package ch.zhaw.pm3.loremipsum.generator.data;
 
-import javax.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-@Entity(name = "DataFomat")
+import javax.persistence.*;
+@Getter
+@Setter
+@Entity(name = "DATA_FORMAT")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class DataFormatEntity {
 
@@ -14,5 +18,4 @@ public class DataFormatEntity {
     private String name;
 
     private boolean active;
-
 }

@@ -12,14 +12,15 @@ import {BaseCellEditor} from '../base-cell-editor';
 })
 export class AutocompleteCellEditorComponent extends BaseCellEditor implements ICellEditorAngularComp, AfterViewInit {
   autocomplete = new FormControl();
-  options: string[] = ["First name", "Last name"];
+  options: string[] = ["First Name", "Last Name"];
   filteredOptions!: Observable<string[]>;
   @ViewChild("input", { read: ViewContainerRef })
   public input!: ViewContainerRef;
 
 
-  override agInit(params: ICellEditorParams): void {
+  override agInit(params: any): void {
     super.agInit(params);
+    this.options = params.options;
     this.filteredOptions = this.autocomplete.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
@@ -35,6 +36,11 @@ export class AutocompleteCellEditorComponent extends BaseCellEditor implements I
 
   override isPopup(): boolean {
     return false;
+  }
+
+  optionClicked(value: string){
+    console.log(value)
+    this.input.element.nativeElement.value = value;
   }
 
   getValue() {
