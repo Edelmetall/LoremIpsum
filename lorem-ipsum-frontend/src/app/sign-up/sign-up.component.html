@@ -1,7 +1,19 @@
 <div class="form-small">
-  <h1>Login</h1>
+  <h1>Sign up</h1>
 
   <ul class="form-fields">
+    <li>
+      <mat-form-field class="full-width">
+        <mat-label>First name</mat-label>
+        <input [(ngModel)]="firstName" matInput>
+      </mat-form-field>
+    </li>
+    <li>
+      <mat-form-field class="full-width">
+        <mat-label>Last name</mat-label>
+        <input [(ngModel)]="lastName" matInput>
+      </mat-form-field>
+    </li>
     <li>
       <mat-form-field class="full-width">
         <mat-label>E-mail</mat-label>
@@ -17,7 +29,6 @@
   </ul>
 
   <div class="button-bar">
-    <button (click)="logIn()" color="primary" mat-raised-button>Log in</button>
-    <button (click)="navigateSignUp()" mat-raised-button>Sign up</button>
+    <button (click)="signUp()" color="primary" mat-raised-button>Sign up</button>
   </div>
 </div>
