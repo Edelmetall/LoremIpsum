@@ -4,7 +4,15 @@ import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +24,12 @@ public class CustomerEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customer_gen")
-    @SequenceGenerator(name="customer_gen", sequenceName="customer_seq", initialValue = 50)
+    @SequenceGenerator(name = "customer_gen", sequenceName = "customer_seq", initialValue = 50)
     private Long id;
     private String firstName;
     private String lastName;
+    private String email;
+    private byte[] encodedPassword;
 
     @Column
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
@@ -32,7 +42,6 @@ public class CustomerEntity {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
 
     @Override
     public String toString() {

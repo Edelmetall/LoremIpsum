@@ -4,5 +4,5 @@
     <a mat-button>Settings</a>
     <a mat-button>Profile</a>
     <div class="spacer"></div>
-    <a (click)="navigate('login')" mat-button>Logout</a>
+    <a (click)="navigate('login')" mat-button>{{ this.customer ? 'Log out' : 'Login' }}</a>
 </mat-toolbar>
