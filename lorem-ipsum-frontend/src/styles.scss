@@ -2,54 +2,57 @@
 @import "ag-grid-community/dist/styles/ag-grid.css";
 @import "ag-grid-community/dist/styles/ag-theme-material.css";
 
-html, body {
-  height: 100%;
+html,
+body {
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 #container {
-  margin: 2rem auto;
-  width: 80%;
+    margin: 2rem auto;
+    width: 80%;
 }
 
 .form-small {
-  margin: 1rem auto;
-  max-width: 32rem;
+    margin: 1rem auto;
+    max-width: 32rem;
 }
 
 .form-fields {
-  list-style-type: none;
-  padding-left: 0;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .form-fields li mat-form-field {
-  width: 100%;
+    width: 100%;
 }
 
 .button-bar {
-  display: flex;
+    display: flex;
 }
 
 .button-bar button:not(.mat-mini-fab) {
-  flex: 1;
-  width: 8rem;
+    flex: 1;
+    width: 8rem;
 }
 
 .button-bar button + button {
-  margin-left: .5rem;
+    margin-left: 0.5rem;
 }
 
-
-.snackbar-error{
-    background-color: red;
-    color: white;
+.snackbar-error {
+    background-color: red !important;
+    color: white !important;
+    button {
+        color: white !important;
+    }
 }
 
-.snackbar-warning{
-    background-color: orange;
-    color: white;
+.snackbar-warning {
+    background-color: orange !important;
+    color: white !important;
 }

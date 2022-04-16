@@ -31,13 +31,18 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import {MatDialogModule} from '@angular/material/dialog';
 import { PrettyXmlPipe } from './shared/pipes/pretty-xml.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
-import { GenerateService } from './shared/services/generate.service';
+import { TemplateService } from './shared/services/template.service';
 import {SignUpComponent} from './sign-up/sign-up.component';
 import { SnackBarService } from './shared/services/snackBar.service';
+import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
+import { CustomerService } from './shared/services/customer.service';
 
 
 @NgModule({
@@ -53,7 +58,8 @@ import { SnackBarService } from './shared/services/snackBar.service';
     PrettyXmlPipe,
     TemplateListComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,9 +88,12 @@ import { SnackBarService } from './shared/services/snackBar.service';
     MatExpansionModule,
     HttpClientModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatTableModule,
+    MatSortModule,
+    MatDialogModule
   ],
-  providers: [GenerateService, SnackBarService],
+  providers: [TemplateService, SnackBarService, CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
