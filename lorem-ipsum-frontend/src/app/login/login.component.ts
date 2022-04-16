@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerService } from '../shared/services/customer.service';
-import { SnackBarService } from '../shared/services/snackBar.service';
+import { NotificationService } from '../shared/services/notification.service';
 import { StorageHelper } from '../shared/helpers/storage-helper';
 import { CustomerDto } from '../shared/models/customerDto.model';
 import { CommunicationService } from '../shared/services/communication.service';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
     private router: Router,
-    private snackBarService: SnackBarService,
+    private notificationService: NotificationService,
     private communicationService: CommunicationService) {
   }
 
@@ -35,17 +34,19 @@ export class LoginComponent implements OnInit {
       password: this.password
     }
     this.communicationService.notifyLoading(true);
-    this.customerService.login(body).subscribe({
-      next: res => {
-        if (res) {
-          StorageHelper.setUser(res as CustomerDto);
-          this.snackBarService.info('Login successful')
-        } else {
-          this.snackBarService.error('Invalid credentials');
-        }
-      },
-      complete: () => this.communicationService.notifyLoading(false)
-    });
+    this.customerService.login(body)
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: res => {
+          if (res) {
+            StorageHelper.setUser(res as CustomerDto);
+            this.notificationService.info('Login successful')
+          } else {
+            this.notificationService.error('Invalid credentials');
+          }
+        },
+        error: () => this.notificationService.error('Could not complete login')
+      });
   }
 
   /**

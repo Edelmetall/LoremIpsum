@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CommunicationService } from './shared/services/communication.service';
+import { NotificationService } from './shared/services/notification.service';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,10 @@ export class AppComponent implements OnInit, OnDestroy {
   loading = false;
   loadingSubscription!: Subscription;
 
-  constructor(private communicationService: CommunicationService, private router: Router) {
+  constructor(private communicationService: CommunicationService, private router: Router, private notificationService: NotificationService) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        this.notificationService.clearNotifications();
         setTimeout(() => this.loading = false);
       }
     });

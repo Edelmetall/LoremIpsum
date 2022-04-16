@@ -3,12 +3,12 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { map, Observable, startWith } from 'rxjs';
+import { finalize, map, Observable, startWith } from 'rxjs';
 import { ConfirmDialogComponent } from '../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { StorageHelper } from '../shared/helpers/storage-helper';
 import { TemplateDto } from '../shared/models/templateDto.model';
 import { CommunicationService } from '../shared/services/communication.service';
-import { SnackBarService } from '../shared/services/snackBar.service';
+import { NotificationService } from '../shared/services/notification.service';
 import { TemplateService } from '../shared/services/template.service';
 
 @Component({
@@ -27,7 +27,7 @@ export class TemplateListComponent implements OnInit {
 
   constructor(private templateService: TemplateService,
     private router: Router,
-    private snackBarService: SnackBarService,
+    private notificationService: NotificationService,
     private dialog: MatDialog,
     private communicationService: CommunicationService) { }
 
@@ -50,10 +50,11 @@ export class TemplateListComponent implements OnInit {
 
   loadTemplates() {
     this.communicationService.notifyLoading(true)
-    this.templateService.getAllTemplates().subscribe({
-      next: (templates: TemplateDto[]) => this.onTemplatesLoaded(templates),
-      complete: () => this.communicationService.notifyLoading(false)
-    });
+    this.templateService.getAllTemplates()
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: (templates: TemplateDto[]) => this.onTemplatesLoaded(templates)
+      });
   }
 
   onTemplatesLoaded(templates: TemplateDto[]) {
@@ -88,17 +89,18 @@ export class TemplateListComponent implements OnInit {
 
   deleteTemplate(template: Template) {
     this.communicationService.notifyLoading(true);
-    this.templateService.deleteTemplate(template.id).subscribe({
-      next: (deleted: boolean) => {
-        if (deleted) {
-          this.snackBarService.info(`Template '${template.name}' deleted`);
-          this.removeTemplate(template);
-        } else {
-          this.snackBarService.error(`Error during deletion of template '${template.name}'`);
+    this.templateService.deleteTemplate(template.id)
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: (deleted: boolean) => {
+          if (deleted) {
+            this.notificationService.info(`Template '${template.name}' deleted`);
+            this.removeTemplate(template);
+          } else {
+            this.notificationService.error(`Error during deletion of template '${template.name}'`);
+          }
         }
-      },
-      complete: () => this.communicationService.notifyLoading(false)
-    });
+      });
   }
 
   private removeTemplate(template: Template) {

@@ -25,7 +25,6 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { IconCellRendererComponent } from './shared/cell-renderer/icon-cell-renderer/icon-cell-renderer.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DataOutputComponent } from './data-output/data-output.component';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
@@ -41,10 +40,11 @@ import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
 import { TemplateService } from './shared/services/template.service';
 import { SignUpComponent } from './sign-up/sign-up.component';
-import { SnackBarService } from './shared/services/snackBar.service';
+import { NotificationService } from './shared/services/notification.service';
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { CustomerService } from './shared/services/customer.service';
 import { CommunicationService } from './shared/services/communication.service';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 
 @NgModule({
@@ -83,7 +83,6 @@ import { CommunicationService } from './shared/services/communication.service';
     MatBadgeModule,
     MatSidenavModule,
     ClipboardModule,
-    MatSnackBarModule,
     MatTooltipModule,
     MatTabsModule,
     MatExpansionModule,
@@ -93,9 +92,10 @@ import { CommunicationService } from './shared/services/communication.service';
     MatTableModule,
     MatSortModule,
     MatDialogModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ToastrModule.forRoot()
   ],
-  providers: [TemplateService, SnackBarService, CustomerService, CommunicationService],
+  providers: [TemplateService, NotificationService, CustomerService, CommunicationService, ToastrService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
