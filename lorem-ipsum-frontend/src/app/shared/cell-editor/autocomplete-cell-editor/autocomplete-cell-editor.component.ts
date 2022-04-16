@@ -28,7 +28,6 @@ export class AutocompleteCellEditorComponent extends BaseCellEditor implements I
 
   ngAfterViewInit(): void {
     window.setTimeout(() => {
-      //this.input.element.nativeElement.focus();
       this.input.element.nativeElement.click();
       this.autocomplete.setValue(this.params.value);
     }, 0);
