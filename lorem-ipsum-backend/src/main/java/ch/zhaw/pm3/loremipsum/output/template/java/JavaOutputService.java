@@ -23,7 +23,7 @@ public class JavaOutputService extends AbstractOutputService {
 
 
     @Override
-    protected String generateOutputFileIntern(List<HeaderInfomation> headerInformation, Set<RowEntryDto> rowEntryDtoSet) {
+    protected String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
         VelocityContext context = new VelocityContext();
         List<JavaAttribute> javaAttributeList = new ArrayList<>();
         List<String> constructorInputList = new ArrayList<>();

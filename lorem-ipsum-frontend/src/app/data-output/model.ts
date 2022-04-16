@@ -1,15 +1,14 @@
 export class Response {
-    data!: Data[];
+  data!: Data[];
 }
 
 export class Data {
-    attrName!: string;
-    attrValue!: string;
+  attrName!: string;
+  attrValue!: string;
 }
 
-export class TabLabels {
-    public static HTML = "HTML";
-    public static CSV = "CSV";
-    public static JSON = "JSON";
-    public static XML = "XML";
+export class OutputEnum {
+  public static XML = {name: 'XML', displayedText: 'XML'};
+  public static JSON = {name: 'JSON', displayedText: 'JSON'};
+  public static JAVA = {name: 'JAVA', displayedText: 'Java'};
 }

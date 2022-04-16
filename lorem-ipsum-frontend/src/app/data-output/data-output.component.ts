@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Clipboard } from '@angular/cdk/clipboard';
-import { PrettyXmlPipe } from '../shared/pipes/pretty-xml.pipe';
-import { JsonPipe } from '@angular/common';
-import { TabLabels } from './model';
-import { MatTabChangeEvent } from "@angular/material/tabs";
-import { SnackBarService } from '../shared/services/snackBar.service';
-import { CommunicationService } from '../shared/services/communication.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {Clipboard} from '@angular/cdk/clipboard';
+import {PrettyXmlPipe} from '../shared/pipes/pretty-xml.pipe';
+import {JsonPipe} from '@angular/common';
+import {OutputEnum} from './model';
+import {MatTabChangeEvent} from "@angular/material/tabs";
+import {SnackBarService} from '../shared/services/snackBar.service';
+import {CommunicationService} from '../shared/services/communication.service';
 
 @Component({
   selector: 'app-data-output',
@@ -19,13 +18,16 @@ export class DataOutputComponent implements OnInit {
   @Input()
   generatedData!: string;
 
-  output = TabLabels.XML;
+  outputEnum = OutputEnum.XML;
   tabs = [
     {
-      label: TabLabels.XML, delimiter: undefined, delimiterOptions: undefined
+      outputEnum: OutputEnum.XML, delimiter: undefined, delimiterOptions: undefined
     },
     {
-      label: TabLabels.JSON, delimiter: undefined, delimiterOptions: undefined
+      outputEnum: OutputEnum.JSON, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      outputEnum: OutputEnum.JAVA, delimiter: undefined, delimiterOptions: undefined
     }
   ];
 
@@ -40,16 +42,8 @@ export class DataOutputComponent implements OnInit {
     this.snackBarService.info('Data copied');
   }
 
-  get xmlTab(): any {
-    return this.getTabByLabel(TabLabels.XML);
-  }
-
-  private getTabByLabel(label: string): any {
-    return this.tabs.find(tab => tab.label === label);
-  }
-
   public tabChanged(tabChangeEvent: MatTabChangeEvent) {
-    this.output = this.tabs[tabChangeEvent.index].label;
+    this.outputEnum = this.tabs[tabChangeEvent.index].outputEnum;
     this.communicationService.notifyOutputTabChanged();
   }
 }

@@ -8,11 +8,11 @@
 
         <div class="container">
           <mat-tab-group (selectedTabChange)="tabChanged($event)">
-            <mat-tab *ngFor="let tab of tabs" label="{{tab.label}}">
-              <mat-icon matTooltip="Download {{tab.label}} file"
+            <mat-tab *ngFor="let tab of tabs" label="{{tab.outputEnum.displayedText}}">
+              <mat-icon matTooltip="Download {{tab.outputEnum.displayedText}} file"
                         style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">file_download
               </mat-icon>
-              <mat-icon (click)="copyData()" matTooltip="Copy {{tab.label}} data"
+              <mat-icon (click)="copyData()" matTooltip="Copy {{tab.outputEnum.displayedText}} data"
                         style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">content_copy
               </mat-icon>
               <mat-form-field *ngIf="tab.delimiterOptions" appearance="fill">

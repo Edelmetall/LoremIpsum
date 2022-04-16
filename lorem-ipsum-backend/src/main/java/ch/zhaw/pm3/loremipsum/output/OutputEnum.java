@@ -9,15 +9,11 @@ public enum OutputEnum {
 
     private final String extension;
 
-
     OutputEnum(String extension) {
         this.extension = extension;
     }
 
-
     public String getExtension() {
         return this.extension;
     }
-
-
 }
