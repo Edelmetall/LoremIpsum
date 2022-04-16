@@ -66,13 +66,11 @@ public class LoremIpsumApplication {
             one.setIndex(1);
             one.setDataFormatEntity(dataFormatRepository.findById(50L).get());
             one.setName("firstName");
-            //one.setDataFormatEntity(firstNameDataFormatEntity);
 
             RowTemplateEntity second = new RowTemplateEntity();
             second.setIndex(2);
             second.setDataFormatEntity(dataFormatRepository.findById(51L).get());
             second.setName("lastName");
-            //second.setDataFormatEntity(firstNameDataFormatEntity);
 
             entity.getRowTemplateEntities().add(one);
             entity.getRowTemplateEntities().add(second);
