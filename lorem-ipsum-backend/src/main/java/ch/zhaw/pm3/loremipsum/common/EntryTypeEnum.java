@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.loremipsum.generator;
+package ch.zhaw.pm3.loremipsum.common;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,11 @@ public enum EntryTypeEnum {
     FIRST_NAME("First name"),
     LAST_NAME("Last name"),
     IBANR("IBAN"),
-    TELE_NR("Phone number");
+    TELE_NR("Phone number"),
+    DATE("Date"),
+    DATE_TIME("Date and Time"),
+    TIME("Time"),
+    BOOLEAN("Boolean");
 
     private static final Map<String, EntryTypeEnum> displayNameToEnumMap = new HashMap<>();
 

@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.loremipsum.generator.ui.dto;
+package ch.zhaw.pm3.loremipsum.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,12 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class EntryDto {
-
-    public EntryDto() {
-    }
+public class HeaderInfomation {
 
     private String name;
-    private String data;
+    private EntryTypeEnum entryTypeEnum;
 
 }

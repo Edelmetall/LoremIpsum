@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.List;
 @Getter
 public class RowEntryDto {
-    private final List<EntryDto> entryList = new ArrayList<>();
+    private List<String> entryList = new ArrayList<>();
 }
