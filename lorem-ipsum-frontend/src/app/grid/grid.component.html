@@ -1,11 +1,11 @@
-<mat-form-field class="full-width">
+<mat-form-field class="full-width" *ngIf="isLoggedIn">
     <mat-label>Template name</mat-label>
     <input matInput [(ngModel)]="templateDto.name">
 </mat-form-field>
 
-<ag-grid-angular *ngIf="dataLoaded" class="ag-theme-material" [rowData]="rowData"
-    [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true"
-    [stopEditingWhenCellsLoseFocus]="false" (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
+<ag-grid-angular *ngIf="dataLoaded" class="ag-theme-material" [rowData]="rowData" [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true" [stopEditingWhenCellsLoseFocus]="false"
+    (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
 </ag-grid-angular>
 
 <div class="button-bar" *ngIf="gridApi">
@@ -20,7 +20,8 @@
     <div class="spacer"></div>
 
     <button (click)="generate()" [disabled]="invalidRows" mat-raised-button color="primary">Generate</button>
-    <button (click)="saveTemplate()" [disabled]="invalidRows || !templateDto.name" mat-raised-button color="primary">Save</button>
+    <button *ngIf="isLoggedIn" (click)="saveTemplate()" [disabled]="invalidRows || !templateDto.name" mat-raised-button
+        color="primary">{{isTemplateOwner ? 'Save' : 'Save copy'}}</button>
 </div>
 
 <app-data-output [generatedData]="generatedData"></app-data-output>

@@ -2,12 +2,14 @@ package ch.zhaw.pm3.loremipsum;
 
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
+import ch.zhaw.pm3.loremipsum.generator.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.repo.DataFormatRepository;
 import ch.zhaw.pm3.loremipsum.generator.repo.RowTemplateRepository;
 import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
+import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +17,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.transaction.Transactional;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -40,11 +44,13 @@ public class LoremIpsumApplication {
         return args -> {
             Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
                 CustomerEntity user = new CustomerEntity(name, name.toLowerCase() + "@domain.com");
+                user.setEmail(name);
+                user.setEncodedPassword(SecurityUtils.encodePassword(SecurityUtils.md5(user.getEmail()), "1234"));
                 customerRepository.save(user);
             });
             customerRepository.findAll().forEach(System.out::println);
 
-            Stream.of("First name", "Last name", "Phone Number").forEach(name -> {
+            Arrays.stream(EntryTypeEnum.values()).map(EntryTypeEnum::getDisplayName).forEach(name -> {
                 DataFormatEntity dataFormatEntity = new DataFormatEntity();
                 dataFormatEntity.setName(name);
                 dataFormatEntity.setActive(true);

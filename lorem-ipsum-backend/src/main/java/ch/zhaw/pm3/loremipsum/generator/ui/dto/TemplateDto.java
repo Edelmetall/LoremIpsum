@@ -14,6 +14,7 @@ public class TemplateDto implements Serializable {
 
     private Long id;
     private String name;
+    private Long ownerId;
     private List<RowTemplateDto> rowTemplateDtoSet;
 
     public List<RowTemplateDto> getRowTemplateDtoSet() {

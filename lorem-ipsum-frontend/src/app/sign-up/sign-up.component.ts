@@ -1,7 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Router} from "@angular/router";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { SnackBarService } from '../shared/services/snackBar.service';
+import { CustomerService } from '../shared/services/customer.service';
+import { SignUpData } from './model';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,12 +10,9 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  firstName = '';
-  lastName = '';
-  email = '';
-  password = '';
+  signUpData = new SignUpData();
 
-  constructor(private httpClient: HttpClient, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private customerService: CustomerService, private router: Router, private snackBarService: SnackBarService) {
   }
 
   ngOnInit(): void {
@@ -24,18 +22,12 @@ export class SignUpComponent implements OnInit {
    * send sign up request to the server
    */
   signUp(): void {
-    let body = {
-      'firstName': this.firstName,
-      'lastName': this.lastName,
-      'email': this.email,
-      'password': this.password
-    };
-    this.httpClient.post("/api/customer/signup", body, {responseType: "text"}).subscribe(res => {
+    this.customerService.signUp(this.signUpData).subscribe(res => {
       if (res) {
         this.router.navigateByUrl('login');
-        this._snackBar.open('Sign up successful', '', {duration: 3000});
+        this.snackBarService.info('Sign up successful');
       } else {
-        this._snackBar.open('Could not complete sign up', '', {duration: 3000});
+        this.snackBarService.info('Could not complete sign up');
       }
     });
   }
