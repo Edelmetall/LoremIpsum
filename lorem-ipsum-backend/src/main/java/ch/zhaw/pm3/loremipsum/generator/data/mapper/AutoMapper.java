@@ -48,7 +48,8 @@ public class AutoMapper {
 
     private void addTemplateMapping() {
         modelMapper.typeMap(TemplateEntity.class, TemplateDto.class)
-                .addMapping(TemplateEntity::getRowTemplateEntities, TemplateDto::setRowTemplateDtoSet);
+                .addMapping(TemplateEntity::getRowTemplateEntities, TemplateDto::setRowTemplateDtoSet)
+                .addMappings(mapper -> mapper.map(src -> src.getOwner().getId(), TemplateDto::setOwnerId));
 
         modelMapper.typeMap(TemplateDto.class, TemplateEntity.class)
                 .addMapping(TemplateDto::getRowTemplateDtoSet, TemplateEntity::setRowTemplateEntities)
