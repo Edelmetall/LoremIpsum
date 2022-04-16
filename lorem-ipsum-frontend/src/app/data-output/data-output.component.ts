@@ -4,7 +4,7 @@ import {PrettyXmlPipe} from '../shared/pipes/pretty-xml.pipe';
 import {JsonPipe} from '@angular/common';
 import {OutputEnum} from './model';
 import {MatTabChangeEvent} from "@angular/material/tabs";
-import {SnackBarService} from '../shared/services/snackBar.service';
+import {NotificationService} from '../shared/services/notification.service';
 import {CommunicationService} from '../shared/services/communication.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class DataOutputComponent implements OnInit {
     }
   ];
 
-  constructor(private snackBarService: SnackBarService, private clipboard: Clipboard, private communicationService: CommunicationService) {
+  constructor(private notificationService: NotificationService, private clipboard: Clipboard, private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class DataOutputComponent implements OnInit {
 
   copyData() {
     this.clipboard.copy(this.generatedData);
-    this.snackBarService.info('Data copied');
+    this.notificationService.info('Data copied');
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent) {

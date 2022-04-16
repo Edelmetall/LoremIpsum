@@ -1,18 +1,18 @@
-import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {GridApi, GridReadyEvent} from 'ag-grid-community';
+import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { GridApi, GridReadyEvent } from 'ag-grid-community';
 import * as _ from 'lodash';
-import {GenDto} from '../shared/models/genDto.model';
-import {RowTemplateDto} from '../shared/models/rowTemplateDto.model';
-import {TemplateService} from '../shared/services/template.service';
-import {DataOutputComponent} from "../data-output/data-output.component";
-import {TemplateDto} from '../shared/models/templateDto.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GridConfig} from './model';
-import {SnackBarService} from '../shared/services/snackBar.service';
-import {StorageHelper} from '../shared/helpers/storage-helper';
-import {CommunicationService} from '../shared/services/communication.service';
-import {Subscription} from 'rxjs';
-import {OutputEnum} from "../data-output/model";
+import { GenDto } from '../shared/models/genDto.model';
+import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
+import { TemplateService } from '../shared/services/template.service';
+import { DataOutputComponent } from "../data-output/data-output.component";
+import { TemplateDto } from '../shared/models/templateDto.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { GridConfig } from './model';
+import { NotificationService } from '../shared/services/notification.service';
+import { StorageHelper } from '../shared/helpers/storage-helper';
+import { CommunicationService } from '../shared/services/communication.service';
+import { finalize, Subscription } from 'rxjs';
+import { OutputEnum } from "../data-output/model";
 
 @Component({
   selector: 'app-grid',
@@ -32,21 +32,27 @@ export class GridComponent implements OnInit, OnDestroy {
   rowData: RowTemplateDto[] = [];
 
   constructor(private route: ActivatedRoute,
-              private templateService: TemplateService,
-              private snackBarService: SnackBarService,
-              private router: Router,
-              private communicationService: CommunicationService) {
+    private templateService: TemplateService,
+    private notificationService: NotificationService,
+    private router: Router,
+    private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
     this.outputTabSubscription = this.communicationService.onOutputTabChanged().subscribe(() => {
       this.generate();
     });
-    this.templateService.getAvailableDataFormats().subscribe((dataFormats: any) => {
-      GridConfig.dataTypeColDef.cellEditorParams.options = _.map(dataFormats, d => d.name);
-      console.log(GridConfig.dataTypeColDef.cellEditorParams);
-      this.dataLoaded = true;
-    });
+    this.communicationService.notifyLoading(true)
+    this.templateService.getAvailableDataFormats()
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: (dataFormats: any) => {
+          GridConfig.dataTypeColDef.cellEditorParams.options = _.map(dataFormats, d => d.name);
+          console.log(GridConfig.dataTypeColDef.cellEditorParams);
+          this.dataLoaded = true;
+        },
+        error: () => this.notificationService.error('Config could not be loaded')
+      });
   }
 
   ngOnDestroy(): void {
@@ -60,32 +66,36 @@ export class GridComponent implements OnInit, OnDestroy {
     const templateId = this.route.snapshot.paramMap.get('templateId');
     if (!_.isNil(templateId)) {
       this.communicationService.notifyLoading(true);
-      this.templateService.getTemplateById(Number(templateId)).subscribe({
-        next: (templateDto: TemplateDto) => {
-          this.templateDto = templateDto;
-          this.addRows(templateDto.rowTemplateDtoSet as RowTemplateDto[]);
-        },
-        complete: () => this.communicationService.notifyLoading(false)
-      });
+      this.templateService.getTemplateById(Number(templateId))
+        .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+        .subscribe({
+          next: (templateDto: TemplateDto) => {
+            this.templateDto = templateDto;
+            this.addRows(templateDto.rowTemplateDtoSet as RowTemplateDto[]);
+          },
+          error: () => this.notificationService.error('Template could not be loaded')
+        });
     } else {
       this.addRows();
     }
   }
 
   addRows(rows: RowTemplateDto[] = [RowTemplateDto.createEmptyRowTemplateDto()]) {
-    this.gridApi.applyTransaction({add: rows});
+    this.gridApi.applyTransaction({ add: rows });
   }
 
   generate() {
     this.communicationService.notifyLoading(true);
     let outputName = this.dataOutput ? this.dataOutput.outputEnum.name : OutputEnum.XML.name;
     let genDto = new GenDto(outputName, this.createRowTemplateDtoSet());
-    this.templateService.generateTemplate(genDto).subscribe({
-      next: res => {
-        this.generatedData = res
-      },
-      complete: () => this.communicationService.notifyLoading(false)
-    });
+    this.templateService.generateTemplate(genDto)
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: res => {
+          this.generatedData = res
+        },
+        error: err => this.notificationService.error(err)
+      });
   }
 
   saveTemplate() {
@@ -97,14 +107,17 @@ export class GridComponent implements OnInit, OnDestroy {
       }
       this.templateDto.ownerId = this.currentUserId;
     }
-    this.templateService.saveTemplate(this.templateDto).subscribe({
-      next: res => {
-        this.templateDto = res;
-        this.snackBarService.info(`Template '${this.templateDto.name}' saved`);
-        this.router.navigate(['/template', res.id]);
-      },
-      error: err => this.snackBarService.error('Template could not be saved')
-    });
+    this.communicationService.notifyLoading(true);
+    this.templateService.saveTemplate(this.templateDto)
+      .pipe(finalize(() => this.communicationService.notifyLoading(false)))
+      .subscribe({
+        next: res => {
+          this.templateDto = res;
+          this.notificationService.info(`Template '${this.templateDto.name}' saved`);
+          this.router.navigate(['/template', res.id]);
+        },
+        error: () => this.notificationService.error('Template could not be saved')
+      });
   }
 
   private createRowTemplateDtoSet() {
@@ -121,7 +134,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    this.gridApi.sizeColumnsToFit();
+    this.gridApi?.sizeColumnsToFit();
   }
 
   get invalidRows() {
