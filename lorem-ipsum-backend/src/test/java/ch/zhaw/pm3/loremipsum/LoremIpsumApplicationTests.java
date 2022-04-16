@@ -8,11 +8,10 @@ import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
 import ch.zhaw.pm3.loremipsum.output.OutputEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 
-class LoremIpsumApplicationTests extends AbstractSpringBootTest{
+class LoremIpsumApplicationTests extends AbstractSpringBootTest {
 
     @Test
     void contextLoads() {
@@ -26,7 +25,7 @@ class LoremIpsumApplicationTests extends AbstractSpringBootTest{
     void setGenService() {
         GenDto genDto = new GenDto();
 
-        genDto.setOutput(OutputEnum.XML.name());
+        genDto.setOutputName(OutputEnum.XML.name());
         TemplateDto templateDto = new TemplateDto();
 
         templateDto.setName("MyName");
@@ -39,7 +38,6 @@ class LoremIpsumApplicationTests extends AbstractSpringBootTest{
         RowTemplateDto rowTemplateDto2 = new RowTemplateDto();
         rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.getDisplayName());
         rowTemplateDto2.setName("LastName");
-
 
 
         templateDto.setRowTemplateDtoSet(Arrays.asList(rowTemplateDto1, rowTemplateDto2));

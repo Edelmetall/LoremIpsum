@@ -11,9 +11,6 @@ public class GenDto implements Serializable {
 
     private TemplateDto templateDto;
 
-
-    private String output;
+    private String outputName;
     private String outputOption;
-
-
 }

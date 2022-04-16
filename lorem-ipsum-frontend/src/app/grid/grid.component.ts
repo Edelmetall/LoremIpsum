@@ -1,17 +1,18 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { GridApi, GridReadyEvent } from 'ag-grid-community';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {GridApi, GridReadyEvent} from 'ag-grid-community';
 import * as _ from 'lodash';
-import { GenDto } from '../shared/models/genDto.model';
-import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
-import { TemplateService } from '../shared/services/template.service';
-import { DataOutputComponent } from "../data-output/data-output.component";
-import { TemplateDto } from '../shared/models/templateDto.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GridConfig } from './model';
-import { SnackBarService } from '../shared/services/snackBar.service';
-import { StorageHelper } from '../shared/helpers/storage-helper';
-import { CommunicationService } from '../shared/services/communication.service';
-import { Subscription } from 'rxjs';
+import {GenDto} from '../shared/models/genDto.model';
+import {RowTemplateDto} from '../shared/models/rowTemplateDto.model';
+import {TemplateService} from '../shared/services/template.service';
+import {DataOutputComponent} from "../data-output/data-output.component";
+import {TemplateDto} from '../shared/models/templateDto.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {GridConfig} from './model';
+import {SnackBarService} from '../shared/services/snackBar.service';
+import {StorageHelper} from '../shared/helpers/storage-helper';
+import {CommunicationService} from '../shared/services/communication.service';
+import {Subscription} from 'rxjs';
+import {OutputEnum} from "../data-output/model";
 
 @Component({
   selector: 'app-grid',
@@ -31,10 +32,10 @@ export class GridComponent implements OnInit, OnDestroy {
   rowData: RowTemplateDto[] = [];
 
   constructor(private route: ActivatedRoute,
-    private templateService: TemplateService,
-    private snackBarService: SnackBarService,
-    private router: Router,
-    private communicationService: CommunicationService) {
+              private templateService: TemplateService,
+              private snackBarService: SnackBarService,
+              private router: Router,
+              private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
@@ -72,12 +73,13 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   addRows(rows: RowTemplateDto[] = [RowTemplateDto.createEmptyRowTemplateDto()]) {
-    this.gridApi.applyTransaction({ add: rows });
+    this.gridApi.applyTransaction({add: rows});
   }
 
   generate() {
     this.communicationService.notifyLoading(true);
-    let genDto = new GenDto(this.dataOutput.output, this.createRowTemplateDtoSet());
+    let outputName = this.dataOutput ? this.dataOutput.outputEnum.name : OutputEnum.XML.name;
+    let genDto = new GenDto(outputName, this.createRowTemplateDtoSet());
     this.templateService.generateTemplate(genDto).subscribe({
       next: res => {
         this.generatedData = res

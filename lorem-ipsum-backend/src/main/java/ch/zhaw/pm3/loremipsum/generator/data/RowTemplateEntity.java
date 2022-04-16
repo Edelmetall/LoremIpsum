@@ -25,8 +25,6 @@ public class RowTemplateEntity {
     @JsonBackReference
     private DataFormatEntity dataFormatEntity;
 
-    //private String dataType;
-
     private String name;
     private String example;
     private String option;

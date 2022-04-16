@@ -11,7 +11,7 @@ public class ${className} {
     private ${attribute.getType()} ${attribute.getName()};
 #end
 
-    public ${className}(#foreach($attribute in $attributeList)${attribute.getType()} ${attribute.getName()}#if($foreach.hasNext),#end #end) {
+    public ${className}(#foreach($attribute in $attributeList)${attribute.getType()} ${attribute.getName()}#if($foreach.hasNext), #end#end) {
 #foreach($attribute in $attributeList)
         this.${attribute.getName()} = ${attribute.getName()};
 #end
@@ -32,12 +32,11 @@ public class ${className} {
     }
 
 #end
+    public List<${className}> getExampleList() {
+        return Arrays.asList(#foreach($entry in $constructorInputList)
 
-
-public List<${className}> getExampleList() {
-    return Arrays.asList(
-#foreach($entry in $constructorInputList)
-        new ${className}(${entry}) #if( $foreach.hasNext ), #else ); #end
+            new ${className}(${entry})#if( $foreach.hasNext ), #else);
+#end
 #end
     }
 

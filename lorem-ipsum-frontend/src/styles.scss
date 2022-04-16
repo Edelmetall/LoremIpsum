@@ -31,11 +31,11 @@ body {
     width: 100%;
 }
 
-.button-bar {
+.form-small .button-bar {
     display: flex;
 }
 
-.button-bar button:not(.mat-mini-fab) {
+.form-small .button-bar button {
     flex: 1;
     width: 8rem;
 }

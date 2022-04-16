@@ -1,10 +1,10 @@
 ## @formatter:off
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-#foreach( $row in $rowList )
+#foreach( $map in $data )
     <entry>
-#foreach( $entry in $row.getEntryList())
-        <${entry.getName()}>${entry.getData()}</${entry.getName()}>
+#foreach( $entry in $map.entrySet())
+        <${entry.key}>${entry.value}</${entry.key}>
 #end
     </entry>
 #end

@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class GenService {
@@ -37,11 +35,11 @@ public class GenService {
     public String generateStuff(GenDto genDto) {
         int testDataSetSize = 10;
         List<HeaderInfomation> headerInfomationList = new ArrayList<>();
-        Set<RowEntryDto> rowEntryDtos = new HashSet<>();
+        List<RowEntryDto> rowEntryDtos = new ArrayList<>();
 
         genDto.getTemplateDto().getRowTemplateDtoSet().forEach(rowTemplateDto ->
                 headerInfomationList.add(new HeaderInfomation(rowTemplateDto.getName(),
-                EntryTypeEnum.getEnumFromDisplayName(rowTemplateDto.getDataType())))
+                        EntryTypeEnum.getEnumFromDisplayName(rowTemplateDto.getDataType())))
         );
 
         while (rowEntryDtos.size() < testDataSetSize) {
@@ -52,7 +50,7 @@ public class GenService {
             }
             rowEntryDtos.add(rowEntryDto);
         }
-        return outputService.generateModel(OutputEnum.XML, headerInfomationList, rowEntryDtos);
+        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInfomationList, rowEntryDtos);
     }
 
 
