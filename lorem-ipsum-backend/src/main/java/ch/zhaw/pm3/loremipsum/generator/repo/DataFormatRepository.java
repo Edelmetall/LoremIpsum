@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
+
 public interface DataFormatRepository extends CrudRepository<DataFormatEntity, Long> {
-    @Query(value = "SELECT data FROM DATA_FORMAT data where data.name = :name")
-    DataFormatEntity findByName(@Param("name") String name);
+    DataFormatEntity findByName(String name);
+    Collection<DataFormatEntity> findByActive(boolean active);
 }

@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.loremipsum.generator.service;
 
+import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.generator.data.mapper.AutoMapper;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
@@ -32,11 +33,22 @@ public class TemplateService {
         this.dataFormatRepository = dataFormatRepository;
     }
 
+    /**
+     * get all existing templates
+     *
+     * @return collection of existing templates
+     */
     public Collection<TemplateDto> getAllTemplates() {
         return StreamSupport.stream(templateRepository.findAll().spliterator(), false)
                 .map(templateEntity -> autoMapper.map(templateEntity, TemplateDto.class)).toList();
     }
 
+    /**
+     * get a specific template by id
+     *
+     * @param templateId id of the template
+     * @return template with passed id or empty template object if the template does not exist
+     */
     public TemplateDto getTemplateById(long templateId) {
         Optional<TemplateEntity> templateEntity = templateRepository.findById(templateId);
         TemplateDto templateDto = new TemplateDto();
@@ -46,16 +58,42 @@ public class TemplateService {
         return templateDto;
     }
 
+    /**
+     * get all existing and active data formats
+     *
+     * @return active dataformats
+     */
     public Collection<DataFormatEntity> getAvailableDataFormats() {
-        return StreamSupport.stream(dataFormatRepository.findAll().spliterator(), false).toList();
+        return dataFormatRepository.findByActive(true).stream().toList();
     }
 
+    /**
+     * create or update a template
+     *
+     * @param templateDto template dto object
+     * @return saved template entity
+     */
     public TemplateDto saveTemplate(TemplateDto templateDto) {
-        TemplateEntity templateEntity =autoMapper.map(templateDto, TemplateEntity.class);
-        templateEntity.setOwner(customerRepository.findById(50L));
+        TemplateEntity templateEntity = autoMapper.map(templateDto, TemplateEntity.class);
         templateEntity.getRowTemplateEntities().forEach(rowTemplateEntity -> {
             rowTemplateEntity.setTemplateEntity(templateEntity);
         });
         return autoMapper.map(templateRepository.save(templateEntity), TemplateDto.class);
+    }
+
+    /**
+     * delete a template
+     *
+     * @param templateId id of template which should be deleted
+     * @return true if deletion was successful, otherwise false
+     */
+    public boolean deleteTemplate(Long templateId) {
+        boolean deleted = false;
+        Optional<TemplateEntity> templateEntity = templateRepository.findById(templateId);
+        if (templateEntity.isPresent()) {
+            templateRepository.delete(templateEntity.get());
+            deleted = true;
+        }
+        return deleted;
     }
 }

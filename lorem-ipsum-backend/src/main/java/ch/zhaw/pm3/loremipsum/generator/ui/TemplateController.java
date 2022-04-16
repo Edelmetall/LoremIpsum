@@ -49,6 +49,12 @@ public class TemplateController {
         return templateService.saveTemplate(templateDto);
     }
 
+    @PostMapping("/delete")
+    @Transactional
+    public boolean delete(@RequestBody final Long templateId) {
+        return templateService.deleteTemplate(templateId);
+    }
+
     @PostMapping("/generate")
     public String generateTemplate(@RequestBody final GenDto genDto) {
         return genService.generateStuff(genDto);

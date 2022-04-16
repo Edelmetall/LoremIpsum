@@ -1,13 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { GenDto } from "../models/genDto.model";
 import { TemplateDto } from "../models/templateDto.model";
-import { _ } from "ag-grid-community";
 
 @Injectable()
-export class GenerateService {
+export class TemplateService {
 
   constructor(private httpClient: HttpClient) {
   }
@@ -31,4 +29,9 @@ export class GenerateService {
   saveTemplate(templateDto: TemplateDto): Observable<TemplateDto> {
     return this.httpClient.post<TemplateDto>("/api/template/save", templateDto);
   }
+
+  deleteTemplate(tempalteId: bigint): Observable<boolean> {
+    return this.httpClient.post<boolean>("/api/template/delete", tempalteId);
+  }
+
 }

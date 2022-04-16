@@ -1,7 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { CustomerService } from '../shared/services/customer.service';
+import { SnackBarService } from '../shared/services/snackBar.service';
+import { StorageHelper } from '../shared/helpers/storage-helper';
+import { CustomerDto } from '../shared/models/customerDto.model';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +16,7 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
 
-  constructor(private httpClient: HttpClient, private router: Router, private _snackBar: MatSnackBar) {
+  constructor(private customerService: CustomerService, private router: Router, private snackBarService: SnackBarService) {
   }
 
   ngOnInit(): void {
@@ -23,14 +27,15 @@ export class LoginComponent implements OnInit {
    */
   logIn() {
     let body = {
-      'email': this.email,
-      'password': this.password
+      email: this.email,
+      password: this.password
     }
-    this.httpClient.post("/api/customer/login", body, {responseType: "text"}).subscribe(res => {
+    this.customerService.login(body).subscribe(res => {
       if (res) {
-        sessionStorage.setItem('customer', JSON.stringify(res));
+        StorageHelper.setUser(res as CustomerDto);
+        this.snackBarService.info('Login successful')
       } else {
-        this._snackBar.open('Invalid credentials', '', {duration: 3000});
+        this.snackBarService.error('Invalid credentials');
       }
     });
   }
