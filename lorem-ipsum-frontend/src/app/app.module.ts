@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,16 +33,18 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { PrettyXmlPipe } from './shared/pipes/pretty-xml.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
 import { TemplateService } from './shared/services/template.service';
-import {SignUpComponent} from './sign-up/sign-up.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 import { SnackBarService } from './shared/services/snackBar.service';
 import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { CustomerService } from './shared/services/customer.service';
+import { CommunicationService } from './shared/services/communication.service';
 
 
 @NgModule({
@@ -65,7 +67,6 @@ import { CustomerService } from './shared/services/customer.service';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NoopAnimationsModule,
     MatGridListModule,
     MatButtonToggleModule,
     MatButtonModule,
@@ -91,9 +92,10 @@ import { CustomerService } from './shared/services/customer.service';
     MatListModule,
     MatTableModule,
     MatSortModule,
-    MatDialogModule
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
-  providers: [TemplateService, SnackBarService, CustomerService],
+  providers: [TemplateService, SnackBarService, CustomerService, CommunicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

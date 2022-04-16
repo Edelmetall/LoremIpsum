@@ -7,6 +7,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { ConfirmDialogComponent } from '../shared/dialogs/confirm-dialog/confirm-dialog.component';
 import { StorageHelper } from '../shared/helpers/storage-helper';
 import { TemplateDto } from '../shared/models/templateDto.model';
+import { CommunicationService } from '../shared/services/communication.service';
 import { SnackBarService } from '../shared/services/snackBar.service';
 import { TemplateService } from '../shared/services/template.service';
 
@@ -24,7 +25,11 @@ export class TemplateListComponent implements OnInit {
   sharedFilteredTemplates!: Observable<Template[]>;
   loading = true;
 
-  constructor(private templateService: TemplateService, private router: Router, private snackBarService: SnackBarService, private dialog: MatDialog) { }
+  constructor(private templateService: TemplateService,
+    private router: Router,
+    private snackBarService: SnackBarService,
+    private dialog: MatDialog,
+    private communicationService: CommunicationService) { }
 
   ngOnInit(): void {
     this.loadTemplates();
@@ -44,19 +49,25 @@ export class TemplateListComponent implements OnInit {
   }
 
   loadTemplates() {
-    this.templateService.getAllTemplates().subscribe((templates: TemplateDto[]) => {
-      const currentUserId = StorageHelper.getCurrentUserId();
-      _.forEach(templates, template => {
-        const tModel = { id: template.id, name: template.name, desc: template.rowTemplateDtoSet.map(row => row.dataType).join(', ') } as Template;
-        if (template.ownerId === currentUserId) {
-          this.templates.push(tModel);
-        } else {
-          this.sharedTemplates.push(tModel);
-        }
-      });
-      this.templateFilter.setValue('');
-      this.loading = false;
+    this.communicationService.notifyLoading(true)
+    this.templateService.getAllTemplates().subscribe({
+      next: (templates: TemplateDto[]) => this.onTemplatesLoaded(templates),
+      complete: () => this.communicationService.notifyLoading(false)
     });
+  }
+
+  onTemplatesLoaded(templates: TemplateDto[]) {
+    const currentUserId = StorageHelper.getCurrentUserId();
+    _.forEach(templates, template => {
+      const tModel = { id: template.id, name: template.name, desc: template.rowTemplateDtoSet.map(row => row.dataType).join(', ') } as Template;
+      if (template.ownerId === currentUserId) {
+        this.templates.push(tModel);
+      } else {
+        this.sharedTemplates.push(tModel);
+      }
+    });
+    this.templateFilter.setValue('');
+    this.loading = false;
   }
 
   openConfirmDialog(template: Template): void {
@@ -76,13 +87,17 @@ export class TemplateListComponent implements OnInit {
   }
 
   deleteTemplate(template: Template) {
-    this.templateService.deleteTemplate(template.id).subscribe((deleted: boolean) => {
-      if (deleted) {
-        this.snackBarService.info(`Template '${template.name}' deleted`);
-        this.removeTemplate(template);
-      } else {
-        this.snackBarService.error(`Error during deletion of template '${template.name}'`);
-      }
+    this.communicationService.notifyLoading(true);
+    this.templateService.deleteTemplate(template.id).subscribe({
+      next: (deleted: boolean) => {
+        if (deleted) {
+          this.snackBarService.info(`Template '${template.name}' deleted`);
+          this.removeTemplate(template);
+        } else {
+          this.snackBarService.error(`Error during deletion of template '${template.name}'`);
+        }
+      },
+      complete: () => this.communicationService.notifyLoading(false)
     });
   }
 
