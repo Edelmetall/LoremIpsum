@@ -38,11 +38,6 @@ export class AutocompleteCellEditorComponent extends BaseCellEditor implements I
     return false;
   }
 
-  optionClicked(value: string){
-    console.log(value)
-    this.input.element.nativeElement.value = value;
-  }
-
   getValue() {
     if (this.options.indexOf(this.autocomplete.value) > -1) {
       return this.autocomplete.value;
