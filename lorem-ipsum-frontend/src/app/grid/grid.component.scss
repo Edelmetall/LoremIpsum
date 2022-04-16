@@ -1,9 +1,6 @@
-/*.mat-action-button {
-    margin-top: 5px;
-    background-color: black;
-    color: white;
-    float: right;
-}*/
+@use '../../theme.scss' as theme;
+@use '@angular/material' as mat;
+
 
 .full-width {
     width: 100%;
@@ -20,9 +17,14 @@
 }
 
 .button-bar button + button {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
 }
 
 .button-bar .spacer {
     flex: 1;
+}
+
+
+::ng-deep .ag-theme-material input[class^="ag-"][type="text"]:focus {
+    border-bottom-color: mat.get-color-from-palette(theme.$my-app-primary) !important;
 }

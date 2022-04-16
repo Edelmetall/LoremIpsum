@@ -6,3 +6,11 @@
 ::ng-deep .mat-autocomplete-panel {
     border-radius: 3px !important;
 }
+
+mat-form-field {
+    width: 90%;
+}
+
+option {
+    padding-left: 0px;
+}

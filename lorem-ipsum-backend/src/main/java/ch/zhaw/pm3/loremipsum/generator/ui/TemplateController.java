@@ -1,49 +1,61 @@
 package ch.zhaw.pm3.loremipsum.generator.ui;
 
-import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.generator.GenService;
+import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
-import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
+import ch.zhaw.pm3.loremipsum.generator.service.TemplateService;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.GenDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
-import java.util.stream.StreamSupport;
 
 @RestController
+@RequestMapping("/api/template")
 public class TemplateController {
 
-    private final TemplateRepository templateRepository;
     private final GenService genService;
+    private TemplateService templateService;
 
-    public TemplateController(@Autowired TemplateRepository templateRepository,
-                              @Autowired GenService genService) {
-        this.templateRepository = templateRepository;
+    public TemplateController(@Autowired GenService genService,
+                              @Autowired TemplateService templateService) {
         this.genService = genService;
+        this.templateService = templateService;
     }
 
     @Transactional
-    @GetMapping("/api/template/")
+    @GetMapping
     public Collection<TemplateDto> getAllTemplate() {
-        return StreamSupport.stream(templateRepository.findAll().spliterator(), false)
-                .map(templateEntity -> new TemplateDto().mapFrom(templateEntity)).toList();
+        return templateService.getAllTemplates();
     }
 
-    @GetMapping("/api/template/add")
     @Transactional
-    public TemplateEntity add() {
-        TemplateEntity templateEntity = new TemplateEntity("Test");
-        return templateRepository.save(templateEntity);
+    @GetMapping("/availableFormats")
+    public Collection<DataFormatEntity> getAvailableDataFormats() {
+        return templateService.getAvailableDataFormats();
     }
 
-    @PostMapping("/api/template/generate")
+    @Transactional
+    @GetMapping("/byId")
+    public TemplateDto getTemplateById(@RequestParam(name = "id") Long templateId) {
+        return templateService.getTemplateById(templateId);
+    }
+
+    @PostMapping("/save")
+    @Transactional
+    public TemplateDto save(@RequestBody final TemplateDto templateDto) {
+        return templateService.saveTemplate(templateDto);
+    }
+
+    @PostMapping("/delete")
+    @Transactional
+    public boolean delete(@RequestBody final Long templateId) {
+        return templateService.deleteTemplate(templateId);
+    }
+
+    @PostMapping("/generate")
     public String generateTemplate(@RequestBody final GenDto genDto) {
         return genService.generateStuff(genDto);
     }

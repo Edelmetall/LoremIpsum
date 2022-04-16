@@ -41,7 +41,7 @@ export class MatChipsCellRendererComponent implements ICellRendererAngularComp {
 
   private setValues(params: ICellRendererParams) {
     const values = params.value as string[];
-    this.chips = new Set(values.filter(v => !_.isEmpty(v)).map(v => new Chip(v)));
+    this.chips = new Set(_.filter(values, v => !_.isEmpty(v)).map(v => new Chip(v)));
   }
 
   righClick(event: any, pickerId: string) {

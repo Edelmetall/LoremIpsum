@@ -1,15 +1,15 @@
-<mat-form-field class="full-width">
+<mat-form-field class="full-width" *ngIf="isLoggedIn">
     <mat-label>Template name</mat-label>
-    <input matInput>
+    <input matInput [(ngModel)]="templateDto.name">
 </mat-form-field>
 
-<ag-grid-angular class="ag-theme-material" [rowData]="rowData" [rowSelection]="'multiple'"
-    [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true"
-    [stopEditingWhenCellsLoseFocus]="false" (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'">
+<ag-grid-angular *ngIf="dataLoaded" class="ag-theme-material" [rowData]="rowData" [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true" (gridReady)="onGridReady($event)"
+    [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
 </ag-grid-angular>
 
 <div class="button-bar" *ngIf="gridApi">
-    <button mat-mini-fab color="primary" (click)="addNewRow()">
+    <button mat-mini-fab color="primary" (click)="addRows()">
         <mat-icon>add</mat-icon>
     </button>
 
@@ -20,7 +20,8 @@
     <div class="spacer"></div>
 
     <button (click)="generate()" [disabled]="invalidRows" mat-raised-button color="primary">Generate</button>
-    <button mat-raised-button color="primary">Save</button>
+    <button *ngIf="isLoggedIn" (click)="saveTemplate()" [disabled]="invalidRows || !templateDto.name" mat-raised-button
+        color="primary">{{isTemplateOwner ? 'Save' : 'Save copy'}}</button>
 </div>
 
 <app-data-output [generatedData]="generatedData"></app-data-output>

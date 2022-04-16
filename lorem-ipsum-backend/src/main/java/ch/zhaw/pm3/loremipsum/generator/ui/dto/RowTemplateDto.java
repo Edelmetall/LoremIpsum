@@ -23,11 +23,4 @@ public class RowTemplateDto implements Serializable {
     private List<String> option;
     private String regex;
 
-
-    public RowTemplateDto mapFrom(RowTemplateEntity rowTemplateEntity) {
-        this.setId(rowTemplateEntity.getId());
-        this.setIndex(rowTemplateEntity.getIndex());
-        return this;
-    }
-
 }

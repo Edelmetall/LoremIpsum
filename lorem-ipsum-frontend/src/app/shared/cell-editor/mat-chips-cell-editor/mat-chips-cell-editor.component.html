@@ -1,5 +1,5 @@
 <div [ngStyle]="{'width.px': width}" style="height: 100%;">
-    <mat-form-field [ngStyle]="{'width.px': chipListWidth, 'padding.px': chipListPadding}">
+    <mat-form-field [ngStyle]="{'width.px': chipListWidth, 'padding.px': chipListPadding}" appearance="fill">
         <mat-chip-list #chipList aria-label="Video keywords" multiple [formControl]="formControl">
             <mat-chip *ngFor="let chip of chips" [selected]="chip.value" [value]="chip.value"
                 (contextmenu)="righClick($event, chip.value+'picker')" [ngStyle]="{'background-color': chip.color}"
