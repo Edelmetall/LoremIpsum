@@ -1,6 +1,6 @@
 export class RowTemplateDto {
   // Technisch
-  id!: bigint;
+  id?: bigint;
 
   // Fachliche
   index!: number;

@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
 import { ICellEditorParams } from 'ag-grid-community';
-import { COMMA, SEMICOLON, TAB } from '@angular/cdk/keycodes';
+import { COMMA, SEMICOLON } from '@angular/cdk/keycodes';
 
 import * as _ from 'lodash';
 import { Chip } from '../../cell-renderer/mat-chips-cell-renderer/mat-chips-cell-renderer.component';
@@ -18,20 +18,24 @@ export class MatChipsCellEditorComponent implements ICellEditorAngularComp, Afte
 
   @ViewChild("input", { read: ViewContainerRef })
   public input!: ViewContainerRef;
-  chips!: Set<Chip>;
+  chips!: Chip[];
   addOnBlur = true;
   chipListPadding = 5;
-  readonly separatorKeysCodes = [COMMA, SEMICOLON, TAB] as const;
+  readonly separatorKeysCodes = [COMMA, SEMICOLON] as const;
 
   getValue() {
     let value = new Array<string>();
+    const inputValue = this.input.element.nativeElement.value;
+    if (!_.isNil(inputValue) && !_.isEmpty(inputValue)) {
+      this.addChip(inputValue);
+    }
     this.chips.forEach(chip => value.push(`${chip.value}`))
     return value;
   }
   agInit(params: ICellEditorParams): void {
     this.params = params;
     const values = params.value as string[];
-    this.chips = new Set(values.filter(v => !_.isEmpty(v)).map(v => new Chip(v)));
+    this.chips = _.filter(values, v => !_.isEmpty(v)).map(v => new Chip(v));
     this.params.api.sizeColumnsToFit();
   }
 
@@ -49,10 +53,17 @@ export class MatChipsCellEditorComponent implements ICellEditorAngularComp, Afte
 
   addChipFromInput(event: MatChipInputEvent) {
     if (event.value) {
-      this.chips.add(new Chip(event.value));
+      this.addChip(event.value);
       event.chipInput!.clear();
     }
   }
+
+  addChip(value: string) {
+    if(!_.some(this.chips, chip=>chip.value === value)){
+      this.chips.push(new Chip(value));
+    }
+  }
+
   onKeyDown(event: any): void {
     const keyCode = event.keyCode;
     this.params.api.sizeColumnsToFit();
@@ -62,7 +73,7 @@ export class MatChipsCellEditorComponent implements ICellEditorAngularComp, Afte
   }
 
   removeChip(chip: Chip) {
-    this.chips.delete(chip);
+    this.chips.splice(this.chips.indexOf(chip), 1);
   }
 
   private preventDefaultAndPropagation(event: any) {

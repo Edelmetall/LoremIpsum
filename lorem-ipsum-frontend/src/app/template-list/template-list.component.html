@@ -1,28 +1,33 @@
 <div>
     <mat-form-field class="full-width">
         <mat-label>Search for template</mat-label>
-        <input matInput>
+        <input matInput [formControl]="templateFilter">
     </mat-form-field>
 </div>
 
 <h2>Your templates</h2>
 <ul>
-    <li *ngFor="let template of templates">
+    <li *ngFor="let template of filteredTemplates | async" (click)="editTemplate(template.id)">
         <span class="name">{{template.name}}</span>
         <span class="desc">{{template.desc}}</span>
         <button mat-icon-button>
             <mat-icon>{{template.favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
         </button>
+        <button mat-icon-button (click)="$event.stopPropagation();openConfirmDialog(template)">
+            <mat-icon>delete</mat-icon>
+        </button>
     </li>
+    <p *ngIf="(filteredTemplates| async)?.length === 0">No templates</p>
 </ul>
 
 <h2>Shared templates</h2>
 <ul>
-    <li *ngFor="let template of sharedTemplates">
+    <li *ngFor="let template of sharedFilteredTemplates | async" (click)="editTemplate(template.id)">
         <span class="name">{{template.name}}</span>
         <span class="desc">{{template.desc}}</span>
         <button mat-icon-button>
             <mat-icon>{{template.favorite ? 'favorite' : 'favorite_border'}}</mat-icon>
         </button>
     </li>
+    <p *ngIf="(sharedFilteredTemplates | async)?.length === 0">No templates</p>
 </ul>
