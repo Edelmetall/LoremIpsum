@@ -60,6 +60,8 @@ public class LoremIpsumApplication {
 
             TemplateEntity entity = new TemplateEntity("Test");
 
+            entity.setOwner(customerRepository.findById(50L));
+
             RowTemplateEntity one = new RowTemplateEntity();
             one.setIndex(1);
             one.setDataFormatEntity(dataFormatRepository.findById(50L).get());
