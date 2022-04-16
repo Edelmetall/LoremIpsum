@@ -2,7 +2,7 @@ package ch.zhaw.pm3.loremipsum;
 
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
-import ch.zhaw.pm3.loremipsum.generator.EntryTypeEnum;
+import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
