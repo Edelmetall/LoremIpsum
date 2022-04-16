@@ -1,0 +1,23 @@
+.loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.overlay {
+    background-color: white;
+    opacity: 0.5;
+    z-index: 1;
+}
+
+.spinner {
+    display: flex;
+    align-items: center;
+    z-index: 2;
+}
+
+mat-spinner {
+    margin: 0 auto;
+}

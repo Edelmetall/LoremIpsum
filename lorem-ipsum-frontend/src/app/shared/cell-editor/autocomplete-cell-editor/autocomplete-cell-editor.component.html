@@ -1,12 +1,9 @@
 <form class="example-form">
-    <mat-form-field appearance="fill"
-        style="height: 100%; padding-top: 10px;">
+    <mat-form-field appearance="fill" style="height: 100%; padding-top: 10px;">
         <input #input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="autocomplete"
-            [matAutocomplete]="auto">
-        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option #option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{option}}
-            </mat-option>
-        </mat-autocomplete>
+            list="options" autocomplete="off">
     </mat-form-field>
+    <datalist id="options">
+        <option *ngFor="let option of filteredOptions | async" [value]="option">
+    </datalist>
 </form>

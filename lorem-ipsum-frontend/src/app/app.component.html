@@ -1,4 +1,11 @@
 <app-navbar></app-navbar>
+<ng-container *ngIf="loading">
+    <div class="loading-container spinner">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div class="loading-container overlay">
+    </div>
+</ng-container>
 <div id="container">
     <router-outlet></router-outlet>
 </div>

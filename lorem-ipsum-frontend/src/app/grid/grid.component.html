@@ -4,8 +4,8 @@
 </mat-form-field>
 
 <ag-grid-angular *ngIf="dataLoaded" class="ag-theme-material" [rowData]="rowData" [defaultColDef]="defaultColDef"
-    [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true" [stopEditingWhenCellsLoseFocus]="false"
-    (gridReady)="onGridReady($event)" [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
+    [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true" (gridReady)="onGridReady($event)"
+    [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
 </ag-grid-angular>
 
 <div class="button-bar" *ngIf="gridApi">
