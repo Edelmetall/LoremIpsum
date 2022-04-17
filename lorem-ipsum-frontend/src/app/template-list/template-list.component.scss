@@ -27,8 +27,19 @@ ul li + li {
     white-space: nowrap;
 }
 
-mat-form-field {
-    width: 100%;
+.filter {
+    display: flex;
+}
+
+.filter-input {
+    flex: 1;
+}
+
+.template-button {
+    order: 2;
+    margin-left: 10px;
+    margin-top: 10px;
+    height: 36px;
 }
 
 p {
