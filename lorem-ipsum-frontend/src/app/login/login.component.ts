@@ -6,6 +6,7 @@ import { StorageHelper } from '../shared/helpers/storage-helper';
 import { CustomerDto } from '../shared/models/customerDto.model';
 import { CommunicationService } from '../shared/services/communication.service';
 import { finalize } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(!_.isNil(StorageHelper.getCurrentUserId())){
+      this.router.navigateByUrl('');
+    }
   }
 
   /**
@@ -41,6 +45,7 @@ export class LoginComponent implements OnInit {
           if (res) {
             StorageHelper.setUser(res as CustomerDto);
             this.notificationService.info('Login successful')
+            this.router.navigateByUrl('');
           } else {
             this.notificationService.error('Invalid credentials');
           }
