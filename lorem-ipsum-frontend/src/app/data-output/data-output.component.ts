@@ -1,7 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Clipboard} from '@angular/cdk/clipboard';
-import {PrettyXmlPipe} from '../shared/pipes/pretty-xml.pipe';
-import {JsonPipe} from '@angular/common';
 import {OutputEnum} from './model';
 import {MatTabChangeEvent} from "@angular/material/tabs";
 import {NotificationService} from '../shared/services/notification.service';
@@ -10,7 +8,6 @@ import {CommunicationService} from '../shared/services/communication.service';
 @Component({
   selector: 'app-data-output',
   templateUrl: './data-output.component.html',
-  providers: [PrettyXmlPipe, JsonPipe],
   styleUrls: ['./data-output.component.scss']
 })
 export class DataOutputComponent implements OnInit {
@@ -31,7 +28,9 @@ export class DataOutputComponent implements OnInit {
     }
   ];
 
-  constructor(private notificationService: NotificationService, private clipboard: Clipboard, private communicationService: CommunicationService) {
+  constructor(private notificationService: NotificationService, 
+    private clipboard: Clipboard, 
+    private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
@@ -40,6 +39,17 @@ export class DataOutputComponent implements OnInit {
   copyData() {
     this.clipboard.copy(this.generatedData);
     this.notificationService.info('Data copied');
+  }
+
+  download() {
+    const element = document.createElement('a');
+    const fileType = this.outputEnum === OutputEnum.JSON ? 'text/json' : 'text/plain';
+    element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(this.generatedData)}`);
+    element.setAttribute('download', `template.${this.outputEnum.displayedText.toLowerCase()}`);
+
+    var event = new MouseEvent("click");
+    element.dispatchEvent(event);
+    element.remove();
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent) {
