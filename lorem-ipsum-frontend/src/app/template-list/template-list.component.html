@@ -1,8 +1,9 @@
-<div>
-    <mat-form-field class="full-width">
+<div class="filter">
+    <mat-form-field class="filter-input">
         <mat-label>Search for template</mat-label>
         <input matInput [formControl]="templateFilter">
     </mat-form-field>
+    <button [routerLink]="['']" class="template-button" color="primary" mat-raised-button>New template</button>
 </div>
 
 <h2>Your templates</h2>
