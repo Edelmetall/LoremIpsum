@@ -34,7 +34,6 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { PrettyXmlPipe } from './shared/pipes/pretty-xml.pipe';
 import { HttpClientModule } from '@angular/common/http';
 import { TemplateListComponent } from './template-list/template-list.component';
 import { LoginComponent } from './login/login.component';
@@ -57,7 +56,6 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     NavbarComponent,
     IconCellRendererComponent,
     DataOutputComponent,
-    PrettyXmlPipe,
     TemplateListComponent,
     LoginComponent,
     SignUpComponent,
