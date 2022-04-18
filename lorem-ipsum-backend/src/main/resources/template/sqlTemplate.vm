@@ -1,0 +1,18 @@
+## @formatter:off
+DROP TABLE IF EXISTS `myTable`;
+
+CREATE TABLE `myTable` (
+    `id` mediumint(8) unsigned NOT NULL auto_increment,
+#foreach ($entryType in $entryTypes)
+    `${entryType.name}` varchar(255) default NULL,
+#end
+    PRIMARY KEY (`id`)
+) AUTO_INCREMENT=1;
+
+INSERT INTO `myTable` (#foreach ($entryType in $entryTypes)`${entryType.name}`#if($foreach.hasNext),#end#end)
+VALUES
+#foreach($map in $data)
+    (#foreach ($entry in $map.entrySet())"${entry.value}"#if($foreach.hasNext),#end#end)#if($foreach.hasNext),#end
+
+#end
+## @formatter:on
