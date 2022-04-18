@@ -1,0 +1,38 @@
+@startuml
+left to right direction
+actor "Nutzer" as u
+actor "Anonym" as au
+actor "Mit Account" as mau
+actor "Premium" as pu
+actor "Mail Provider" as mail
+
+' Vererbung der Akteure
+u <|-left- au
+u <|-left- mau
+mau <|-left- pu
+
+rectangle LoremIpsum {
+  usecase "UC1: Download der randomisierten Daten" as UC1
+  usecase "UC2: Erstellt Daten Vorlage" as UC2
+   UC2 .down.> (Ausgabeformat) : include
+   UC2 .down.> (Testdaten Struktur selektieren) : include
+  usecase "UC3: Accountdaten erfassen" as UC3
+  usecase "Aktivierungsmail versenden" as UC3.1
+  UC3 .down.> UC3.1: include
+  usecase "UC4: Externe Daten in Vorlage Einbauen" as UC4
+  usecase "Mustererkennung um auf eigene Daten zu mappen" as UC4.1
+  UC4 .down.> UC4.1: include
+  usecase "UC5: Wiederverwednung der erstellen Vorlagen" as UC5
+  usecase "UC6: Aktivierung der REST API" as UC6
+  usecase "UC7: Suchen über alle erstellen Daten Vorlagen" as UC7
+}
+
+u -- UC1
+u -- UC2
+au -- UC3
+mau -- UC4
+mau -- UC5
+pu -- UC6
+mau -- UC7
+UC3.1 -- mail
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+
+
+package Benutzer{
+object Benutzer
+}
+
+package Generator{
+object Template
+object Spaltekonfiguration
+object Datenformat
+object Strukturiert
+object Unstrukturiert
+object AktivState
+object Analyse
+object Typ
+object FachBedingung
+object Bedingung
+object BereichBedingung
+object LängeBedingung
+object Aktiv
+object Inaktiv
+
+}
+
+package Ausgabe{
+object Format
+object Option
+}
+
+Benutzer "1" o-right- "0..*" Template : erstellt >
+
+Template "1" *-- "1..*" Spaltekonfiguration
+Spaltekonfiguration "0..*" o-- "1" Datenformat :> besitz
+
+Template "0..*" o-right- "1" Format : > Wird geladen mit einem
+Format "1" *-down- "0..*" Option :kann haben >
+
+Datenformat "1" .right. "1" AktivState : Hat Status >
+AktivState <|-- Aktiv
+AktivState <|-- Inaktiv
+
+
+Datenformat <|-- Strukturiert
+Datenformat <|-left- Unstrukturiert
+Unstrukturiert "1" *-- "1" Analyse : > Triggert
+Analyse "0..*" .. "0..*" Strukturiert : Versucht zuzuweisen >
+
+Strukturiert "1" *-- "1" Typ : hat ein >
+Strukturiert "1" *-- "1" FachBedingung : kann mehrere haben >
+
+Typ "1" *-- "0..1" Bedingung: kann haben >
+Bedingung <|-right- LängeBedingung
+Bedingung <|-left- BereichBedingung
+
+@enduml
