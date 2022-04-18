@@ -25,11 +25,14 @@ export class DataOutputComponent implements OnInit {
     },
     {
       outputEnum: OutputEnum.JAVA, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      outputEnum: OutputEnum.SQL, delimiter: undefined, delimiterOptions: undefined
     }
   ];
 
-  constructor(private notificationService: NotificationService, 
-    private clipboard: Clipboard, 
+  constructor(private notificationService: NotificationService,
+    private clipboard: Clipboard,
     private communicationService: CommunicationService) {
   }
 
