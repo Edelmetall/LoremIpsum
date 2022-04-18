@@ -1,0 +1,53 @@
+@startuml
+class GenService
+
+
+package StrategyPatternTemplate{
+GenService -- AbstractEntryGenService : nutzt
+abstract class AbstractEntryGenService{
++ EntryDto genEntry(RowTemplateDto rowTemplateDto, Set<Option> optionDtoSet)
+# {abstract} String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+class FirstNameService{
+# String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+AbstractEntryGenService <|-- FirstNameService : extends
+
+class LastNameService{
+# String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+AbstractEntryGenService <|-- LastNameService : extends
+
+class TeleNrService{
+# String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+AbstractEntryGenService <|-- TeleNrService : extends
+}
+
+class OutputService
+
+package StrategyPatternOutput{
+OutputService -- AbstractOutputService : nutzt
+abstract class AbstractOutputService{
++ String generateOutputFile(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+# List<Map<String, String>> convertToSingleList(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+# {abstract} String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+}
+class JavaOutputService{
+# String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+}
+AbstractOutputService <|-- JavaOutputService : extends
+
+class JsonOutputService{
+# String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+}
+AbstractOutputService <|-- JsonOutputService : extends
+
+class XmlOutputService{
+# String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+}
+AbstractOutputService <|-- XmlOutputService : extends
+}
+
+
+@enduml
