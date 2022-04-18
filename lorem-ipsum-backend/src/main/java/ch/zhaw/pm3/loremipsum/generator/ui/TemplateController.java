@@ -1,16 +1,20 @@
 package ch.zhaw.pm3.loremipsum.generator.ui;
 
+import ch.zhaw.pm3.loremipsum.common.HeaderInfomation;
 import ch.zhaw.pm3.loremipsum.generator.GenService;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
-import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.service.TemplateService;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.GenDto;
+import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
+import ch.zhaw.pm3.loremipsum.output.OutputEnum;
+import ch.zhaw.pm3.loremipsum.output.OutputService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/template")
@@ -18,11 +22,14 @@ public class TemplateController {
 
     private final GenService genService;
     private TemplateService templateService;
+    private OutputService outputService;
 
     public TemplateController(@Autowired GenService genService,
-                              @Autowired TemplateService templateService) {
+                              @Autowired TemplateService templateService,
+                              @Autowired OutputService outputService) {
         this.genService = genService;
         this.templateService = templateService;
+        this.outputService = outputService;
     }
 
     @Transactional
@@ -57,7 +64,10 @@ public class TemplateController {
 
     @PostMapping("/generate")
     public String generateTemplate(@RequestBody final GenDto genDto) {
-        return genService.generateStuff(genDto);
+        List<HeaderInfomation> headerInfomationList = genService.getHeaderInformation(genDto);
+        List<RowEntryDto> rowEntryDtos = genService.generateData(genDto);
+
+        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInfomationList, rowEntryDtos);
     }
 
 }

@@ -16,6 +16,11 @@ public class JavaAttribute {
     private String name;
     private String type;
 
+    /**
+     * Gibt den Name des Attribute zurueck damit er als infix genutz werden kann. (Camelcase)
+     * Bsp: "name" -> "Name" fuer getName()
+     * @return Attributname fuer Infix formatiert
+     */
     public String getInfixName() {
         return Character.toUpperCase(name.charAt(0)) + name.substring(1);
     }

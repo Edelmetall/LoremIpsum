@@ -18,6 +18,12 @@ public class OutputService {
     private final JsonOutputService jsonOutputService;
     private final JavaOutputService javaOutputService;
 
+    /** Generiert anhand der mitgegebenen Parameter den Inhalt im gewuenschten Format als String und gibt diesen zurueck.
+     * @param outputEnum
+     * @param headerInformation
+     * @param rowEntryDtos
+     * @return
+     */
     public String generateModel(OutputEnum outputEnum, List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtos) {
         return switch (outputEnum) {
             case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos);

@@ -6,7 +6,7 @@ import ch.zhaw.pm3.loremipsum.customer.ui.transfer.LoginData;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.SignUpData;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
-import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
+import ch.zhaw.pm3.loremipsum.customer.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;

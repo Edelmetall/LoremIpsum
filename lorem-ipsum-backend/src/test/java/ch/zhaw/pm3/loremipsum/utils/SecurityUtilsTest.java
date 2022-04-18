@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.loremipsum.utils;
 
+import ch.zhaw.pm3.loremipsum.customer.utils.SecurityUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -3,10 +3,10 @@ package ch.zhaw.pm3.loremipsum.generator.data.mapper;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
-import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
+import ch.zhaw.pm3.loremipsum.generator.data.RowConfigurationEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.repo.DataFormatRepository;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
+import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowConfigurationDto;
 import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
 import org.modelmapper.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +48,11 @@ public class AutoMapper {
 
     private void addTemplateMapping() {
         modelMapper.typeMap(TemplateEntity.class, TemplateDto.class)
-                .addMapping(TemplateEntity::getRowTemplateEntities, TemplateDto::setRowTemplateDtoSet)
+                .addMapping(TemplateEntity::getRowTemplateEntities, TemplateDto::setRowConfigurationDtoSet)
                 .addMappings(mapper -> mapper.map(src -> src.getOwner().getId(), TemplateDto::setOwnerId));
 
         modelMapper.typeMap(TemplateDto.class, TemplateEntity.class)
-                .addMapping(TemplateDto::getRowTemplateDtoSet, TemplateEntity::setRowTemplateEntities)
+                .addMapping(TemplateDto::getRowConfigurationDtoSet, TemplateEntity::setRowTemplateEntities)
                 .addMapping(TemplateDto::getOwnerId, TemplateEntity::setOwner);
 
         modelMapper.typeMap(Long.class, CustomerEntity.class).setConverter(mappingContext -> {
@@ -62,11 +62,11 @@ public class AutoMapper {
     }
 
     private void addRowTemplateMapping() {
-        modelMapper.typeMap(RowTemplateEntity.class, RowTemplateDto.class)
-                .addMappings(mapper -> mapper.map(src -> src.getDataFormatEntity().getName(), RowTemplateDto::setDataType));
+        modelMapper.typeMap(RowConfigurationEntity.class, RowConfigurationDto.class)
+                .addMappings(mapper -> mapper.map(src -> src.getDataFormatEntity().getName(), RowConfigurationDto::setDataType));
 
-        modelMapper.typeMap(RowTemplateDto.class, RowTemplateEntity.class)
-                .addMappings(mapper -> mapper.map(RowTemplateDto::getDataType, RowTemplateEntity::setDataFormatEntity));
+        modelMapper.typeMap(RowConfigurationDto.class, RowConfigurationEntity.class)
+                .addMappings(mapper -> mapper.map(RowConfigurationDto::getDataType, RowConfigurationEntity::setDataFormatEntity));
 
         modelMapper.typeMap(String.class, DataFormatEntity.class).setConverter(mappingContext ->
                 dataFormatRepository.findByName(mappingContext.getSource()));
