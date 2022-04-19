@@ -8,6 +8,8 @@ public interface CustomerRepository extends CrudRepository<CustomerEntity, Long>
 
     List<CustomerEntity> findByLastName(String lastName);
 
+    boolean existsByEmail(String email);
+
     CustomerEntity findByEmailAndEncodedPassword(String email, byte[] encodedPassword);
 
     CustomerEntity findById(long id);

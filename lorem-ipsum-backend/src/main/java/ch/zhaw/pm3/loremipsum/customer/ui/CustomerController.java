@@ -65,14 +65,17 @@ public class CustomerController {
      */
     @PostMapping("/api/customer/signup")
     public CustomerEntity signup(@RequestBody SignUpData signUpData) {
-        String password = signUpData.getPassword();
-        byte[] encodedPassword = SecurityUtils.encodePassword(SecurityUtils.md5(signUpData.getEmail()), password);
+        if (signUpData.isValid() && !repository.existsByEmail(signUpData.getEmail())) {
+            String password = signUpData.getPassword();
+            byte[] encodedPassword = SecurityUtils.encodePassword(SecurityUtils.md5(signUpData.getEmail()), password);
 
-        CustomerEntity customerEntity = new CustomerEntity(signUpData.getFirstName(), signUpData.getLastName());
-        customerEntity.setEmail(signUpData.getEmail());
-        customerEntity.setEncodedPassword(encodedPassword);
+            CustomerEntity customerEntity = new CustomerEntity(signUpData.getFirstName(), signUpData.getLastName());
+            customerEntity.setEmail(signUpData.getEmail());
+            customerEntity.setEncodedPassword(encodedPassword);
 
-        return repository.save(customerEntity);
+            return repository.save(customerEntity);
+        }
+        return null;
     }
 
     @PutMapping("/api/customer/{id}")
