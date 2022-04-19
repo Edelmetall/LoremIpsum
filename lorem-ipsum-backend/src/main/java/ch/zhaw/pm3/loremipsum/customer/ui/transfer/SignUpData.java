@@ -17,6 +17,11 @@ public class SignUpData {
     private static final String REGEX_EMAIL = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
     private static final String REGEX_PASSWORD = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$";
 
+    /**
+     * Check if the data is valid
+     *
+     * @return true if all values are set and valid
+     */
     public boolean isValid() {
         return firstName != null && !firstName.isBlank() &&
                 lastName != null && !lastName.isBlank() &&
