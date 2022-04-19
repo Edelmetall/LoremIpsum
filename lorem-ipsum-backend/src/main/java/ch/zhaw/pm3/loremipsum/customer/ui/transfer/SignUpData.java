@@ -13,4 +13,14 @@ public class SignUpData {
     private String lastName;
     private String email;
     private String password;
+
+    private static final String REGEX_EMAIL = "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$";
+    private static final String REGEX_PASSWORD = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$";
+
+    public boolean isValid() {
+        return firstName != null && !firstName.isBlank() &&
+                lastName != null && !lastName.isBlank() &&
+                email != null && email.matches(REGEX_EMAIL) &&
+                password != null && password.matches(REGEX_PASSWORD);
+    }
 }
