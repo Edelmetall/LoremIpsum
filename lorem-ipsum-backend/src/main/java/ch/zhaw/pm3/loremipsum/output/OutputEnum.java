@@ -6,7 +6,8 @@ public enum OutputEnum {
     JSON("json"),
     JAVA("java"),
     CSV("csv"),
-    SQL("sql");
+    SQL("sql"),
+    PHP("php");
 
     private final String extension;
 

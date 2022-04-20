@@ -28,12 +28,15 @@ export class DataOutputComponent implements OnInit {
     },
     {
       outputEnum: OutputEnum.SQL, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      outputEnum: OutputEnum.PHP, delimiter: undefined, delimiterOptions: undefined
     }
   ];
 
   constructor(private notificationService: NotificationService,
-    private clipboard: Clipboard,
-    private communicationService: CommunicationService) {
+              private clipboard: Clipboard,
+              private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
