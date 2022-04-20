@@ -12,4 +12,5 @@ export class OutputEnum {
   public static JSON = {name: 'JSON', displayedText: 'JSON'};
   public static JAVA = {name: 'JAVA', displayedText: 'Java'};
   public static SQL = {name: 'SQL', displayedText: 'SQL'};
+  public static PHP = {name: 'PHP', displayedText: 'PHP'};
 }
