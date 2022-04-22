@@ -1,0 +1,67 @@
+<div class="form-small">
+  <h1>Hello, {{customer.firstName}} {{customer.lastName}}!</h1>
+
+  <mat-accordion>
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Change password</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div>
+        <ul class="form-fields">
+          <li>
+            <mat-form-field class="full-width">
+              <mat-label>Password (current)</mat-label>
+              <input [(ngModel)]="updatePassword.oldPassword" matInput type="password">
+            </mat-form-field>
+          </li>
+          <li>
+            <mat-form-field class="full-width">
+              <mat-label>Password (new)</mat-label>
+              <input [(ngModel)]="updatePassword.newPassword" matInput type="password">
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <div class="button-bar">
+          <button (click)="changePassword()" color="primary" mat-raised-button>Change password</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="vertical-spacer"></div>
+
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <h3>Change e-mail address</h3>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div>
+        <ul class="form-fields">
+          <li>
+            <mat-form-field class="full-width">
+              <mat-label>E-mail</mat-label>
+              <input [(ngModel)]="updateEmail.newEmail" matInput type="email">
+            </mat-form-field>
+          </li>
+          <li>
+            <mat-form-field class="full-width">
+              <mat-label>Password</mat-label>
+              <input [(ngModel)]="updateEmail.password" matInput type="password">
+            </mat-form-field>
+          </li>
+        </ul>
+
+        <div class="button-bar">
+          <button (click)="changeEmail()" color="primary" mat-raised-button>Change e-mail address</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

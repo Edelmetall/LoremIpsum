@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.transaction.Transactional;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -45,7 +44,7 @@ public class LoremIpsumApplication {
             Stream.of("John", "Julie", "Jennifer", "Helen", "Rachel").forEach(name -> {
                 CustomerEntity user = new CustomerEntity(name, name.toLowerCase() + "@domain.com");
                 user.setEmail(name);
-                user.setEncodedPassword(SecurityUtils.encodePassword(SecurityUtils.md5(user.getEmail()), "1234"));
+                user.setPassword(SecurityUtils.encodePassword(SecurityUtils.md5(user.getEmail()), "1234"));
                 customerRepository.save(user);
             });
             customerRepository.findAll().forEach(System.out::println);

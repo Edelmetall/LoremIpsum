@@ -154,7 +154,7 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   get currentUserId(): bigint | undefined {
-    return StorageHelper.getCurrentUserId();
+    return StorageHelper.getCustomerId();
   }
 
   get isTemplateOwner(): boolean {

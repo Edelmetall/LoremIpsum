@@ -3,6 +3,8 @@ package ch.zhaw.pm3.loremipsum.customer.ui;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.LoginData;
+import ch.zhaw.pm3.loremipsum.customer.ui.transfer.UpdateEmailData;
+import ch.zhaw.pm3.loremipsum.customer.ui.transfer.UpdatePasswordData;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.SignUpData;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
@@ -19,6 +21,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -54,7 +58,19 @@ public class CustomerController {
         String email = loginData.getEmail();
         String password = loginData.getPassword();
         byte[] encodedPassword = SecurityUtils.encodePassword(SecurityUtils.md5(email), password);
-        return repository.findByEmailAndEncodedPassword(email, encodedPassword);
+
+        CustomerEntity customer = repository.findByEmailAndPassword(email, encodedPassword);
+
+        // temporary reset password is only valid for 24 hours
+        if (customer != null) {
+            customer.setPassword(null);
+            if (customer.getPasswordResetAt() != null &&
+                    customer.getPasswordResetAt().isAfter(LocalDateTime.now().plusHours(24))) {
+                return null;
+            }
+        }
+
+        return customer;
     }
 
     /**
@@ -71,9 +87,84 @@ public class CustomerController {
 
             CustomerEntity customerEntity = new CustomerEntity(signUpData.getFirstName(), signUpData.getLastName());
             customerEntity.setEmail(signUpData.getEmail());
-            customerEntity.setEncodedPassword(encodedPassword);
+            customerEntity.setPassword(encodedPassword);
 
-            return repository.save(customerEntity);
+            customerEntity = repository.save(customerEntity);
+
+            // todo send e-mail login successful
+
+            return customerEntity;
+        }
+        return null;
+    }
+
+    /**
+     * Reset the password for a customer
+     *
+     * @param email customer e-mail address
+     */
+    @GetMapping("/api/customer/resetPassword/{email}")
+    public void resetPassword(@PathVariable String email) {
+        CustomerEntity customerEntity = repository.findByEmail(email);
+        if (customerEntity != null) {
+            String password = SecurityUtils.generatePassword();
+            byte[] encoded = SecurityUtils.encodePassword(SecurityUtils.md5(customerEntity.getEmail()), password);
+
+            customerEntity.setPassword(encoded);
+            customerEntity.setPasswordResetAt(LocalDateTime.now());
+
+            repository.save(customerEntity);
+
+            // todo send e-mail with new password and remove print
+            System.out.println("New password: " + password);
+        }
+    }
+
+    /**
+     * Change the password for a customer
+     *
+     * @param updatePasswordData contains the old password, new password and the customer id
+     * @return updated customer entity
+     */
+    @PostMapping("/api/customer/updatePassword")
+    public CustomerEntity updatePassword(@RequestBody UpdatePasswordData updatePasswordData) {
+        if (updatePasswordData.isValid()) {
+            CustomerEntity customerEntity = repository.findById(updatePasswordData.getCustomerId());
+            if (customerEntity != null) {
+                byte[] salt = SecurityUtils.md5(customerEntity.getEmail());
+                if (Arrays.equals(customerEntity.getPassword(),
+                        SecurityUtils.encodePassword(salt, updatePasswordData.getOldPassword()))) {
+                    customerEntity.setPassword(SecurityUtils.encodePassword(salt, updatePasswordData.getNewPassword()));
+                    customerEntity.setPasswordResetAt(null); // in case the previous password was a temporary reset password
+                    return repository.save(customerEntity);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Change the e-mail address for a customer
+     *
+     * @param updateEmailData contains the old password, new password and the customer id
+     * @return updated customer entity
+     */
+    @PostMapping("/api/customer/updateEmail")
+    public CustomerEntity updateEmail(@RequestBody UpdateEmailData updateEmailData) {
+        if (updateEmailData.isValid()) {
+            CustomerEntity customerEntity = repository.findById(updateEmailData.getCustomerId());
+            if (customerEntity != null) {
+                byte[] salt = SecurityUtils.md5(customerEntity.getEmail());
+                if (Arrays.equals(customerEntity.getPassword(),
+                        SecurityUtils.encodePassword(salt, updateEmailData.getPassword()))) {
+                    customerEntity.setEmail(updateEmailData.getNewEmail());
+                    customerEntity = repository.save(customerEntity);
+
+                    // todo send e-mail to old and new e-mail address
+
+                    return customerEntity;
+                }
+            }
         }
         return null;
     }
