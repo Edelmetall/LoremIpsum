@@ -4,6 +4,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 
@@ -45,5 +46,28 @@ public class SecurityUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * generate a random password (8 character with one uppercase letter and one digit)
+     *
+     * @return random password
+     */
+    public static String generatePassword() {
+        SecureRandom random = new SecureRandom();
+
+        char[] password = new char[8];
+        int indexUpper = random.nextInt(password.length / 2);
+        int indexDigit = random.nextInt(password.length / 2) + password.length / 2;
+
+        for (int i = 0; i < password.length; i++) {
+            if (i == indexDigit) {
+                password[i] = (char) ('0' + random.nextInt(10)); // random digit
+            } else {
+                password[i] = (char) ((i == indexUpper ? 'A' : 'a') + random.nextInt(26)); // random letter
+            }
+        }
+
+        return String.valueOf(password);
     }
 }

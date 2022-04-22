@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,7 +30,8 @@ public class CustomerEntity {
     private String firstName;
     private String lastName;
     private String email;
-    private byte[] encodedPassword;
+    private byte[] password;
+    private LocalDateTime passwordResetAt;
 
     @Column
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)

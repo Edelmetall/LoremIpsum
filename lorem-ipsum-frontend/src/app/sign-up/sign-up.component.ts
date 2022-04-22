@@ -5,6 +5,8 @@ import { CustomerService } from '../shared/services/customer.service';
 import { SignUpData } from './model';
 import { CommunicationService } from '../shared/services/communication.service';
 import { finalize } from 'rxjs';
+import {StorageHelper} from "../shared/helpers/storage-helper";
+import {CustomerDto} from "../shared/models/customerDto.model";
 
 @Component({
   selector: 'app-sign-up',
@@ -33,7 +35,8 @@ export class SignUpComponent implements OnInit {
       .subscribe({
         next: res => {
           if (res) {
-            this.router.navigateByUrl('login');
+            StorageHelper.setCustomer(res as CustomerDto);
+            this.router.navigateByUrl('');
             this.notificationService.info('Sign up successful');
           } else {
             this.notificationService.error('Could not complete sign up');

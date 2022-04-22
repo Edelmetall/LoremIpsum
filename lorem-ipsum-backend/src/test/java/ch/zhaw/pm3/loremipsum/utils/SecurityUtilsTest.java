@@ -54,4 +54,17 @@ public class SecurityUtilsTest {
         Assertions.assertFalse(Arrays.equals(hash1, hash2),
                 "MD5 hash of %s and %s should not be the same".formatted(test1, test2));
     }
+
+    /**
+     * Test generatePassword method
+     */
+    @Test
+    public void testGeneratePassword() {
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$";
+
+        for (int i = 0; i < 100; i++) {
+            String password = SecurityUtils.generatePassword();
+            Assertions.assertTrue(password.matches(regex));
+        }
+    }
 }

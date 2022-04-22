@@ -44,6 +44,7 @@ import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-
 import { CustomerService } from './shared/services/customer.service';
 import { CommunicationService } from './shared/services/communication.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
     TemplateListComponent,
     LoginComponent,
     SignUpComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

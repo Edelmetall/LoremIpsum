@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {CustomerDto} from "../shared/models/customerDto.model";
+import {StorageHelper} from "../shared/helpers/storage-helper";
 
 @Component({
   selector: 'app-navbar',
@@ -8,16 +9,11 @@ import {CustomerDto} from "../shared/models/customerDto.model";
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  customer!: CustomerDto;
 
   constructor(private router: Router) {
   }
 
   ngOnInit(): void {
-    let customer = sessionStorage.getItem('customer');
-    if (customer) {
-      this.customer = JSON.parse(customer) as CustomerDto;
-    }
   }
 
   homeId = "home-menu-item";
@@ -26,8 +22,11 @@ export class NavbarComponent implements OnInit {
   profileId = "profile-menu-item";
   logOutId = "log-out-menu-item";
 
-  markAsActive(id: string) {
-    //todo
+  /**
+   * get logged in customer/user
+   */
+  getCustomer(): CustomerDto {
+    return StorageHelper.getCustomer();
   }
 
   /**
@@ -35,8 +34,8 @@ export class NavbarComponent implements OnInit {
    * @param url destination
    */
   navigate(url: string) {
-    if (url === 'login' && this.customer) {
-      sessionStorage.removeItem('customer');
+    if (url === 'login' && StorageHelper.getCustomer()) {
+      StorageHelper.setCustomer(undefined);
     }
     this.router.navigateByUrl(url);
   }

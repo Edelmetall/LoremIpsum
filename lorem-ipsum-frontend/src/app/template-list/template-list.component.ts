@@ -58,7 +58,7 @@ export class TemplateListComponent implements OnInit {
   }
 
   onTemplatesLoaded(templates: TemplateDto[]) {
-    const currentUserId = StorageHelper.getCurrentUserId();
+    const currentUserId = StorageHelper.getCustomerId();
     _.forEach(templates, template => {
       const tModel = { id: template.id, name: template.name, desc: template.rowTemplateDtoSet.map(row => row.dataType).join(', ') } as Template;
       if (template.ownerId === currentUserId) {
