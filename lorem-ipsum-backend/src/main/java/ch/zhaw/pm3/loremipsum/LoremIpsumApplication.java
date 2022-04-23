@@ -4,12 +4,12 @@ import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
-import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
+import ch.zhaw.pm3.loremipsum.generator.data.RowConfigurationEntity;
 import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.repo.DataFormatRepository;
 import ch.zhaw.pm3.loremipsum.generator.repo.RowTemplateRepository;
 import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
-import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
+import ch.zhaw.pm3.loremipsum.customer.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import javax.transaction.Transactional;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
@@ -62,12 +61,12 @@ public class LoremIpsumApplication {
 
             entity.setOwner(customerRepository.findById(50L));
 
-            RowTemplateEntity one = new RowTemplateEntity();
+            RowConfigurationEntity one = new RowConfigurationEntity();
             one.setIndex(1);
             one.setDataFormatEntity(dataFormatRepository.findById(50L).get());
             one.setName("firstName");
 
-            RowTemplateEntity second = new RowTemplateEntity();
+            RowConfigurationEntity second = new RowConfigurationEntity();
             second.setIndex(2);
             second.setDataFormatEntity(dataFormatRepository.findById(51L).get());
             second.setName("lastName");

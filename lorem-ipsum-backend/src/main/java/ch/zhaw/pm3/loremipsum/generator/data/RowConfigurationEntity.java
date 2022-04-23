@@ -1,17 +1,18 @@
 package ch.zhaw.pm3.loremipsum.generator.data;
 
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
+/**
+ * Entity fuer die abbildung von Spaltenkonfiguration.
+ */
 @Getter
 @Setter
-@Entity(name = "ROW_TEMPLATE")
-public class RowTemplateEntity {
+@Entity(name = "ROW_CONFIGURATION")
+public class RowConfigurationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "row_gen")

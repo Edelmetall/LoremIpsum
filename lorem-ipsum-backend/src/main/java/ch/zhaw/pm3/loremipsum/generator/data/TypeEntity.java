@@ -2,6 +2,10 @@ package ch.zhaw.pm3.loremipsum.generator.data;
 
 import javax.persistence.*;
 
+/**
+ * Entity fuer die abbildung von Technischen Typ.
+ *
+ */
 @Entity(name = "Type")
 public class TypeEntity {
 

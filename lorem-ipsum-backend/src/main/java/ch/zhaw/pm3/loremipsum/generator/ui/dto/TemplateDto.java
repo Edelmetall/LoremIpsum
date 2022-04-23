@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.loremipsum.generator.ui.dto;
 
-import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,12 +14,12 @@ public class TemplateDto implements Serializable {
     private Long id;
     private String name;
     private Long ownerId;
-    private List<RowTemplateDto> rowTemplateDtoSet;
+    private List<RowConfigurationDto> rowConfigurationDtoSet;
 
-    public List<RowTemplateDto> getRowTemplateDtoSet() {
-        if (this.rowTemplateDtoSet == null) {
-            this.rowTemplateDtoSet = new ArrayList<>();
+    public List<RowConfigurationDto> getRowConfigurationDtoSet() {
+        if (this.rowConfigurationDtoSet == null) {
+            this.rowConfigurationDtoSet = new ArrayList<>();
         }
-        return this.rowTemplateDtoSet;
+        return this.rowConfigurationDtoSet;
     }
 }

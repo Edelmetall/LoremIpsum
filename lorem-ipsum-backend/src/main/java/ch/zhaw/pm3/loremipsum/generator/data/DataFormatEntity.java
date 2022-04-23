@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+
+/**
+ * Abstract Entity fuer die abbildung von Datenformat.
+ */
 @Getter
 @Setter
 @Entity(name = "DATA_FORMAT")

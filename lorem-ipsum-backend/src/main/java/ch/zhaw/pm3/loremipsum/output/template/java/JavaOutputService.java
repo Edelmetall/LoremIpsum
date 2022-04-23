@@ -22,6 +22,12 @@ public class JavaOutputService extends AbstractOutputService {
     }
 
 
+    /**
+     * Erstellt eine Javaklasse mit Liste mit den mitgegebenen Parameter.
+     * @param headerInformation headerinformationen fuer die Attribute
+     * @param rowEntryDtoSet Daten fuer die listenerstellung
+     * @return Inhalt von Java Klasse mit Liste von Testdaten
+     */
     @Override
     protected String generateOutputFileIntern(List<HeaderInfomation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
         VelocityContext context = new VelocityContext();

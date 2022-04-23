@@ -1,19 +1,17 @@
 package ch.zhaw.pm3.loremipsum.generator.data;
 
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowTemplateDto;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.TemplateDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.velocity.Template;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+/**
+ * Entity fuer die abbildung von Template.
+ */
 @Getter
 @Setter
 @Entity(name = "TEMPLATE")
@@ -32,7 +30,7 @@ public class TemplateEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "templateEntity", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
-    private List<RowTemplateEntity> rowTemplateEntities;
+    private List<RowConfigurationEntity> rowTemplateEntities;
 
     protected TemplateEntity() {
     }
@@ -41,7 +39,7 @@ public class TemplateEntity {
         this.name = name;
     }
 
-    public List<RowTemplateEntity> getRowTemplateEntities() {
+    public List<RowConfigurationEntity> getRowTemplateEntities() {
         if (rowTemplateEntities == null) {
             this.rowTemplateEntities = new ArrayList<>();
         }

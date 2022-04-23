@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.loremipsum.utils;
+package ch.zhaw.pm3.loremipsum.customer.utils;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

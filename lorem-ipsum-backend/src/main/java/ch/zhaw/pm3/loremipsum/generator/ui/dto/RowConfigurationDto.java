@@ -1,6 +1,5 @@
 package ch.zhaw.pm3.loremipsum.generator.ui.dto;
 
-import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RowTemplateDto implements Serializable {
+public class RowConfigurationDto implements Serializable {
 
     // Technisch
     private Long id;
