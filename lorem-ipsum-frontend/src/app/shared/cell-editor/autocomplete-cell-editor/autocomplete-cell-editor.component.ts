@@ -1,6 +1,8 @@
 import { AfterViewInit, Component, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ICellEditorAngularComp } from 'ag-grid-angular';
+import { ICellEditorParams } from 'ag-grid-community';
+import * as _ from 'lodash';
 import { map, Observable, startWith } from 'rxjs';
 import { BaseCellEditor } from '../base-cell-editor';
 
@@ -28,7 +30,7 @@ export class AutocompleteCellEditorComponent extends BaseCellEditor implements I
 
   ngAfterViewInit(): void {
     window.setTimeout(() => {
-      this.input.element.nativeElement.click();
+      this.input.element.nativeElement.focus();
       this.autocomplete.setValue(this.params.value);
     }, 0);
   }
@@ -38,10 +40,14 @@ export class AutocompleteCellEditorComponent extends BaseCellEditor implements I
   }
 
   getValue() {
-    if (this.options.indexOf(this.autocomplete.value) > -1) {
-      return this.autocomplete.value;
-    }
-    return '';
+    var value = '';
+    _.forEach(this.options, option => {
+      if (option.toLowerCase() === this.autocomplete.value.toLowerCase()) {
+        value = option;
+        return;
+      }
+    })
+    return value;
   }
 
   private _filter(value: string): string[] {

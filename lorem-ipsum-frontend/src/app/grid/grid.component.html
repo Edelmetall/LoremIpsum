@@ -3,10 +3,10 @@
   <input matInput [(ngModel)]="templateDto.name">
 </mat-form-field>
 
-<ag-grid-angular *ngIf="dataLoaded" class="ag-theme-material" [rowData]="rowData" [defaultColDef]="defaultColDef"
+<ag-grid-angular *ngIf="dataLoaded" id="grid" class="ag-theme-material" [rowData]="rowData" [defaultColDef]="defaultColDef"
                  [columnDefs]="columnDefs" [rowDragManaged]="true" [animateRows]="true"
                  (gridReady)="onGridReady($event)"
-                 [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="true">
+                 [domLayout]="'autoHeight'" [stopEditingWhenCellsLoseFocus]="false">
 </ag-grid-angular>
 
 <div class="button-bar" *ngIf="gridApi">

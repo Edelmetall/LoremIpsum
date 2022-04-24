@@ -1,6 +1,7 @@
 import { ColDef } from "ag-grid-community";
+import * as _ from "lodash";
 import { AutocompleteCellEditorComponent } from "../shared/cell-editor/autocomplete-cell-editor/autocomplete-cell-editor.component";
-import { MatChipsCellEditorComponent } from "../shared/cell-editor/mat-chips-cell-editor/mat-chips-cell-editor.component";
+import { MultiSelectCellEditorComponent } from "../shared/cell-editor/multi-select-cell-editor/multi-select-cell-editor.component";
 import { IconCellRendererComponent } from "../shared/cell-renderer/icon-cell-renderer/icon-cell-renderer.component";
 import { MatChipsCellRendererComponent } from "../shared/cell-renderer/mat-chips-cell-renderer/mat-chips-cell-renderer.component";
 
@@ -32,20 +33,31 @@ export class RowModel {
 }
 
 export class GridConfig {
-    static dataTypeColDef: ColDef = { field: 'dataType', headerName: 'Datatype', cellEditor: AutocompleteCellEditorComponent, cellEditorParams: { options: [] } };
+    static dataTypeColDef: ColDef = {
+        field: 'dataType', headerName: 'Datatype',
+        cellEditor: AutocompleteCellEditorComponent, cellEditorParams: { options: [] }
+    };
+
+    static optionColDef: ColDef = {
+        field: 'option',
+        headerName: 'Option',
+        cellRenderer: MatChipsCellRendererComponent,
+        cellEditor: MultiSelectCellEditorComponent,
+        editable: this.optionCellEditable,
+        cellEditorParams: { options: [] }
+    };
+
+    static optionCellEditable(params: any): boolean {
+        const dataType = params.node.data.dataType;
+        return !_.isNil(dataType) && !_.isEmpty(dataType);
+    }
 
     static columnDefs: ColDef[] = [
         { field: '', sortable: false, rowDrag: true, editable: false, maxWidth: 42 },
         this.dataTypeColDef,
         { field: 'name', headerName: 'Name' },
         { field: 'example', headerName: 'Example' },
-        {
-            field: 'option',
-            headerName: 'Option',
-            cellRenderer: MatChipsCellRendererComponent,
-            cellEditor: MatChipsCellEditorComponent
-        },
-        { field: 'input', headerName: 'Input' },
+        this.optionColDef,
         { field: 'regex', headerName: 'Regex' },
         {
             field: '',

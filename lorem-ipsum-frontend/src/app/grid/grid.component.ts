@@ -1,5 +1,5 @@
 import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { GridApi, GridReadyEvent } from 'ag-grid-community';
+import { CellValueChangedEvent, GridApi, GridReadyEvent, NewValueParams } from 'ag-grid-community';
 import * as _ from 'lodash';
 import { GenDto } from '../shared/models/genDto.model';
 import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
@@ -27,6 +27,8 @@ export class GridComponent implements OnInit, OnDestroy {
   generatedData: string = "";
   columnDefs = GridConfig.columnDefs;
   defaultColDef = GridConfig.defaultColDef;
+  availableDataFormats!: { name: string, options: any }[];
+  clickListener!: any;
   dataLoaded = false;
 
   rowData: RowTemplateDto[] = [];
@@ -39,6 +41,8 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.clickListener = this.stopEditingWhenCellsLoseFocus.bind(this)
+    window.addEventListener('click', this.clickListener);
     this.outputTabSubscription = this.communicationService.onOutputTabChanged().subscribe(() => {
       this.generate();
     });
@@ -47,7 +51,10 @@ export class GridComponent implements OnInit, OnDestroy {
       .pipe(finalize(() => this.communicationService.notifyLoading(false)))
       .subscribe({
         next: (dataFormats: any) => {
+          this.availableDataFormats = dataFormats;
           GridConfig.dataTypeColDef.cellEditorParams.options = _.map(dataFormats, d => d.name);
+          GridConfig.dataTypeColDef.onCellValueChanged = this.onDataTypeChanged.bind(this)
+          GridConfig.optionColDef.cellEditorParams.options = dataFormats;
           console.log(GridConfig.dataTypeColDef.cellEditorParams);
           this.dataLoaded = true;
         },
@@ -57,6 +64,7 @@ export class GridComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.outputTabSubscription?.unsubscribe();
+    window.removeEventListener('click', this.clickListener);
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -77,6 +85,20 @@ export class GridComponent implements OnInit, OnDestroy {
         });
     } else {
       this.addRows();
+    }
+  }
+
+  onDataTypeChanged(params: any) {
+    if (params.newValue !== params.oldValue) {
+      (params.node.data as RowTemplateDto).option = [];
+      this.gridApi.applyTransaction({ update: [params.node.data] })
+    }
+  }
+
+  stopEditingWhenCellsLoseFocus(e: any) {
+    const grid = document.getElementById('grid');
+    if (!grid?.contains(e.target) && !document.getElementsByClassName('mat-select-panel')[0]?.contains(e.target)) {
+      this.gridApi?.stopEditing();
     }
   }
 
