@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.json.JsonOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.php.PhpOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.sql.SqlOutputService;

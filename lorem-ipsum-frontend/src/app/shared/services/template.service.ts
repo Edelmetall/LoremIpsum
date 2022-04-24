@@ -19,7 +19,7 @@ export class TemplateService {
   }
 
   getAvailableDataFormats(): Observable<any> {
-    return this.httpClient.get("api/template/availableFormats");
+    return this.httpClient.get("api/template/availableDataFormats");
   }
 
   generateTemplate(genDto: GenDto): Observable<string> {

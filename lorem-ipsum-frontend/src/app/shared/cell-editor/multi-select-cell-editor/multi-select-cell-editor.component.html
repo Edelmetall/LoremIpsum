@@ -1,0 +1,13 @@
+<mat-form-field appearance="fill" *ngIf="!isFreeText">
+    <mat-label>Values</mat-label>
+    <mat-select [formControl]="selectControl" [compareWith]="compare" multiple>
+        <mat-optgroup *ngFor="let group of options" [label]="group.optionEnum">
+            <mat-option *ngFor="let name of group.values" [value]="getVal(group.optionEnum, name)">
+                {{name}}
+            </mat-option>
+        </mat-optgroup>
+    </mat-select>
+</mat-form-field>
+<mat-form-field appearance="fill" class="full-width" *ngIf="isFreeText">
+    <input #input matInput [(ngModel)]="optionDto.optionData">
+</mat-form-field>

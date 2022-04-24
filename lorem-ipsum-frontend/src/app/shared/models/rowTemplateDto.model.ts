@@ -1,3 +1,5 @@
+import { OptionDto } from "./optionDto.model";
+
 export class RowTemplateDto {
   // Technisch
   id?: bigint;
@@ -7,14 +9,14 @@ export class RowTemplateDto {
   dataType!: string;
   name!: string;
   example!: string;
-  option: string[] = [];
+  option: OptionDto[] = [];
   input!: string;
   regex!: string;
 
   constructor(dataType: string,
               name: string,
               example: string,
-              option: string[],
+              option: OptionDto[],
               input: string,
               regex: string) {
     this.dataType = dataType;

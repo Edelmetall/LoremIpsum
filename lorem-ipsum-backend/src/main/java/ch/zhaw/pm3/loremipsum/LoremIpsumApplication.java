@@ -3,12 +3,15 @@ package ch.zhaw.pm3.loremipsum;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.generator.data.DataFormatEntity;
-import ch.zhaw.pm3.loremipsum.generator.data.RowTemplateEntity;
-import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
-import ch.zhaw.pm3.loremipsum.generator.repo.DataFormatRepository;
-import ch.zhaw.pm3.loremipsum.generator.repo.RowTemplateRepository;
-import ch.zhaw.pm3.loremipsum.generator.repo.TemplateRepository;
+import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameEntity;
+import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameRepo;
+import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameService;
+import ch.zhaw.pm3.loremipsum.generator.template.data.DataFormatEntity;
+import ch.zhaw.pm3.loremipsum.generator.template.data.RowTemplateEntity;
+import ch.zhaw.pm3.loremipsum.generator.template.data.TemplateEntity;
+import ch.zhaw.pm3.loremipsum.generator.template.repo.DataFormatRepository;
+import ch.zhaw.pm3.loremipsum.generator.template.repo.RowTemplateRepository;
+import ch.zhaw.pm3.loremipsum.generator.template.repo.TemplateRepository;
 import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +21,7 @@ import org.springframework.context.annotation.Bean;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 @SpringBootApplication
@@ -27,11 +31,7 @@ public class LoremIpsumApplication {
         SpringApplication.run(LoremIpsumApplication.class, args);
     }
 
-    CommandLineRunner initCustomer(@Autowired CustomerRepository customerRepository) {
-        return args -> {
 
-        };
-    }
 
     @Bean
     @Transactional

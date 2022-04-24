@@ -1,10 +1,8 @@
-<mat-chip-list aria-label="Fish selection" style="margin-bottom: 15px;">
-    <mat-chip *ngFor="let chip of chips" (contextmenu)="righClick($event, chip.value+'picker')"
-        [ngStyle]="{'background-color': chip.color}">
-        {{chip.value}}
+<mat-chip-list aria-label="Chip cell renderer" style="margin-bottom: 15px;">
+    <mat-chip *ngFor="let chip of chips">
+        <ng-container *ngIf="chip.optionEnum">{{chip.optionEnum}}: </ng-container>{{chip.optionData}}
         <button matChipRemove (click)="remove(chip)">
             <mat-icon style="fill: white !important;">cancel</mat-icon>
         </button>
-        <input id="{{chip.value}}picker" [(ngModel)]="chip.color" type="color" style="width: 0; opacity: 0;" />
     </mat-chip>
 </mat-chip-list>

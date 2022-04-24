@@ -44,6 +44,7 @@ import { ConfirmDialogComponent } from './shared/dialogs/confirm-dialog/confirm-
 import { CustomerService } from './shared/services/customer.service';
 import { CommunicationService } from './shared/services/communication.service';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { MultiSelectCellEditorComponent } from './shared/cell-editor/multi-select-cell-editor/multi-select-cell-editor.component';
 import { ProfileComponent } from './profile/profile.component';
 
 
@@ -61,7 +62,9 @@ import { ProfileComponent } from './profile/profile.component';
     LoginComponent,
     SignUpComponent,
     ConfirmDialogComponent,
-    ProfileComponent
+    ProfileComponent,
+    ConfirmDialogComponent,
+    MultiSelectCellEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -93,6 +96,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatSortModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatSelectModule,
     ToastrModule.forRoot()
   ],
   providers: [TemplateService, NotificationService, CustomerService, CommunicationService, ToastrService],

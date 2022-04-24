@@ -2,7 +2,7 @@ package ch.zhaw.pm3.loremipsum.output.template.xml;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
-import ch.zhaw.pm3.loremipsum.generator.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

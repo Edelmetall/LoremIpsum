@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import * as _ from 'lodash';
+import { OptionDto } from '../../models/optionDto.model';
 
 @Component({
   selector: 'app-mat-chips-cell-renderer',
@@ -11,7 +12,7 @@ import * as _ from 'lodash';
 export class MatChipsCellRendererComponent implements ICellRendererAngularComp {
   private params!: ICellRendererParams;
   private id!: string;
-  chips!: Set<Chip>;
+  chips!: OptionDto[];
 
   constructor() { }
 
@@ -26,22 +27,24 @@ export class MatChipsCellRendererComponent implements ICellRendererAngularComp {
     this.refresh(params);
   }
 
-  remove(chip: Chip): void {
-    this.chips.delete(chip);
+  remove(chip: OptionDto): void {
+    const index = this.chips.indexOf(chip);
+    this.chips.splice(index, 1);
 
     var rowNode = this.params.api.getRowNode(this.id)!;
     rowNode.setDataValue('option', this.getValue());
   }
 
   private getValue() {
-    let value = "";
-    this.chips.forEach(chip => value += `${chip.value};`)
-    return value;
+    return this.chips;
   }
 
   private setValues(params: ICellRendererParams) {
-    const values = params.value as string[];
-    this.chips = new Set(_.filter(values, v => !_.isEmpty(v)).map(v => new Chip(v)));
+    this.chips = new Array<OptionDto>();
+    _.forEach(params.value, (value: OptionDto) => {
+      if (!_.isNil(value.optionData) && !_.isEmpty(value.optionData))
+        this.chips.push(value);
+    });
   }
 
   righClick(event: any, pickerId: string) {
@@ -52,6 +55,8 @@ export class MatChipsCellRendererComponent implements ICellRendererAngularComp {
 }
 
 export class Chip {
+  name!: string;
+  options!: any;
   value!: string;
   color!: string;
 

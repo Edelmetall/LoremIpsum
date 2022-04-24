@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.customer.data;
 
-import ch.zhaw.pm3.loremipsum.generator.data.TemplateEntity;
+import ch.zhaw.pm3.loremipsum.generator.template.data.TemplateEntity;
 import lombok.Getter;
 import lombok.Setter;
 
