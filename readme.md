@@ -37,3 +37,18 @@ Hier kann man den Port sehen, auf welchem die Backend Services angeboten werden:
 ## Start Frontend
 - ![img_1.png](readme/startFrontend.png)
 - Browser -> ![img.png](readme/frontendPort.png)
+
+
+## E-Mail Versand
+Damit die Mails versendet werden, wird die Datei config.properties im Verzeichnis LoremIpsum\lorem-ipsum-backend\src\main\resources\email\ benötigt:
+
+```
+username = loremipsum.pm3@gmail.com
+password = ***
+mail.smtp.host = smtp.gmail.com
+mail.smtp.port = 587
+mail.smtp.auth = true
+mail.smtp.starttls.enable = true
+```
+
+Version mit Passwort ist im Teams Kanal. Nicht mit Passwort commiten!
