@@ -34,3 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### E-Mail configurations ###
+lorem-ipsum-backend/src/main/resources/email/config.properties
