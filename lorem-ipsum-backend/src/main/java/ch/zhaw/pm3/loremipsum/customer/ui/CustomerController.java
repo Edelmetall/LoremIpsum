@@ -8,6 +8,7 @@ import ch.zhaw.pm3.loremipsum.customer.ui.transfer.UpdatePasswordData;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.SignUpData;
 import ch.zhaw.pm3.loremipsum.generator.template.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.template.repo.TemplateRepository;
+import ch.zhaw.pm3.loremipsum.utils.EmailUtils;
 import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,15 @@ public class CustomerController {
         return customer;
     }
 
+    private static final String SIGN_UP_SUBJECT = "Welcome to LoremIpsum";
+    private static final String SIGN_UP_BODY = """
+            Hello %s %s!
+            
+            You have successfully registered for LoremIpsum!
+            
+            Your LoremIpsum Team
+            """;
+
     /**
      * Create e new entry for the customer
      *
@@ -91,12 +101,26 @@ public class CustomerController {
 
             customerEntity = repository.save(customerEntity);
 
-            // todo send e-mail login successful
+            EmailUtils.sendEmail(customerEntity.getEmail(), SIGN_UP_SUBJECT, SIGN_UP_BODY.formatted(
+                    customerEntity.getFirstName(),
+                    customerEntity.getLastName()
+            ));
 
             return customerEntity;
         }
         return null;
     }
+
+    private static final String RESET_PASSWORD_SUBJECT = "Your new LoremIpsum password";
+    private static final String RESET_PASSWORD_BODY = """
+            Hello %s %s!
+            
+            Your new password is: %s
+            
+            This password is valid for 24 hours. Please change it once you log in.
+            
+            Your LoremIpsum Team
+            """;
 
     /**
      * Reset the password for a customer
@@ -115,8 +139,11 @@ public class CustomerController {
 
             repository.save(customerEntity);
 
-            // todo send e-mail with new password and remove print
-            System.out.println("New password: " + password);
+            EmailUtils.sendEmail(customerEntity.getEmail(), RESET_PASSWORD_SUBJECT, RESET_PASSWORD_BODY.formatted(
+                    customerEntity.getFirstName(),
+                    customerEntity.getLastName(),
+                    password
+            ));
         }
     }
 
@@ -159,9 +186,6 @@ public class CustomerController {
                         SecurityUtils.encodePassword(salt, updateEmailData.getPassword()))) {
                     customerEntity.setEmail(updateEmailData.getNewEmail());
                     customerEntity = repository.save(customerEntity);
-
-                    // todo send e-mail to old and new e-mail address
-
                     return customerEntity;
                 }
             }
