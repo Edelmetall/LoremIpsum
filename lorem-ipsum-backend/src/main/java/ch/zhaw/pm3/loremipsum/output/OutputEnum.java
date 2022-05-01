@@ -7,7 +7,8 @@ public enum OutputEnum {
     JAVA("java"),
     CSV("csv"),
     SQL("sql"),
-    PHP("php");
+    PHP("php"),
+    CSHARP("cs");
 
     private final String extension;
 

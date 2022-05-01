@@ -1,0 +1,27 @@
+## @formatter:off
+#foreach($import in $importSet)
+using ${import};
+#end
+
+public class ${className} {
+
+#foreach($attribute in $attributeList)
+    public ${attribute.getType()} ${attribute.getName().substring(0,1).toUpperCase()}${attribute.getName().substring(1)}
+    { get; set; }
+#end
+
+    public ${className}(#foreach($attribute in $attributeList)${attribute.getType()} ${attribute.getName()}#if($foreach.hasNext), #end#end) {
+#foreach($attribute in $attributeList)
+        ${attribute.getName().substring(0,1).toUpperCase()}${attribute.getName().substring(1)} = ${attribute.getName()};
+#end
+    }
+
+    public List<${className}> getExampleList() {
+        return new List<${className}>(new[] {#foreach($entry in $constructorInputList)
+
+            new ${className}(${entry})#if($foreach.hasNext),#else});
+#end
+#end
+    }
+}
+## @formatter:on
