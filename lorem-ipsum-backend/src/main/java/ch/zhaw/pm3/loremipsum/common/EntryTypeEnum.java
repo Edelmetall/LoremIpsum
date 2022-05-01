@@ -8,7 +8,7 @@ public enum EntryTypeEnum {
     FIRST_NAME("First name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     LAST_NAME("Last name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     IBANR("IBAN"),
-    TELE_NR("Phone number"),
+    TELE_NR("Phone number", OptionEnum.LAND_CD, OptionEnum.TELE_NR_FORMAT),
     DATE("Date"),
     DATE_TIME("Date and Time"),
     TIME("Time"),
@@ -34,7 +34,7 @@ public enum EntryTypeEnum {
         return displayName;
     }
 
-    public List<OptionEnum> getAvailableOptions(){
+    public List<OptionEnum> getAvailableOptions() {
         return this.availableOptions;
     }
 
