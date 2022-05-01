@@ -31,6 +31,9 @@ export class DataOutputComponent implements OnInit {
     },
     {
       outputEnum: OutputEnum.PHP, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      outputEnum: OutputEnum.CSHARP, delimiter: undefined, delimiterOptions: undefined
     }
   ];
 
