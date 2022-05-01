@@ -4,7 +4,7 @@ import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameService;
 import ch.zhaw.pm3.loremipsum.generator.template.service.LastNameService;
-import ch.zhaw.pm3.loremipsum.generator.template.service.TeleNrService;
+import ch.zhaw.pm3.loremipsum.generator.telenr.TeleNrService;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.*;
 import ch.zhaw.pm3.loremipsum.output.OutputEnum;
 import ch.zhaw.pm3.loremipsum.output.OutputService;

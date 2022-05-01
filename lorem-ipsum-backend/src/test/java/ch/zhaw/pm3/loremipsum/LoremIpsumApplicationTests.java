@@ -9,6 +9,7 @@ import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowTemplateDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.TemplateDto;
 import ch.zhaw.pm3.loremipsum.output.OutputEnum;
+import com.github.javafaker.Faker;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,6 +27,11 @@ class LoremIpsumApplicationTests extends AbstractSpringBootTest {
 
     @Test
     void setGenService() {
+
+        Faker faker  = new Faker();
+
+        String bla = faker.finance().creditCard();
+
         GenDto genDto = new GenDto();
 
         genDto.setOutputName(OutputEnum.XML.name());
