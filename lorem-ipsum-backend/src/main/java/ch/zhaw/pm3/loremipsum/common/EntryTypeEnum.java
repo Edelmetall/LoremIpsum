@@ -11,6 +11,7 @@ public enum EntryTypeEnum {
     TELE_NR("Phone number", OptionEnum.LAND_CD, OptionEnum.TELE_NR_FORMAT),
     DATE("Date"),
     DATE_TIME("Date and Time"),
+    GUID("GUID/UUID"),
     TIME("Time"),
     BOOLEAN("Boolean");
 
