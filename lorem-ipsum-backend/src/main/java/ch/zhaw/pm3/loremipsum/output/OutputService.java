@@ -2,6 +2,7 @@ package ch.zhaw.pm3.loremipsum.output;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.output.template.CsvOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.csharp.CSharpOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.json.JsonOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.php.PhpOutputService;
@@ -23,6 +24,8 @@ public class OutputService {
     private final SqlOutputService sqlOutputService;
     private final PhpOutputService phpOutputService;
     private final CSharpOutputService cSharpOutputService;
+    private final CsvOutputService csvOutputService;
+
 
     public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos) {
         return switch (outputEnum) {
@@ -32,6 +35,7 @@ public class OutputService {
             case SQL -> sqlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case PHP -> phpOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             case CSHARP -> cSharpOutputService.generateOutputFile(headerInformation, rowEntryDtos);
+            case CSV -> csvOutputService.generateOutputFile(headerInformation, rowEntryDtos);
             default -> throw new IllegalStateException("Not yet implemented: " + outputEnum);
         };
     }
