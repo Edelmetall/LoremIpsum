@@ -31,6 +31,9 @@ public class GenService {
     @Autowired
     private TeleNrService teleNrService;
 
+    @Autowired
+    private GUIDService guidService;
+
     public String generateData(GenDto genDto) {
         int testDataSetSize = 10;
         List<HeaderInformation> headerInformationList = new ArrayList<>();
@@ -58,6 +61,7 @@ public class GenService {
             case FIRST_NAME -> firstNameService.genEntry(rowTemplateDto, optionDtoSet);
             case LAST_NAME -> lastNameService.genEntry(rowTemplateDto, optionDtoSet);
             case TELE_NR -> teleNrService.genEntry(rowTemplateDto, optionDtoSet);
+            case GUID -> guidService.genEntry(rowTemplateDto, optionDtoSet);
             default -> null;
         };
     }
