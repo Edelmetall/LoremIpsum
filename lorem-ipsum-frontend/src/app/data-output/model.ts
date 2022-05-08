@@ -15,4 +15,5 @@ export class OutputEnum {
   public static SQL = {name: 'SQL', displayedText: 'SQL'};
   public static PHP = {name: 'PHP', displayedText: 'PHP'};
   public static CSHARP = {name: 'CSHARP', displayedText: 'C#'};
+  public static CSV = {name: 'CSV', displayedText: 'CSV'};
 }

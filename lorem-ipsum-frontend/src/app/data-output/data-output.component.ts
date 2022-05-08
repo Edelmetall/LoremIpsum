@@ -34,6 +34,9 @@ export class DataOutputComponent implements OnInit {
     },
     {
       outputEnum: OutputEnum.CSHARP, delimiter: undefined, delimiterOptions: undefined
+    },
+    {
+      outputEnum: OutputEnum.CSV, delimiter: undefined, delimiterOptions: undefined
     }
   ];
 
