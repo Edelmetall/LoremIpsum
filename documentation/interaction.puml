@@ -1,0 +1,29 @@
+@startuml
+hide footbox
+participant ":Grid(Frontend)" as grid
+participant ":TemplateController(Backend)" as temp
+participant ":GenService(Backend)" as Gen
+participant ":OutputService(Backend)" as out
+participant ":DataOutput(Frontend)" as data
+
+activate grid
+grid -> temp: generate(neededInformation)
+activate temp
+temp -> Gen: generateData(neededInformation)
+activate Gen
+Gen -> out: generateModel/(neededInformation)
+activate out
+out --> Gen: OutputFile
+deactivate out
+
+Gen --> temp: OutputFile
+deactivate Gen
+
+temp --> grid: OutputFile
+deactivate temp
+
+grid -> data: downloadOutput
+deactivate grid
+
+
+@enduml

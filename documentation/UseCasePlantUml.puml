@@ -12,8 +12,8 @@ u <|-left- mau
 mau <|-left- pu
 
 rectangle LoremIpsum {
-  usecase "UC1: Download der randomisierten Daten" as UC1
-  usecase "UC2: Erstellt Daten Vorlage" as UC2
+  usecase "UC2: Download der randomisierten Daten" as UC1
+  usecase "UC1: Erstellt Daten Vorlage" as UC2
    UC2 .down.> (Ausgabeformat) : include
    UC2 .down.> (Testdaten Struktur selektieren) : include
   usecase "UC3: Accountdaten erfassen" as UC3

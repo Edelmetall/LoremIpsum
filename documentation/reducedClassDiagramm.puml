@@ -1,0 +1,130 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package frontend{
+class FrontendService
+
+
+}
+
+package backend{
+
+interface CrudRepository
+
+package ch.zhaw.pm3.loremipsum.common{
+enum EntryTypeEnum
+
+enum OptionCategoryEnum
+
+enum OptionEnum
+
+enum LandEnum
+enum TeleNrFormatEnum
+
+class HeaderInformation
+
+
+FrontendService ..down> GenService
+HeaderInformation -- GenService
+HeaderInformation ..> EntryTypeEnum
+EntryTypeEnum ..> OptionEnum
+OptionEnum ..> OptionCategoryEnum
+OptionEnum ..> LandEnum
+OptionEnum ..> TeleNrFormatEnum
+
+}
+
+package ch.zhaw.pm3.loremipsum.customer{
+class CustomerEntity{
+- Long id
+- String firstName
+- String lastName
+}
+interface CustomerRepository{
+
+}
+
+class CustomerController{
+
+    }
+
+    CustomerEntity -- CustomerController
+    CustomerRepository --|> CrudRepository
+    CustomerController ..> CustomerRepository
+    FrontendService ..down> CustomerController
+}
+
+package ch.zhaw.pm3.loremipsum.generator{
+
+abstract class AbstractEntryGenService{
+#{abstract} String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+class FirstNameService{
+
+}
+
+interface FirstNameRepo{
+
+}
+
+
+class LastNameService{
+
+ }
+class TeleNrService{
+
+}
+
+class GenService{
+}
+
+package template{
+class TemplateEntity
+class RowTemplateEntity
+
+
+interface TemplateRepository
+TemplateEntity -- TemplateRepository
+TemplateEntity o-- RowTemplateEntity
+TemplateRepository --|> CrudRepository
+}
+GenService ..> FirstNameService
+GenService ..> TeleNrService
+GenService ..> LastNameService
+
+FirstNameRepo --|> CrudRepository
+FirstNameService ..> FirstNameRepo
+TeleNrService --|> AbstractEntryGenService
+LastNameService --|> AbstractEntryGenService
+FirstNameService --|> AbstractEntryGenService
+}
+
+package ch.zhaw.pm3.loremipsum.output{
+abstract class AbstractOutputService{
+# {abstract} String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet)
+}
+class XmlOutputService
+class SqlOutputService
+class PhpOutputService
+class JsonOuptuService
+class JavaOutputService
+class CSharpOutputService
+
+class OutputService
+enum OutputEnum
+
+XmlOutputService --|> AbstractOutputService
+SqlOutputService --|> AbstractOutputService
+PhpOutputService --|> AbstractOutputService
+JsonOuptuService --up|> AbstractOutputService
+JavaOutputService --up|> AbstractOutputService
+CSharpOutputService --up|> AbstractOutputService
+
+OutputService ..> AbstractOutputService
+OutputEnum -- OutputService
+GenService .down.> OutputService
+}
+}
+
+
+@enduml
