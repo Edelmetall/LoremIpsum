@@ -1,0 +1,194 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package backend{
+
+interface CrudRepository
+
+package ch.zhaw.pm3.loremipsum.common{
+enum EntryTypeEnum {
+- String displayName
+- List<OptionEnum> availableOptions
+--
+FIRST_NAME
+LAST_NAME
+TELE_NR
+DATE
+DATE_TIME
+TIME
+BOOLEAN
+}
+
+enum OptionCategoryEnum {
+GENERATOR
+OUTPUT
+}
+
+enum OptionEnum{
+OptionCategoryEnum optionCategoryEnum
+List<String> values
+--
+LAND_CD
+GENDER
+TELE_NR_FORMAT
+JAVA_VERSION
+}
+
+enum LandEnum {
+- String displayName
+--
+INDIA
+SWITZERLAND
+}
+enum TeleNrFormatEnum {
+- String displayName
+--
+INDIA
+SWITZERLAND
+}
+
+class HeaderInformation{
+- String name
+- EntryType entryTypeEnum
+..Getter&Setter..
+}
+
+HeaderInformation ..> EntryTypeEnum
+EntryTypeEnum ..> OptionEnum
+OptionEnum ..> OptionCategoryEnum
+OptionEnum ..> LandEnum
+OptionEnum ..> TeleNrFormatEnum
+
+}
+
+package ch.zhaw.pm3.loremipsum.customer{
+class Customer{
+- Long id
+- String firstName
+- String lastName
+- String email
+- byte[] password
+- LocalDateTime passwordResetAt
+- Set<TemplateEntity> ownedTemplate
+
+..Getter&Setter..
+}
+interface CustomerRepository{
++boolean existsByEmail(String email)
++CustomerEntity findByEmailAndPassword(String email,  byte[] encodedPassword)
++CustomerEntity findById(long id)
++CustomerEntity findByEmail(String email)
+}
+
+class CustomerController{
+    .. Spring Beans ..
+    -final CustomerRepository repository
+    -final TemplateRepository repository
+    ..
+    - {static} final String signUpSubject
+    - {static} final String signUpBody
+    - {static} final String resetPasswordSubject
+    - {static} final String resetPasswordBody
+    --
+    + Collection<SutomerEntity> getCustomer()
+    + CustomerEntity login(LoginData loginData)
+    + void resetPassword(String email)
+    + CustomerEntity updatePassword(UpdatePasswordData updatePasswordData)
+    + CustomerEntity updateEmail(UpdateEmailData updateEmailData)
+    + CustomerEntity updateCustomer(final String id, final CustomerEntity customer)
+    + CustomerEntity findById(long id)
+    }
+
+
+    CustomerRepository --|> CrudRepository
+    CustomerController ..> CustomerRepository
+}
+
+package ch.zhaw.pm3.loremipsum.generator{
+
+abstract class AbstractEntryGenervice{
+#Set<OptionEnum> allowedOptions
+#RandomService #RandomService
+--Constructor--
+#AbstractEntryGenService(OptionEnum... optionEnums)
+--Methode--
++EntryDto genEntry(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+#{abstract} String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+class FirstNameService{
+..Spring Bean..
+- final FirstNameRepo firstNameRepo
+--Constructor--
++FirstNameService()
+--Methode--
+# String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+
+interface FirstNameRepo{
++List<FirstNameEntity> findByLandCategory(String landCategory)
++List<FirstNameEntity> findByLandCategoryAndGenderIn(String landCategory, List<String> gender);
++List<FirstNameEntity> findByGenderIn(List<String> gender);
+}
+
+
+class LastNameService{
+ # String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+ }
+class TeleNrService{
+  -{static}Map<LandEnum, PhoneNumber> phoneNumberMap
+  # String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet)
+}
+
+class GenService{
+}
+
+package template{
+class TemplateEntity
+class RowTemplateEntity
+
+interface DataFormatRepository
+interface RowTemplateRepository
+interface TemplateRepository
+
+DataFormatRepository --|> CrudRepository
+RowTemplateRepository --|> CrudRepository
+TemplateRepository --|> CrudRepository
+}
+GenService ..> FirstNameService
+GenService ..> TeleNrService
+GenService ..> LastNameService
+
+FirstNameRepo --|> CrudRepository
+FirstNameService ..> FirstNameRepo
+TeleNrService --|> AbstractEntryGenService
+LastNameService --|> AbstractEntryGenService
+FirstNameService --|> AbstractEntryGenService
+}
+
+package ch.zhaw.pm3.loremipsum.output{
+abstract class AbstractOutputService
+class XmlOutputService
+class SqlOutputService
+class PhpOutputService
+class JsonOuptuService
+class JavaOutputService
+class CSharpOutputService
+
+class OutputService
+enum OutputEnum
+
+XmlOutputService --|> AbstractOutputService
+SqlOutputService --|> AbstractOutputService
+PhpOutputService --|> AbstractOutputService
+JsonOuptuService --|> AbstractOutputService
+JavaOutputService --|> AbstractOutputService
+CSharpOutputService --|> AbstractOutputService
+
+OutputService ..> AbstractOutputService
+OutputEnum -- OutputService
+GenService .up.> OutputService
+}
+}
+
+
+@enduml

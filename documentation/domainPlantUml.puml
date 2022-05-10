@@ -2,22 +2,47 @@
 
 
 package Benutzer{
-object Benutzer
+object Benutzer{
+    String firstName
+    String lastName
+    String email
+    byte[] password
+    DateTime passwordResetAt
+    }
 }
 
 package Generator{
-object Template
-object Spaltekonfiguration
-object Datenformat
-object Strukturiert
-object Unstrukturiert
+object Template{
+String name
+}
+object Spaltekonfiguration{
+ Integer index
+}
+object Datenformat{
+    Integer index
+}
+object Strukturiert{
+    String displayName
+    List<Option> optionen
+}
+object Unstrukturiert{
+    String name
+}
 object AktivState
-object Analyse
+object Analyse{
+    Set<Strukturiert> possibleCandidate
+}
 object Typ
 object FachBedingung
 object Bedingung
-object BereichBedingung
-object LängeBedingung
+object BereichBedingung{
+    Decimal from
+    Decimal to
+}
+object LängeBedingung{
+    Long from
+    Long to
+}
 object Aktiv
 object Inaktiv
 
@@ -25,7 +50,9 @@ object Inaktiv
 
 package Ausgabe{
 object Format
-object Option
+object Option{
+    String displayName
+}
 }
 
 Benutzer "1" o-right- "0..*" Template : erstellt >
