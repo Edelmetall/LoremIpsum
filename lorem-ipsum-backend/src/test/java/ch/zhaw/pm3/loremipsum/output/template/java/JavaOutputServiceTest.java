@@ -107,7 +107,7 @@ public class JavaOutputServiceTest extends AbstractSpringBootTest {
         header.add(new HeaderInformation("dateTime1", EntryTypeEnum.DATE_TIME));
 
         // act
-        String output = javaOutputService.generateOutputFile(header, List.of(dto));
+        String output = javaOutputService.generateOutputFile(header, List.of(dto), null);
 
         // assert
         Assertions.assertEquals(EXPECTED_OUTPUT, output);

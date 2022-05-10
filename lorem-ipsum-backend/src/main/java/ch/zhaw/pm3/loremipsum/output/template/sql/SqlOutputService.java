@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output.template.sql;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.AbstractOutputService;
 import org.apache.velocity.Template;
@@ -21,7 +22,7 @@ public class SqlOutputService extends AbstractOutputService {
     }
 
     @Override
-    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet, OptionDto optionDto) {
         VelocityContext context = new VelocityContext();
         context.put("entryTypes", headerInformation);
         context.put("data", convertToSingleList(headerInformation, rowEntryDtoSet));

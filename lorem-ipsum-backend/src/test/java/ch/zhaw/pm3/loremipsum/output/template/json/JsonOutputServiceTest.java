@@ -59,6 +59,6 @@ public class JsonOutputServiceTest {
         rowEntryDtos.add(rowEntryDto);
 
         Assertions.assertEquals(EXPECTED_OUTPUT,
-                jsonOutputService.generateOutputFile(headerInformations, rowEntryDtos));
+                jsonOutputService.generateOutputFile(headerInformations, rowEntryDtos, null));
     }
 }

@@ -64,7 +64,7 @@ public class CSharpOutputServiceTest {
         rowEntries.add(rowEntryDto);
 
         // act
-        String actualOutput = this.cSharpOutputService.generateOutputFile(headerInformationList, rowEntries);
+        String actualOutput = this.cSharpOutputService.generateOutputFile(headerInformationList, rowEntries, null);
 
         // assert
         Assertions.assertEquals(EXPECTED_OUTPUT, actualOutput);

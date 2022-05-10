@@ -16,8 +16,8 @@
             style="float:right; padding-top: 10px; padding-right: 10px;cursor: pointer;">content_copy
           </mat-icon>
           <mat-form-field *ngIf="tab.delimiterOptions" appearance="fill">
-            <mat-label>Delimiter</mat-label>
-            <mat-select [(value)]="tab.delimiter">
+            <mat-label>Option</mat-label>
+            <mat-select [(value)]="tab.delimiter" (valueChange)="optionChange()">
               <mat-option *ngFor="let delimiter of tab.delimiterOptions" [value]="delimiter.value">
                 {{delimiter.displayValue}}
               </mat-option>

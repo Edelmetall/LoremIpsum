@@ -56,7 +56,7 @@ public class SqlOutputServiceTest {
         rowEntries.add(rowEntryDto);
 
         // act
-        String actualOutput = this.sqlOutputService.generateOutputFile(headerInformationList, rowEntries);
+        String actualOutput = this.sqlOutputService.generateOutputFile(headerInformationList, rowEntries, null);
 
         // assert
         Assertions.assertEquals(EXPECTED_OUTPUT, actualOutput);

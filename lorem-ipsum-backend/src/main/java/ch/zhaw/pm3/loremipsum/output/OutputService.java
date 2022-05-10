@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.CsvOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.csharp.CSharpOutputService;
@@ -27,15 +28,15 @@ public class OutputService {
     private final CsvOutputService csvOutputService;
 
 
-    public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos) {
+    public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos, OptionDto optionDto) {
         return switch (outputEnum) {
-            case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case JAVA -> javaOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case JSON -> jsonOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case SQL -> sqlOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case PHP -> phpOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case CSHARP -> cSharpOutputService.generateOutputFile(headerInformation, rowEntryDtos);
-            case CSV -> csvOutputService.generateOutputFile(headerInformation, rowEntryDtos);
+            case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case JAVA -> javaOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case JSON -> jsonOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case SQL -> sqlOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case PHP -> phpOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case CSHARP -> cSharpOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
+            case CSV -> csvOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);
             default -> throw new IllegalStateException("Not yet implemented: " + outputEnum);
         };
     }
