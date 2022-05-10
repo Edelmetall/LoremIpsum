@@ -61,6 +61,6 @@ public class PhpOutputServiceTest {
         rowEntryDtos.add(rowEntryDto);
 
         Assertions.assertEquals(EXPECTED_OUTPUT,
-                phpOutputService.generateOutputFile(headerInformations, rowEntryDtos));
+                phpOutputService.generateOutputFile(headerInformations, rowEntryDtos, null));
     }
 }

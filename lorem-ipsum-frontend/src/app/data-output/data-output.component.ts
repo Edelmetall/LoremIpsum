@@ -4,6 +4,7 @@ import {OutputEnum} from './model';
 import {MatTabChangeEvent} from "@angular/material/tabs";
 import {NotificationService} from '../shared/services/notification.service';
 import {CommunicationService} from '../shared/services/communication.service';
+import {OptionDto} from "../shared/models/optionDto.model";
 
 @Component({
   selector: 'app-data-output',
@@ -16,6 +17,8 @@ export class DataOutputComponent implements OnInit {
   generatedData!: string;
 
   outputEnum = OutputEnum.XML;
+  outputOption: string | undefined
+  tab: any | undefined;
   tabs = [
     {
       outputEnum: OutputEnum.XML, delimiter: undefined, delimiterOptions: undefined
@@ -24,7 +27,8 @@ export class DataOutputComponent implements OnInit {
       outputEnum: OutputEnum.JSON, delimiter: undefined, delimiterOptions: undefined
     },
     {
-      outputEnum: OutputEnum.JAVA, delimiter: undefined, delimiterOptions: undefined
+      outputEnum: OutputEnum.JAVA, delimiter: undefined,
+      delimiterOptions: [{displayValue: 'Class', value: 'Class'},{displayValue: 'Record', value: 'Record'}]
     },
     {
       outputEnum: OutputEnum.SQL, delimiter: undefined, delimiterOptions: undefined
@@ -64,7 +68,12 @@ export class DataOutputComponent implements OnInit {
     element.remove();
   }
 
+  public optionChange(){
+    this.outputOption = this.tab.delimiter;
+  }
+
   public tabChanged(tabChangeEvent: MatTabChangeEvent) {
+    this.tab = this.tabs[tabChangeEvent.index];
     this.outputEnum = this.tabs[tabChangeEvent.index].outputEnum;
     this.communicationService.notifyOutputTabChanged();
   }

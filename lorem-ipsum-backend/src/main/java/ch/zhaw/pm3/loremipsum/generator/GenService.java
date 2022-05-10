@@ -49,7 +49,7 @@ public class GenService {
             }
             rowEntryDtos.add(rowEntryDto);
         }
-        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInformationList, rowEntryDtos);
+        return outputService.generateModel(OutputEnum.valueOf(genDto.getOutputName()), headerInformationList, rowEntryDtos, genDto.getOutputOption());
     }
 
 

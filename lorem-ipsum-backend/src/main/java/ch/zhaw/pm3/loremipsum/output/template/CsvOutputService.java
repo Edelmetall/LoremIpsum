@@ -1,6 +1,7 @@
 package ch.zhaw.pm3.loremipsum.output.template;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class CsvOutputService extends AbstractOutputService {
     }
 
     @Override
-    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet, OptionDto optionDto) {
         StringBuilder output = new StringBuilder();
         for (Iterator<HeaderInformation> it = headerInformation.iterator(); it.hasNext(); ) {
             output.append(it.next().getName());

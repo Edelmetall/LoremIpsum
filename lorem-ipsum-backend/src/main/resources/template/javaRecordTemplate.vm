@@ -1,0 +1,20 @@
+## @formatter:off
+package ${packageName};
+
+#foreach( $import in $importSet )
+import ${import};
+#end
+
+public record ${className}(#foreach($attribute in $attributeList)${attribute.getType()} ${attribute.getName()}#if($foreach.hasNext), #end#end) {
+
+    public List<${className}> getExampleList() {
+        return Arrays.asList(#foreach($entry in $constructorInputList)
+
+            new ${className}(${entry})#if( $foreach.hasNext ), #else);
+#end
+#end
+    }
+
+}
+
+## @formatter:on

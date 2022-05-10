@@ -2,6 +2,7 @@ package ch.zhaw.pm3.loremipsum.output.template.java;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
+import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
 import ch.zhaw.pm3.loremipsum.output.template.AbstractOutputService;
 import org.apache.velocity.Template;
@@ -14,16 +15,18 @@ import java.util.*;
 @Service
 public class JavaOutputService extends AbstractOutputService {
 
-    private final Template entityTemplate;
+    private final Template classTemplate;
+    private final Template reccordTemplate;
 
     public JavaOutputService() {
         super();
-        entityTemplate = velocityEngine.getTemplate("template/javaClassTemplate.vm");
+        classTemplate = velocityEngine.getTemplate("template/javaClassTemplate.vm");
+        reccordTemplate = velocityEngine.getTemplate("template/javaRecordTemplate.vm");
     }
 
 
     @Override
-    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet) {
+    protected String generateOutputFileIntern(List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtoSet, OptionDto optionDto) {
         VelocityContext context = new VelocityContext();
         List<JavaAttribute> javaAttributeList = new ArrayList<>();
         List<String> constructorInputList = new ArrayList<>();
@@ -60,7 +63,13 @@ public class JavaOutputService extends AbstractOutputService {
 
 
         StringWriter writer = new StringWriter();
-        entityTemplate.merge(context, writer);
+
+        if (optionDto == null || "Class".equals(optionDto.getOptionData())) {
+            classTemplate.merge(context, writer);
+            return writer.toString();
+        }
+
+        reccordTemplate.merge(context, writer);
         return writer.toString();
     }
 

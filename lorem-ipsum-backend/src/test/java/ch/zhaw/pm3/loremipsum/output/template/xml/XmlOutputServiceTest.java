@@ -58,6 +58,6 @@ public class XmlOutputServiceTest {
         rowEntryDtos.add(rowEntryDto);
 
         Assertions.assertEquals(EXPECTED_OUTPUT,
-                xmlOutputService.generateOutputFile(headerInformations, rowEntryDtos));
+                xmlOutputService.generateOutputFile(headerInformations, rowEntryDtos, null));
     }
 }

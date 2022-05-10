@@ -47,7 +47,7 @@ public class CsvOutputServiceTest extends AbstractSpringBootTest {
         header.add(new HeaderInformation("dateTime1", EntryTypeEnum.DATE_TIME));
 
         // act
-        String output = csvOutputService.generateOutputFile(header, List.of(dto));
+        String output = csvOutputService.generateOutputFile(header, List.of(dto), null);
 
         //check print
         System.out.println("\n------");
@@ -77,7 +77,7 @@ public class CsvOutputServiceTest extends AbstractSpringBootTest {
 
         // act
         csvOutputService.setDelimiter(',');
-        String output = csvOutputService.generateOutputFile(header, List.of(dto));
+        String output = csvOutputService.generateOutputFile(header, List.of(dto), null);
 
         //check print
         System.out.println("\n------");

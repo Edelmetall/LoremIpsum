@@ -1,18 +1,19 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CellValueChangedEvent, GridApi, GridReadyEvent, NewValueParams } from 'ag-grid-community';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {CellValueChangedEvent, GridApi, GridReadyEvent, NewValueParams} from 'ag-grid-community';
 import * as _ from 'lodash';
-import { GenDto } from '../shared/models/genDto.model';
-import { RowTemplateDto } from '../shared/models/rowTemplateDto.model';
-import { TemplateService } from '../shared/services/template.service';
-import { DataOutputComponent } from "../data-output/data-output.component";
-import { TemplateDto } from '../shared/models/templateDto.model';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GridConfig } from './model';
-import { NotificationService } from '../shared/services/notification.service';
-import { StorageHelper } from '../shared/helpers/storage-helper';
-import { CommunicationService } from '../shared/services/communication.service';
-import { finalize, Subscription } from 'rxjs';
-import { OutputEnum } from "../data-output/model";
+import {GenDto} from '../shared/models/genDto.model';
+import {RowTemplateDto} from '../shared/models/rowTemplateDto.model';
+import {TemplateService} from '../shared/services/template.service';
+import {DataOutputComponent} from "../data-output/data-output.component";
+import {TemplateDto} from '../shared/models/templateDto.model';
+import {ActivatedRoute, Router} from '@angular/router';
+import {GridConfig} from './model';
+import {NotificationService} from '../shared/services/notification.service';
+import {StorageHelper} from '../shared/helpers/storage-helper';
+import {CommunicationService} from '../shared/services/communication.service';
+import {finalize, Subscription} from 'rxjs';
+import {OutputEnum} from "../data-output/model";
+import {OptionDto} from "../shared/models/optionDto.model";
 
 @Component({
   selector: 'app-grid',
@@ -34,10 +35,10 @@ export class GridComponent implements OnInit, OnDestroy {
   rowData: RowTemplateDto[] = [];
 
   constructor(private route: ActivatedRoute,
-    private templateService: TemplateService,
-    private notificationService: NotificationService,
-    private router: Router,
-    private communicationService: CommunicationService) {
+              private templateService: TemplateService,
+              private notificationService: NotificationService,
+              private router: Router,
+              private communicationService: CommunicationService) {
   }
 
   ngOnInit(): void {
@@ -91,7 +92,7 @@ export class GridComponent implements OnInit, OnDestroy {
   onDataTypeChanged(params: any) {
     if (params.newValue !== params.oldValue) {
       (params.node.data as RowTemplateDto).option = [];
-      this.gridApi.applyTransaction({ update: [params.node.data] })
+      this.gridApi.applyTransaction({update: [params.node.data]})
     }
   }
 
@@ -103,13 +104,23 @@ export class GridComponent implements OnInit, OnDestroy {
   }
 
   addRows(rows: RowTemplateDto[] = [RowTemplateDto.createEmptyRowTemplateDto()]) {
-    this.gridApi.applyTransaction({ add: rows });
+    this.gridApi.applyTransaction({add: rows});
   }
 
   generate() {
     this.communicationService.notifyLoading(true);
     let outputName = this.dataOutput ? this.dataOutput.outputEnum.name : OutputEnum.XML.name;
-    let genDto = new GenDto(outputName, this.createRowTemplateDtoSet());
+
+    let genDto;
+    if(this.dataOutput?.outputOption && this.dataOutput.outputOption[0]){
+      let output = new OptionDto();
+      output.optionEnum = 'JAVA_VERSION';
+      output.optionData = this.dataOutput.outputOption;
+      genDto = new GenDto(outputName, this.createRowTemplateDtoSet(), output);
+    }else {
+      genDto = new GenDto(outputName, this.createRowTemplateDtoSet());
+    }
+
     this.templateService.generateTemplate(genDto)
       .pipe(finalize(() => this.communicationService.notifyLoading(false)))
       .subscribe({
