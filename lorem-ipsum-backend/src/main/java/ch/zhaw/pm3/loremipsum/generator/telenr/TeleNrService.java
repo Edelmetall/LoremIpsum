@@ -14,7 +14,12 @@ import java.util.*;
 @Service
 public class TeleNrService extends AbstractEntryGenService {
 
-    private static Map<LandEnum, PhoneNumber> PHONE_NUMBER_MAP = new HashMap<>();
+
+    public TeleNrService(){
+        super(OptionEnum.LAND_CD, OptionEnum.TELE_NR_FORMAT);
+    }
+
+    private final static Map<LandEnum, PhoneNumber> PHONE_NUMBER_MAP = new HashMap<>();
 
     static {
         PHONE_NUMBER_MAP.put(LandEnum.SWITZERLAND, new PhoneNumber("### ### ## ##", "+41 ## ### ## ##"));
