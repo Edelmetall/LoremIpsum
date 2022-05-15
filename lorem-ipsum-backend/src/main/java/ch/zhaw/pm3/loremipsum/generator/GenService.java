@@ -3,6 +3,7 @@ package ch.zhaw.pm3.loremipsum.generator;
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameService;
+import ch.zhaw.pm3.loremipsum.generator.iban.IBANService;
 import ch.zhaw.pm3.loremipsum.generator.template.service.LastNameService;
 import ch.zhaw.pm3.loremipsum.generator.telenr.TeleNrService;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.*;
@@ -34,6 +35,10 @@ public class GenService {
     @Autowired
     private GUIDService guidService;
 
+    @Autowired
+    private IBANService ibanService;
+
+
     public String generateData(GenDto genDto) {
         int testDataSetSize = 10;
         List<HeaderInformation> headerInformationList = new ArrayList<>();
@@ -62,6 +67,7 @@ public class GenService {
             case LAST_NAME -> lastNameService.genEntry(rowTemplateDto, optionDtoSet);
             case TELE_NR -> teleNrService.genEntry(rowTemplateDto, optionDtoSet);
             case GUID -> guidService.genEntry(rowTemplateDto, optionDtoSet);
+            case IBANR -> ibanService.genEntry(rowTemplateDto, optionDtoSet);
             default -> null;
         };
     }

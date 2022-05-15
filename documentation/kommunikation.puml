@@ -1,0 +1,16 @@
+@startuml
+!define Junction_Or circle #black
+!define Junction_And circle #whitesmoke
+
+
+rectangle ":SignUp (Frontend)" as first
+rectangle ":CustomerController (Backend)" as second
+rectangle ":CustomerEntity (Backend)" as third
+rectangle "CustomerRepository (Backend)" as fourth
+
+Webbrowser -> first :"signUp()"
+first -> second : "1: signUp(signUpData)"
+second -> third : "1.1: new"
+second -down-> fourth :"2: save()"
+
+@enduml

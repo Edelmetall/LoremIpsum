@@ -7,13 +7,13 @@ import java.util.List;
 
 public enum OptionEnum {
 
-    LAND_CD(OptionCategoryEnum.GENERATOR, LandEnum.INDIA.name(), LandEnum.SWITZERLAND.name()),
+    LAND_CD(OptionCategoryEnum.GENERATOR, LandEnum.INDIA.name(), LandEnum.SWITZERLAND.name(), LandEnum.UKRAINE.name()),
     GENDER(OptionCategoryEnum.GENERATOR, Arrays.stream(GenderEnum.values()).map(Enum::name).toArray(String[]::new)),
     TELE_NR_FORMAT(OptionCategoryEnum.GENERATOR, Arrays.stream(TeleNrFormatEnum.values()).map(Enum::name).toArray(String[]::new)),
     JAVA_VERSION(OptionCategoryEnum.OUTPUT);
 
-    private OptionCategoryEnum optionCategoryEnum;
-    private List<String> values;
+    private final OptionCategoryEnum optionCategoryEnum;
+    private final List<String> values;
 
 
     OptionEnum(OptionCategoryEnum optionCategoryEnum, String... values) {

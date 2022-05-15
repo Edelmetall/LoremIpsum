@@ -19,6 +19,7 @@ public class TeleNrService extends AbstractEntryGenService {
     static {
         PHONE_NUMBER_MAP.put(LandEnum.SWITZERLAND, new PhoneNumber("### ### ## ##", "+41 ## ### ## ##"));
         PHONE_NUMBER_MAP.put(LandEnum.INDIA, new PhoneNumber("0091", "+91 ## ### ## ##"));
+        PHONE_NUMBER_MAP.put(LandEnum.UKRAINE, new PhoneNumber("00380", "+38 0# ### ## ##"));
     }
 
     @Override
