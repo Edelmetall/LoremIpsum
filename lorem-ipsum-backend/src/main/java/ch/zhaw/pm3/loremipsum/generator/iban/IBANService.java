@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.generator.iban;
 
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import ch.zhaw.pm3.loremipsum.common.OptionEnum;
 import ch.zhaw.pm3.loremipsum.generator.common.AbstractEntryGenService;
 import ch.zhaw.pm3.loremipsum.generator.common.Middleware;
@@ -16,13 +16,13 @@ public class IBANService extends AbstractEntryGenService {
 
     private static Middleware<IBANWrapper> middleware;
 
-    private static final Map<LandEnum, IBANWrapper> IBAN_PREFIX_MAP = new HashMap<>();
+    private static final Map<CountryEnum, IBANWrapper> IBAN_PREFIX_MAP = new HashMap<>();
 
     static {
         // In Beta only ZKB Accounts
-        IBAN_PREFIX_MAP.put(LandEnum.SWITZERLAND, new IBANWrapper("CHppbbbbb############", "00700", LandEnum.SWITZERLAND));
+        IBAN_PREFIX_MAP.put(CountryEnum.SWITZERLAND, new IBANWrapper("CHppbbbbb############", "00700", CountryEnum.SWITZERLAND));
         // In Beta only Irsuuauk Accounts
-        IBAN_PREFIX_MAP.put(LandEnum.UKRAINE, new IBANWrapper("UAppbbbbbb###################", "027321", LandEnum.UKRAINE));
+        IBAN_PREFIX_MAP.put(CountryEnum.UKRAINE, new IBANWrapper("UAppbbbbbb###################", "027321", CountryEnum.UKRAINE));
     }
 
     public IBANService() {
@@ -38,7 +38,7 @@ public class IBANService extends AbstractEntryGenService {
 
 
         if (landOption.isPresent()) {
-            LandEnum landEnum = LandEnum.valueOf(landOption.get().getOptionData());
+            CountryEnum landEnum = CountryEnum.valueOf(landOption.get().getOptionData());
 
             return switch (landEnum) {
                 case SWITZERLAND, UKRAINE ->

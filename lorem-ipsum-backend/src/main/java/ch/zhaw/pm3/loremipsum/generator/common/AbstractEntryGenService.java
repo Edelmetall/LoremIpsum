@@ -7,27 +7,23 @@ import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowTemplateDto;
 import com.github.javafaker.service.RandomService;
 
-import javax.swing.text.html.Option;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public abstract class AbstractEntryGenService {
-
-
-    protected Set<OptionEnum> ALLOWED_OPTIONS = new HashSet<>();
+    protected Set<OptionEnum> allowedOptions = new HashSet<>();
     protected RandomService randomService = new RandomService();
 
     protected AbstractEntryGenService(OptionEnum... optionEnums) {
-        this.ALLOWED_OPTIONS.addAll(List.of(optionEnums));
+        this.allowedOptions.addAll(List.of(optionEnums));
     }
-
 
     public EntryDto genEntry(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet) {
 
         optionDtoSet.forEach(optionDto -> {
             if (OptionCategoryEnum.GENERATOR == optionDto.getOptionEnum().getOptionCategoryEnum() &&
-                    !this.ALLOWED_OPTIONS.contains(optionDto.getOptionEnum())) {
+                    !this.allowedOptions.contains(optionDto.getOptionEnum())) {
                 throw new IllegalArgumentException("The option " + optionDto.getOptionData() + " is not Allowed here.");
             }
         });

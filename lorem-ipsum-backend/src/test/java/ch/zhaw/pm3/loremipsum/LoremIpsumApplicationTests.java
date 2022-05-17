@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum;
 
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import ch.zhaw.pm3.loremipsum.common.OptionEnum;
 import ch.zhaw.pm3.loremipsum.generator.GenService;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.GenDto;
@@ -43,7 +43,7 @@ class LoremIpsumApplicationTests extends AbstractSpringBootTest {
         RowTemplateDto rowTemplateDto1 = new RowTemplateDto();
         rowTemplateDto1.setDataType(EntryTypeEnum.FIRST_NAME.getDisplayName());
         rowTemplateDto1.setName("FirstName");
-        rowTemplateDto1.getOption().add(new OptionDto(OptionEnum.LAND_CD, LandEnum.SWITZERLAND.name()));
+        rowTemplateDto1.getOption().add(new OptionDto(OptionEnum.LAND_CD, CountryEnum.SWITZERLAND.name()));
         RowTemplateDto rowTemplateDto2 = new RowTemplateDto();
         rowTemplateDto2.setDataType(EntryTypeEnum.LAST_NAME.getDisplayName());
         rowTemplateDto2.setName("LastName");

@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.generator.firstname;
 
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import com.github.javafaker.Faker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +27,11 @@ public class InitDataLoader implements ApplicationRunner {
 
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         Set<FirstNameEntity> firstNameEntityList = new HashSet<>();
-        for (LandEnum landEnum : LandEnum.values()) {
+        for (CountryEnum landEnum : CountryEnum.values()) {
             try {
-                if (landEnum == LandEnum.SWITZERLAND) {
+                if (landEnum == CountryEnum.SWITZERLAND) {
                     getNameFromFile("data/firstname/firstNameMaleSwitzerland.txt")
                             .forEach(firstName -> firstNameEntityList.add(new FirstNameEntity(null, landEnum.name(), GenderEnum.MALE.name(), firstName)));
                     getNameFromFile("data/firstname/firstNameFemaleSwitzerland.txt.txt")
@@ -55,10 +55,12 @@ public class InitDataLoader implements ApplicationRunner {
         Set<String> stringList = new HashSet<>();
 
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                stringList.add(line);
+        if (inputStream != null) {
+            try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
+                String line;
+                while ((line = br.readLine()) != null) {
+                    stringList.add(line);
+                }
             }
         }
         return stringList;

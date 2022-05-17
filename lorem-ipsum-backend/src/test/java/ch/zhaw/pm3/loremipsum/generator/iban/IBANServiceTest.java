@@ -1,7 +1,7 @@
 package ch.zhaw.pm3.loremipsum.generator.iban;
 
 import ch.zhaw.pm3.loremipsum.AbstractSpringBootTest;
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import ch.zhaw.pm3.loremipsum.common.OptionEnum;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import org.apache.commons.validator.routines.checkdigit.IBANCheckDigit;
@@ -19,11 +19,11 @@ public class IBANServiceTest extends AbstractSpringBootTest {
     private IBANService iBANService;
 
     @ParameterizedTest
-    @EnumSource(LandEnum.class)
-    public void testIBAN(LandEnum landEnum) {
+    @EnumSource(CountryEnum.class)
+    public void testIBAN(CountryEnum landEnum) {
         String iban = iBANService.getData(null, Set.of(new OptionDto(OptionEnum.LAND_CD, landEnum.name())));
 
-        if (landEnum == LandEnum.INDIA) {
+        if (landEnum == CountryEnum.INDIA) {
             Assertions.assertTrue(iban.isBlank());
         } else {
             Assertions.assertTrue(new IBANCheckDigit().isValid(iban.replace(" ", "")));

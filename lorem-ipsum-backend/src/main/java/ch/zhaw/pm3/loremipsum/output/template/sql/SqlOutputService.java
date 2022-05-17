@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.util.List;
 
+/**
+ * Output service for SQL files
+ */
 @Service
 public class SqlOutputService extends AbstractOutputService {
 

@@ -58,7 +58,6 @@ export class GridConfig {
         { field: 'name', headerName: 'Name' },
         { field: 'example', headerName: 'Example' },
         this.optionColDef,
-        { field: 'regex', headerName: 'Regex' },
         {
             field: '',
             headerName: '',

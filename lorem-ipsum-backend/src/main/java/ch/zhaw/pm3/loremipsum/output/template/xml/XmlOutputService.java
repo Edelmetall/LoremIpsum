@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.util.List;
 
+/**
+ * Output service for XML files
+ */
 @Service
 public class XmlOutputService extends AbstractOutputService {
     private final Template entityTemplate;

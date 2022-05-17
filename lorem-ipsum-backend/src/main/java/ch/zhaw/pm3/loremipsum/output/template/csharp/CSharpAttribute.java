@@ -2,6 +2,9 @@ package ch.zhaw.pm3.loremipsum.output.template.csharp;
 
 import lombok.Data;
 
+/**
+ * Attribute for C# output
+ */
 @Data
 public class CSharpAttribute {
     private String name;

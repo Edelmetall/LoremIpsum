@@ -4,6 +4,7 @@ import ch.zhaw.pm3.loremipsum.generator.common.AbstractEntryGenService;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowTemplateDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import com.github.javafaker.Faker;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;

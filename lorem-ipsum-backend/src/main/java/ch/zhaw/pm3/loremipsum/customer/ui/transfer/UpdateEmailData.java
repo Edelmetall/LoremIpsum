@@ -3,6 +3,9 @@ package ch.zhaw.pm3.loremipsum.customer.ui.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * contains data for update e-mail request
+ */
 @Getter
 @Setter
 public class UpdateEmailData {

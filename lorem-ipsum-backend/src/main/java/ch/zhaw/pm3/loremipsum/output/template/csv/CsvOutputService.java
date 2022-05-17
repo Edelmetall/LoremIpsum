@@ -1,15 +1,19 @@
-package ch.zhaw.pm3.loremipsum.output.template;
+package ch.zhaw.pm3.loremipsum.output.template.csv;
 
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.output.template.AbstractOutputService;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
+
 
 import java.util.Iterator;
 import java.util.List;
 
-@Component(value = "loremIpsumDsvOutputService")
+/**
+ * Output service for CSV files
+ */
+@Component(value = "loremIpsumCsvOutputService")
 public class CsvOutputService extends AbstractOutputService {
     private char delimiter = ';';
 
