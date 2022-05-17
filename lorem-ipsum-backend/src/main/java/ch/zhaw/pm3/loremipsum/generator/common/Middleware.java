@@ -1,4 +1,4 @@
-package ch.zhaw.pm3.loremipsum.generator.iban.middleware;
+package ch.zhaw.pm3.loremipsum.generator.common;
 
 public abstract class Middleware<T> {
     private Middleware<T> next;

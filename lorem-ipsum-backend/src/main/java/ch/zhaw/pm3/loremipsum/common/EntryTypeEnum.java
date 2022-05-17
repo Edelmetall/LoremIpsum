@@ -13,7 +13,8 @@ public enum EntryTypeEnum {
     DATE_TIME("Date and Time"),
     GUID("GUID/UUID"),
     TIME("Time"),
-    BOOLEAN("Boolean");
+    BOOLEAN("Boolean"),
+    PAN("PAN Nr");
 
     private static final Map<String, EntryTypeEnum> displayNameToEnumMap = new HashMap<>();
 

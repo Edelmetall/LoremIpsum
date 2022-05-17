@@ -1,5 +1,6 @@
 package ch.zhaw.pm3.loremipsum.generator.iban.middleware;
 
+import ch.zhaw.pm3.loremipsum.generator.common.Middleware;
 import ch.zhaw.pm3.loremipsum.generator.common.StringSolverUtil;
 import ch.zhaw.pm3.loremipsum.generator.iban.IBANWrapper;
 
