@@ -1,1 +1,53 @@
-<mxfile host="app.diagrams.net" modified="2022-05-17T09:19:14.528Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36" version="18.0.3" etag="zngrD5xVck86JxM0Rjpj" type="github"><diagram id="Ci60sqOVZ5H8iM72RLUr">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-05-17T09:40:50.971Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36" etag="5YuDVKc1OelSIS6to2yK" version="18.0.3" type="github">
+  <diagram id="Ci60sqOVZ5H8iM72RLUr" name="Page-1">
+    <mxGraphModel dx="1981" dy="1076" grid="0" gridSize="10" guides="0" tooltips="1" connect="0" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-1" value="Chain of Responsibility&lt;br&gt;(IBAN Nr Erstellung)" style="shape=ext;double=1;rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;fontSize=17;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="230" y="423" width="643" height="310" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-3" value="&amp;nbsp;IBAN Schweiz Template&lt;br&gt;&quot;&lt;span style=&quot;font-family: &amp;quot;JetBrains Mono&amp;quot;, monospace;&quot;&gt;CHppbbbbb############&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;verticalAlign=top;fillColor=#dae8fc;strokeColor=#6c8ebf;imageAspect=1;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="505" width="250" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-6" value="ReplaceAccountNumber&lt;br&gt;&quot;CHppbbbbb673642173648&quot;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fontSize=17;fontColor=#000000;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="250" y="503" width="290" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-7" value="BankCode&lt;br&gt;&quot;CHpp00700673642173648&quot;" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fontSize=17;fontColor=#000000;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="540" y="503" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-8" value="IBANCheckSum&lt;br&gt;&quot;CH9200700673642173648&quot;" style="shape=step;perimeter=stepPerimeter;fixedSize=1;labelBackgroundColor=none;fontSize=17;fontColor=default;rotation=0;html=1;horizontal=1;direction=west;" vertex="1" parent="1">
+          <mxGeometry x="530" y="613" width="270" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-10" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontSize=17;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#bac8d3;strokeColor=#23445d;" edge="1" parent="1" source="UrMOBPC8aU4QaLJ5Lh4o-7" target="UrMOBPC8aU4QaLJ5Lh4o-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="840" y="563" as="sourcePoint" />
+            <mxPoint x="890" y="513" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="850" y="543" />
+              <mxPoint x="850" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-11" value="Format&lt;br&gt;&quot;CH92 0070 0673 6421 7364 8&quot;" style="shape=step;perimeter=stepPerimeter;fixedSize=1;labelBackgroundColor=none;fontSize=17;fontColor=default;rotation=0;html=1;horizontal=1;direction=west;" vertex="1" parent="1">
+          <mxGeometry x="250" y="613" width="280" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-12" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontSize=17;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;fillColor=#bac8d3;strokeColor=#23445d;" edge="1" parent="1" source="UrMOBPC8aU4QaLJ5Lh4o-3" target="UrMOBPC8aU4QaLJ5Lh4o-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="80" y="483" as="sourcePoint" />
+            <mxPoint x="130" y="433" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-13" value="&amp;nbsp;Valide Schweizer IBAN Nr.&lt;br&gt;&quot;&lt;span style=&quot;&quot;&gt;CH92 0070 0673 6421 7364 8&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&quot;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontSize=17;verticalAlign=top;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="-60" y="616" width="250" height="75" as="geometry" />
+        </mxCell>
+        <mxCell id="UrMOBPC8aU4QaLJ5Lh4o-14" value="" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;fontSize=17;fontColor=default;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fillColor=#bac8d3;strokeColor=#23445d;" edge="1" parent="1" source="UrMOBPC8aU4QaLJ5Lh4o-11" target="UrMOBPC8aU4QaLJ5Lh4o-13">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="555.4999999999998" as="sourcePoint" />
+            <mxPoint x="280" y="552.9999999999998" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
