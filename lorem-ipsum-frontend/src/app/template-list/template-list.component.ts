@@ -130,5 +130,4 @@ type Template = {
   id: bigint;
   name: string;
   desc: string;
-  favorite: boolean;
 }

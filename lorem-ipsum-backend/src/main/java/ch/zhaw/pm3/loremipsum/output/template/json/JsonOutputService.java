@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.util.List;
 
+/**
+ * output service for JSON files
+ */
 @Service
 public class JsonOutputService extends AbstractOutputService {
 

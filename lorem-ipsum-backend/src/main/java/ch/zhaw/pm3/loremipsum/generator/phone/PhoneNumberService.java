@@ -1,6 +1,6 @@
-package ch.zhaw.pm3.loremipsum.generator.telenr;
+package ch.zhaw.pm3.loremipsum.generator.phone;
 
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import ch.zhaw.pm3.loremipsum.common.OptionEnum;
 import ch.zhaw.pm3.loremipsum.common.TeleNrFormatEnum;
 import ch.zhaw.pm3.loremipsum.generator.common.AbstractEntryGenService;
@@ -12,22 +12,22 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class TeleNrService extends AbstractEntryGenService {
+public class PhoneNumberService extends AbstractEntryGenService {
 
-    private static Map<LandEnum, PhoneNumber> PHONE_NUMBER_MAP = new HashMap<>();
+    private static final Map<CountryEnum, PhoneNumber> PHONE_NUMBER_MAP = new HashMap<>();
 
     static {
-        PHONE_NUMBER_MAP.put(LandEnum.SWITZERLAND, new PhoneNumber("### ### ## ##", "+41 ## ### ## ##"));
-        PHONE_NUMBER_MAP.put(LandEnum.INDIA, new PhoneNumber("0091", "+91 ## ### ## ##"));
-        PHONE_NUMBER_MAP.put(LandEnum.UKRAINE, new PhoneNumber("00380", "+38 0# ### ## ##"));
+        PHONE_NUMBER_MAP.put(CountryEnum.SWITZERLAND, new PhoneNumber("### ### ## ##", "+41 ## ### ## ##"));
+        PHONE_NUMBER_MAP.put(CountryEnum.INDIA, new PhoneNumber("0091", "+91 ## ### ## ##"));
+        PHONE_NUMBER_MAP.put(CountryEnum.UKRAINE, new PhoneNumber("00380", "+38 0# ### ## ##"));
     }
 
     @Override
     protected String getData(RowTemplateDto rowTemplateDto, Set<OptionDto> optionDtoSet) {
 
 
-        Optional<OptionDto> teleNrFormat = optionDtoSet.stream()
-                .filter(optionDto -> OptionEnum.TELE_NR_FORMAT == optionDto.getOptionEnum()).findFirst();
+        Optional<OptionDto> phoneNumberFormat = optionDtoSet.stream()
+                .filter(optionDto -> OptionEnum.PHONE_NUMER_FORMAT == optionDto.getOptionEnum()).findFirst();
 
 
         Optional<OptionDto> landCategoryOption = optionDtoSet.stream()
@@ -36,13 +36,13 @@ public class TeleNrService extends AbstractEntryGenService {
         PhoneNumber phoneNumber;
 
         if (landCategoryOption.isPresent()) {
-            phoneNumber = PHONE_NUMBER_MAP.get(LandEnum.valueOf(landCategoryOption.get().getOptionData()));
+            phoneNumber = PHONE_NUMBER_MAP.get(CountryEnum.valueOf(landCategoryOption.get().getOptionData()));
         } else {
             phoneNumber = new ArrayList<>(PHONE_NUMBER_MAP.values()).get(new Random().nextInt(PHONE_NUMBER_MAP.values().size()));
         }
 
 
-        if (teleNrFormat.isPresent() && teleNrFormat.get().getOptionData().equals(TeleNrFormatEnum.NATIONAL.name())) {
+        if (phoneNumberFormat.isPresent() && phoneNumberFormat.get().getOptionData().equals(TeleNrFormatEnum.NATIONAL.name())) {
             return StringSolverUtil.resolve(phoneNumber.national());
         }
 

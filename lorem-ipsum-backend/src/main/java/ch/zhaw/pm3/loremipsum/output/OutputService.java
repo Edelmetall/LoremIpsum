@@ -3,7 +3,7 @@ package ch.zhaw.pm3.loremipsum.output;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
-import ch.zhaw.pm3.loremipsum.output.template.CsvOutputService;
+import ch.zhaw.pm3.loremipsum.output.template.csv.CsvOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.csharp.CSharpOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.json.JsonOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.php.PhpOutputService;
@@ -17,6 +17,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * generates output
+ */
 @Service
 public class OutputService {
 
@@ -34,7 +37,7 @@ public class OutputService {
                           @Autowired SqlOutputService sqlOutputService,
                           @Autowired PhpOutputService phpOutputService,
                           @Autowired CSharpOutputService cSharpOutputService,
-                          @Autowired @Qualifier(value = "loremIpsumDsvOutputService") CsvOutputService csvOutputService) {
+                          @Autowired @Qualifier(value = "loremIpsumCsvOutputService") CsvOutputService csvOutputService) {
         this.xmlOutputService = xmlOutputService;
         this.jsonOutputService = jsonOutputService;
         this.javaOutputService = javaOutputService;
@@ -44,6 +47,15 @@ public class OutputService {
         this.csvOutputService = csvOutputService;
     }
 
+    /**
+     * generate data
+     *
+     * @param outputEnum        format
+     * @param headerInformation header informations
+     * @param rowEntryDtos      fields
+     * @param optionDto         selected options
+     * @return generated data as a string
+     */
     public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos, OptionDto optionDto) {
         return switch (outputEnum) {
             case XML -> xmlOutputService.generateOutputFile(headerInformation, rowEntryDtos, optionDto);

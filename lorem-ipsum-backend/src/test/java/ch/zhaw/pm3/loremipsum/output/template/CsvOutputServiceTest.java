@@ -4,6 +4,7 @@ import ch.zhaw.pm3.loremipsum.AbstractSpringBootTest;
 import ch.zhaw.pm3.loremipsum.common.EntryTypeEnum;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
+import ch.zhaw.pm3.loremipsum.output.template.csv.CsvOutputService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

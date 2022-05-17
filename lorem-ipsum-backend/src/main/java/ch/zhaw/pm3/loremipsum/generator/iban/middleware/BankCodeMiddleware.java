@@ -1,6 +1,6 @@
 package ch.zhaw.pm3.loremipsum.generator.iban.middleware;
 
-import ch.zhaw.pm3.loremipsum.common.LandEnum;
+import ch.zhaw.pm3.loremipsum.common.CountryEnum;
 import ch.zhaw.pm3.loremipsum.generator.common.Middleware;
 import ch.zhaw.pm3.loremipsum.generator.iban.IBANWrapper;
 
@@ -12,14 +12,14 @@ import java.util.Random;
 public class BankCodeMiddleware extends Middleware<IBANWrapper> {
 
 
-    private static final Map<LandEnum, List<String>> COUNTRY_IBAN_BANK_CODE = new HashMap<>();
+    private static final Map<CountryEnum, List<String>> COUNTRY_IBAN_BANK_CODE = new HashMap<>();
 
     static {
-        COUNTRY_IBAN_BANK_CODE.put(LandEnum.SWITZERLAND,
+        COUNTRY_IBAN_BANK_CODE.put(CountryEnum.SWITZERLAND,
                 List.of(
                         "00700", // ZKB
                         "00231")); // UBS
-        COUNTRY_IBAN_BANK_CODE.put(LandEnum.UKRAINE, List.of("000231"));
+        COUNTRY_IBAN_BANK_CODE.put(CountryEnum.UKRAINE, List.of("000231"));
     }
 
     @Override

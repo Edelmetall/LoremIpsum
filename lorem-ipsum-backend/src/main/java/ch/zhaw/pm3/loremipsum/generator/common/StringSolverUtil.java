@@ -2,16 +2,24 @@ package ch.zhaw.pm3.loremipsum.generator.common;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
+/**
+ * Util class for generating Strings with random chars and numbers
+ */
 public class StringSolverUtil {
 
     private StringSolverUtil() {
     }
 
-
-    private static final char DIGIT = '#';      // [0-9]
-    private static final char NON_DIGIT = '*';  // [A-z]
+    private static final char DIGIT = '#';     // [0-9]
+    private static final char NON_DIGIT = '*'; // [A-z]
     private static final char ANY_CHAR = '&';  // Any Ascii char
 
+    /**
+     * Replace placeholders with randomized characters
+     *
+     * @param stringWithExpression string with placeholders to be replaced
+     * @return string with randomized chars
+     */
     public static String resolve(String stringWithExpression) {
 
         char[] charArray = stringWithExpression.toCharArray();

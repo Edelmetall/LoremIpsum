@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import java.io.StringWriter;
 import java.util.*;
 
+/**
+ * output service for Java Files
+ */
 @Service
 public class JavaOutputService extends AbstractOutputService {
 

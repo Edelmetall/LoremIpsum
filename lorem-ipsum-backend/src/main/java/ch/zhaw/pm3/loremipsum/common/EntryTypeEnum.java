@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Represents fields that the user can choose to generate
+ */
 public enum EntryTypeEnum {
     FIRST_NAME("First name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     LAST_NAME("Last name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     IBANR("IBAN", OptionEnum.LAND_CD),
-    TELE_NR("Phone number", OptionEnum.LAND_CD, OptionEnum.TELE_NR_FORMAT),
+    TELE_NR("Phone number", OptionEnum.LAND_CD, OptionEnum.PHONE_NUMER_FORMAT),
+    PHONE_NUMBER("Phone number", OptionEnum.LAND_CD, OptionEnum.PHONE_NUMER_FORMAT),
     DATE("Date"),
     DATE_TIME("Date and Time"),
     GUID("GUID/UUID"),
@@ -32,14 +36,30 @@ public enum EntryTypeEnum {
         this.availableOptions = List.of(optionEnums);
     }
 
+    /**
+     * text to display for this enum
+     *
+     * @return display text
+     */
     public String getDisplayName() {
         return displayName;
     }
 
+    /**
+     * returns a list of available options for this enum
+     *
+     * @return options
+     */
     public List<OptionEnum> getAvailableOptions() {
         return this.availableOptions;
     }
 
+    /**
+     * find the enum by its display name
+     *
+     * @param displayName display name (text that is shown to the user)
+     * @return enum
+     */
     public static EntryTypeEnum getEnumFromDisplayName(String displayName) {
         return displayNameToEnumMap.get(displayName);
     }

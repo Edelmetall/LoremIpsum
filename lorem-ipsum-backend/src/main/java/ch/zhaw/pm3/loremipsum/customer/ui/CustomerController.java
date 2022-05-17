@@ -3,31 +3,26 @@ package ch.zhaw.pm3.loremipsum.customer.ui;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerEntity;
 import ch.zhaw.pm3.loremipsum.customer.data.CustomerRepository;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.LoginData;
+import ch.zhaw.pm3.loremipsum.customer.ui.transfer.SignUpData;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.UpdateEmailData;
 import ch.zhaw.pm3.loremipsum.customer.ui.transfer.UpdatePasswordData;
-import ch.zhaw.pm3.loremipsum.customer.ui.transfer.SignUpData;
-import ch.zhaw.pm3.loremipsum.generator.template.data.TemplateEntity;
 import ch.zhaw.pm3.loremipsum.generator.template.repo.TemplateRepository;
 import ch.zhaw.pm3.loremipsum.utils.EmailUtils;
 import ch.zhaw.pm3.loremipsum.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
+/**
+ * Controller for customer related actions
+ */
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class CustomerController {
@@ -39,13 +34,6 @@ public class CustomerController {
                               @Autowired TemplateRepository templateRepository) {
         this.repository = repository;
         this.templateRepository = templateRepository;
-    }
-
-
-    @GetMapping("/api/customer/")
-    public Collection<CustomerEntity> getCustomer() {
-        return StreamSupport.stream(repository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
     }
 
     /**
@@ -192,34 +180,4 @@ public class CustomerController {
         }
         return null;
     }
-
-    @PutMapping("/api/customer/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public CustomerEntity updateCustomer(
-            @PathVariable("id") final String id, @RequestBody final CustomerEntity customer) {
-        return repository.save(customer);
-    }
-
-    @Transactional
-    @ResponseStatus(HttpStatus.OK)
-    @PutMapping("/api/customer/new/{name}/{templateId}")
-    public CustomerEntity updateCustomer(
-            @PathVariable("name") final String name, final Long templateId) {
-        TemplateEntity templateEntity = templateRepository.findById(templateId).get();
-
-        CustomerEntity customer = new CustomerEntity(name, "Muster");
-        customer.getOwnedTemplate().add(templateEntity);
-        repository.save(customer);
-        templateEntity.setOwner(customer);
-        templateRepository.save(templateEntity);
-
-        return repository.findById(customer.getId()).get();
-    }
-
-
-    @GetMapping("/api/customer/{id}")
-    public CustomerEntity findById(@PathVariable long id) {
-        return repository.findById(id);
-    }
-
 }

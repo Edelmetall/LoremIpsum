@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * contains header informations for a field
+ */
 @Getter
 @Setter
 @AllArgsConstructor

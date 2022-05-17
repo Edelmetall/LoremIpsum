@@ -17,7 +17,9 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * stores the data for a customer/user
+ */
 @Getter
 @Setter
 @Entity(name = "CUSTOMER")
@@ -51,9 +53,17 @@ public class CustomerEntity {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", passwordResetAt=" + passwordResetAt +
+                ", ownedTemplate=" + ownedTemplate +
                 '}';
     }
 
+    /**
+     * returns templates created by this user
+     *
+     * @return list of templates
+     */
     public Set<TemplateEntity> getOwnedTemplate() {
         if (this.ownedTemplate == null) {
             return new HashSet<>();

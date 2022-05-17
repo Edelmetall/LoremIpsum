@@ -16,7 +16,7 @@ import java.util.Collection;
 public class TemplateController {
 
     private final GenService genService;
-    private TemplateService templateService;
+    private final TemplateService templateService;
 
     public TemplateController(@Autowired GenService genService,
                               @Autowired TemplateService templateService) {

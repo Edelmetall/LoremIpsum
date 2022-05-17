@@ -6,7 +6,7 @@ import ch.zhaw.pm3.loremipsum.generator.firstname.FirstNameService;
 import ch.zhaw.pm3.loremipsum.generator.iban.IBANService;
 import ch.zhaw.pm3.loremipsum.generator.pan.PANService;
 import ch.zhaw.pm3.loremipsum.generator.template.service.LastNameService;
-import ch.zhaw.pm3.loremipsum.generator.telenr.TeleNrService;
+import ch.zhaw.pm3.loremipsum.generator.phone.PhoneNumberService;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.*;
 import ch.zhaw.pm3.loremipsum.output.OutputEnum;
 import ch.zhaw.pm3.loremipsum.output.OutputService;
@@ -31,7 +31,7 @@ public class GenService {
     private LastNameService lastNameService;
 
     @Autowired
-    private TeleNrService teleNrService;
+    private PhoneNumberService phoneNumberService;
 
     @Autowired
     private GUIDService guidService;
@@ -57,7 +57,7 @@ public class GenService {
             RowEntryDto rowEntryDto = new RowEntryDto();
             for (RowTemplateDto rowTemplateDto : genDto.getTemplateDto().getRowTemplateDtoSet()) {
 
-                rowEntryDto.getEntryList().add(getEntryType(rowTemplateDto,new HashSet<>(rowTemplateDto.getOption())).getData());
+                rowEntryDto.getEntryList().add(getEntryType(rowTemplateDto, new HashSet<>(rowTemplateDto.getOption())).getData());
             }
             rowEntryDtos.add(rowEntryDto);
         }
@@ -69,7 +69,7 @@ public class GenService {
         return switch (EntryTypeEnum.getEnumFromDisplayName(rowTemplateDto.getDataType())) {
             case FIRST_NAME -> firstNameService.genEntry(rowTemplateDto, optionDtoSet);
             case LAST_NAME -> lastNameService.genEntry(rowTemplateDto, optionDtoSet);
-            case TELE_NR -> teleNrService.genEntry(rowTemplateDto, optionDtoSet);
+            case PHONE_NUMBER -> phoneNumberService.genEntry(rowTemplateDto, optionDtoSet);
             case GUID -> guidService.genEntry(rowTemplateDto, optionDtoSet);
             case IBANR -> ibanService.genEntry(rowTemplateDto, optionDtoSet);
             case PAN -> panService.genEntry(rowTemplateDto, optionDtoSet);

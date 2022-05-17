@@ -3,6 +3,9 @@ package ch.zhaw.pm3.loremipsum.customer.ui.transfer;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * contains data for update password request
+ */
 @Getter
 @Setter
 public class UpdatePasswordData {
