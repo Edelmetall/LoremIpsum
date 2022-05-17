@@ -70,6 +70,7 @@ export class DataOutputComponent implements OnInit {
 
   public optionChange(){
     this.outputOption = this.tab.delimiter;
+    this.communicationService.notifyOutputTabChanged();
   }
 
   public tabChanged(tabChangeEvent: MatTabChangeEvent) {

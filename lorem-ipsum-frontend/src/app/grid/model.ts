@@ -56,7 +56,6 @@ export class GridConfig {
         { field: '', sortable: false, rowDrag: true, editable: false, maxWidth: 42 },
         this.dataTypeColDef,
         { field: 'name', headerName: 'Name' },
-        { field: 'example', headerName: 'Example' },
         this.optionColDef,
         {
             field: '',
