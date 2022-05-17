@@ -16,6 +16,10 @@ public class PhoneNumberService extends AbstractEntryGenService {
 
     private static final Map<CountryEnum, PhoneNumber> PHONE_NUMBER_MAP = new HashMap<>();
 
+    public PhoneNumberService(){
+        super(OptionEnum.LAND_CD, OptionEnum.PHONE_NUMER_FORMAT);
+    }
+
     static {
         PHONE_NUMBER_MAP.put(CountryEnum.SWITZERLAND, new PhoneNumber("### ### ## ##", "+41 ## ### ## ##"));
         PHONE_NUMBER_MAP.put(CountryEnum.INDIA, new PhoneNumber("0091", "+91 ## ### ## ##"));

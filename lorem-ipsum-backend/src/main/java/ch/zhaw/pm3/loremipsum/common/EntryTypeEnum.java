@@ -11,7 +11,6 @@ public enum EntryTypeEnum {
     FIRST_NAME("First name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     LAST_NAME("Last name", OptionEnum.LAND_CD, OptionEnum.GENDER),
     IBANR("IBAN", OptionEnum.LAND_CD),
-    TELE_NR("Phone number", OptionEnum.LAND_CD, OptionEnum.PHONE_NUMER_FORMAT),
     PHONE_NUMBER("Phone number", OptionEnum.LAND_CD, OptionEnum.PHONE_NUMER_FORMAT),
     DATE("Date"),
     DATE_TIME("Date and Time"),
