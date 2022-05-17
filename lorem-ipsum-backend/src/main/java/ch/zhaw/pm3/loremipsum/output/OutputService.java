@@ -11,12 +11,13 @@ import ch.zhaw.pm3.loremipsum.output.template.sql.SqlOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.xml.XmlOutputService;
 import ch.zhaw.pm3.loremipsum.output.template.java.JavaOutputService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class OutputService {
 
     private final XmlOutputService xmlOutputService;
@@ -27,6 +28,21 @@ public class OutputService {
     private final CSharpOutputService cSharpOutputService;
     private final CsvOutputService csvOutputService;
 
+    public OutputService( @Autowired XmlOutputService xmlOutputService,
+                          @Autowired JsonOutputService jsonOutputService,
+                          @Autowired JavaOutputService javaOutputService,
+                          @Autowired SqlOutputService sqlOutputService,
+                          @Autowired PhpOutputService phpOutputService,
+                          @Autowired CSharpOutputService cSharpOutputService,
+                          @Autowired @Qualifier(value = "loremIpsumDsvOutputService") CsvOutputService csvOutputService) {
+        this.xmlOutputService = xmlOutputService;
+        this.jsonOutputService = jsonOutputService;
+        this.javaOutputService = javaOutputService;
+        this.sqlOutputService = sqlOutputService;
+        this.phpOutputService = phpOutputService;
+        this.cSharpOutputService = cSharpOutputService;
+        this.csvOutputService = csvOutputService;
+    }
 
     public String generateModel(OutputEnum outputEnum, List<HeaderInformation> headerInformation, List<RowEntryDto> rowEntryDtos, OptionDto optionDto) {
         return switch (outputEnum) {

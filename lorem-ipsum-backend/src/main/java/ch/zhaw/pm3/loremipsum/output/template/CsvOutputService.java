@@ -3,12 +3,13 @@ package ch.zhaw.pm3.loremipsum.output.template;
 import ch.zhaw.pm3.loremipsum.common.HeaderInformation;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowEntryDto;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
 
-@Service
+@Component(value = "loremIpsumDsvOutputService")
 public class CsvOutputService extends AbstractOutputService {
     private char delimiter = ';';
 
