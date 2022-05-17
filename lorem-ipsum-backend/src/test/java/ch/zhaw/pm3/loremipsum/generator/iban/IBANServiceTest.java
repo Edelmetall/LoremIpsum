@@ -28,9 +28,9 @@ public class IBANServiceTest extends AbstractSpringBootTest {
         } else {
             Assertions.assertTrue(new IBANCheckDigit().isValid(iban.replace(" ", "")));
         }
-
-
     }
+
+
 
 
 }

@@ -3,6 +3,7 @@ package ch.zhaw.pm3.loremipsum.generator.iban;
 import ch.zhaw.pm3.loremipsum.common.LandEnum;
 import ch.zhaw.pm3.loremipsum.common.OptionEnum;
 import ch.zhaw.pm3.loremipsum.generator.common.AbstractEntryGenService;
+import ch.zhaw.pm3.loremipsum.generator.common.Middleware;
 import ch.zhaw.pm3.loremipsum.generator.iban.middleware.*;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.OptionDto;
 import ch.zhaw.pm3.loremipsum.generator.template.ui.dto.RowTemplateDto;
