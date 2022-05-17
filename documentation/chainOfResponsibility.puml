@@ -28,10 +28,10 @@ class  FormatIBANMIddleware {
 + String handle(String field, IBANWrapper businessWrapper)
 }
 
-Middleware <|-- ReplaceAccountNumberMiddleware : "T = IBANWrapper"
-Middleware <|-- BankCodeMiddleware : "T = IBANWrapper"
-Middleware <|-- IBANCheckSumMiddleware : "T = IBANWrapper"
-Middleware <|-- FormatIBANMIddleware : "T = IBANWrapper"
+Middleware <|-- ReplaceAccountNumberMiddleware : "<<bind>> <IBANWrapper>"
+Middleware <|-- BankCodeMiddleware : "<<bind>> <IBANWrapper>"
+Middleware <|-- IBANCheckSumMiddleware : "<<bind>> <IBANWrapper>"
+Middleware <|-- FormatIBANMIddleware : "<<bind>> <IBANWrapper>"
 
 
 
